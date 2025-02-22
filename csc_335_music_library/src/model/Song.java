@@ -13,12 +13,14 @@ public class Song {
 		FIVE_STAR
 	};
 	private Rating rating;
+	private boolean isFavorite;
 	
 	public Song(String songTitle, String artist, String albumTitle) {
 		this.songTitle = songTitle;
 		this.artist = artist;
 		this.albumTitle = albumTitle;
 		rating = Rating.UNRATED;
+		isFavorite = false;
 	}
 	
 	public String getSongTitle() {
@@ -35,5 +37,9 @@ public class Song {
 	
 	public Rating getRating() {
 		return rating;
+	}
+	
+	public boolean isFavorite() {
+		return isFavorite;
 	}
 }

@@ -18,5 +18,22 @@ public class Song {
 		this.songTitle = songTitle;
 		this.artist = artist;
 		this.albumTitle = albumTitle;
+		rating = Rating.UNRATED;
+	}
+	
+	public String getSongTitle() {
+		return songTitle;
+	}
+	
+	public String getArtist() {
+		return artist;
+	}
+	
+	public String getAlbumTitle() {
+		return albumTitle;
+	}
+	
+	public Rating getRating() {
+		return rating;
 	}
 }

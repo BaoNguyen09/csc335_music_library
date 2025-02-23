@@ -45,4 +45,8 @@ public class Album {
 		}
 		return songList;
 	}
+	
+	public void addSong(Song song) {
+		songs.add(song);
+	}
 }

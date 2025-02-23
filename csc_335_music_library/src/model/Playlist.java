@@ -24,6 +24,15 @@ public class Playlist {
 		return songList;
 	}
 	
+	public void removeSong(String songTitle) {
+		for (Song song: songs) {
+			if (song.getSongTitle() == songTitle) {
+				songs.remove(song);
+				break;
+			}
+		}
+	}
+	
 	@Override
 	public String toString() {
 		return playlistTitle;

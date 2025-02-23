@@ -1,5 +1,7 @@
 package model;
 
+import java.util.Objects;
+
 public class Song {
 	private String songTitle;
 	private String artist;
@@ -67,6 +69,23 @@ public class Song {
   @Override
   public String toString() {
     return String.format("%s, %s, %s", songTitle, artist, albumTitle);
+  }
+  
+  @Override
+  public boolean equals(Object o) {
+      if (this == o) return true; // Same object instance
+      if (o == null || getClass() != o.getClass()) return false; // Null or different class
+      Song song = (Song) o; // Cast to Song object
+      return isFavorite == song.isFavorite() && // Compare boolean field
+             rating == song.rating && // Compare enum field
+             Objects.equals(songTitle, song.getSongTitle()) && // Compare String fields using Objects.equals (null-safe)
+             Objects.equals(artist, song.artist) &&
+             Objects.equals(albumTitle, song.getAlbumTitle());
+  }
+
+  @Override
+  public int hashCode() {
+      return Objects.hash(songTitle, artist, albumTitle, rating, isFavorite); // Generate hashCode based on the same fields used in equals
   }
     
 }

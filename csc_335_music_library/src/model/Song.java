@@ -57,6 +57,7 @@ public class Song {
 		this.rating = rating;
 		if (rating == Rating.FIVE_STAR) {
 			isFavorite = true;
+		}
 	}
 
 	public void markAsFavorite() {

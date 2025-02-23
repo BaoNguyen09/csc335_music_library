@@ -46,11 +46,11 @@ class AlbumTests {
 		String expectedSong1 = "Daydreamer, Adele, 19";
 		String expectedSong2 = "Best for Last, Adele, 19";
 		String expectedSong3 = "Tired, Adele, 19";
-		String[] expectedSongLists = new String[3];
-		expectedSongLists[0] = expectedSong1;
-		expectedSongLists[1] = expectedSong2;
-		expectedSongLists[2] = expectedSong3;
+		String[] expectedSongList = new String[3];
+		expectedSongList[0] = expectedSong1;
+		expectedSongList[1] = expectedSong2;
+		expectedSongList[2] = expectedSong3;
 		
-		assertArrayEquals(expectedSongLists, album.getSongs(), "getSongs should return a list of song in format: title, artist, album");		
+		assertArrayEquals(expectedSongList, album.getSongs(), "getSongs should return a list of song in format: title, artist, album");		
 	}
 }

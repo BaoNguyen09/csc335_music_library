@@ -3,15 +3,15 @@ package model;
 import java.util.ArrayList;
 
 public class Album {
-	private String AlbumTitle;
+	private String albumTitle;
 	private String artist;
 	private ArrayList<Song> songs;
 	private String genre;
 	private String year;
 	
-	/* @pre title != null & artist != null && genre != null && year != null*/
+	/* @pre albumTitle != null & artist != null && genre != null && year != null*/
 	public Album(String title, String artist, String genre, String year) {
-		this.AlbumTitle = title;
+		this.albumTitle = title;
 		this.artist = artist;
 		this.genre = genre;
 		this.year = year;
@@ -19,7 +19,7 @@ public class Album {
 	}
 	
 	public String getAlbumTitle() {
-		return AlbumTitle;
+		return albumTitle;
 	}
 	
 	public String getArtist() {
@@ -40,13 +40,13 @@ public class Album {
 		for (int i = 0; i < songListLength; i++) {
 			Song song = songs.get(i);
 			String songTitle = song.getSongTitle();
-			String songInfo = String.format("%s, %s, %s", songTitle, artist, AlbumTitle);
+			String songInfo = String.format("%s, %s, %s", songTitle, artist, albumTitle);
 			songList[i] = songInfo;
 		}
 		return songList;
 	}
 	
 	public void addSong(Song song) {
-		songs.add(song);
+		songs.add(new Song(song));
 	}
 }

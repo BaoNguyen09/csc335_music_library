@@ -52,9 +52,20 @@ public class Song {
 	public boolean isFavorite() {
 		return isFavorite;
 	}
-	
-	@Override
-    public String toString() {
-        return String.format("%s, %s, %s", songTitle, artist, albumTitle);
-    }
+
+	public void setRating(Rating rating) {
+		this.rating = rating;
+		if (rating == Rating.FIVE_STAR) {
+			isFavorite = true;
+	}
+
+	public void markAsFavorite() {
+		isFavorite = true;
+	}
+
+  @Override
+  public String toString() {
+    return String.format("%s, %s, %s", songTitle, artist, albumTitle);
+  }
+    
 }

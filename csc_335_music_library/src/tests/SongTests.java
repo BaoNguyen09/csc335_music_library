@@ -45,6 +45,7 @@ class SongTests {
 		song.setRating(Rating.FIVE_STAR);
 		assertEquals(Rating.FIVE_STAR, song.getRating(), "Afterwards, rating is set to FIVE_STAR");
 		assertEquals(true, song.isFavorite(), "When rating is FIVE_STAR, it's marked as favorite");
+	}
 
   @Test
 	void testMarkingASongAsFavorite() {

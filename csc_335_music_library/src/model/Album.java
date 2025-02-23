@@ -18,6 +18,15 @@ public class Album {
 		songs = new ArrayList<Song>();
 	}
 	
+	/* Copy constructor */
+	public Album(Album anotherAlbum) {
+		this.albumTitle = anotherAlbum.getAlbumTitle();
+		this.artist = anotherAlbum.getArtist();
+		this.genre = anotherAlbum.getGenre();
+		this.year = anotherAlbum.getYear();
+		this.songs = anotherAlbum.getSongArray();
+	}
+	
 	public String getAlbumTitle() {
 		return albumTitle;
 	}
@@ -42,6 +51,14 @@ public class Album {
 			songList[i] = song.toString();
 		}
 		return songList;
+	}
+	
+	public ArrayList<Song> getSongArray() {
+		ArrayList<Song> songArray = new ArrayList<Song>();
+		for (Song song: songs) {
+			songArray.add(new Song(song));
+		}
+		return songArray;
 	}
 	
 	public void addSong(Song song) {

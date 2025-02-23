@@ -10,6 +10,12 @@ public class Playlist {
 		playlistTitle = title;
 	}
 	
+	/* Copy constructor */
+	public Playlist(Playlist anotherPlaylist) {
+		this.playlistTitle = anotherPlaylist.getPlaylistTitle();
+		this.songs = anotherPlaylist.getSongArray();
+	}
+	
 	public String getPlaylistTitle() {
 		return this.playlistTitle;
 	}
@@ -22,6 +28,18 @@ public class Playlist {
 			songList[i] = song.toString();
 		}
 		return songList;
+	}
+	
+	public ArrayList<Song> getSongArray() {
+		ArrayList<Song> songArray = new ArrayList<Song>();
+		for (Song song: songs) {
+			songArray.add(new Song(song));
+		}
+		return songArray;
+	}
+	
+	public void addSongToPlaylist(Song song) {
+		songs.add(new Song(song));
 	}
 	
 	@Override

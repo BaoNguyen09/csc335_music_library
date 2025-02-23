@@ -42,4 +42,8 @@ public class Song {
 	public boolean isFavorite() {
 		return isFavorite;
 	}
+	
+	public void markAsFavorite() {
+		isFavorite = true;
+	}
 }

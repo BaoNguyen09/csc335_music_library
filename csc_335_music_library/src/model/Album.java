@@ -35,7 +35,6 @@ public class Album {
 	}
 	
 	public String[] getSongs() {
-//		ArrayList<String> songList = new ArrayList<String>();
 		int songListLength = songs.size();
 		String[] songList = new String[songListLength];
 		for (int i = 0; i < songListLength; i++) {

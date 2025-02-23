@@ -53,4 +53,10 @@ class AlbumTests {
 		
 		assertArrayEquals(expectedSongList, album.getSongs(), "getSongs should return a list of song in format: title, artist, album");		
 	}
+	
+	@Test
+	void testToStringMethod() {
+		Album album = new Album("19", "Adele", "Pop", "2008");
+		assertEquals("19, Adele, Pop, 2008", album.toString(), "Album info should be: 19, Adele, Pop, 2008");
+	}
 }

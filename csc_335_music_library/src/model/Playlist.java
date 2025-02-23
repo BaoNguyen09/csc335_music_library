@@ -8,6 +8,7 @@ public class Playlist {
 	
 	public Playlist(String title) {
 		playlistTitle = title;
+		songs = new ArrayList<Song>();
 	}
 	
 	/* Copy constructor */

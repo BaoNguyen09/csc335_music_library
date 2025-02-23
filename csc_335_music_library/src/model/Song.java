@@ -45,5 +45,8 @@ public class Song {
 	
 	public void setRating(Rating rating) {
 		this.rating = rating;
+		if (rating == Rating.FIVE_STAR) {
+			isFavorite = true;
+		}
 	}
 }

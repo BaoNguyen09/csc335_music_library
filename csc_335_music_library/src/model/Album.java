@@ -48,4 +48,8 @@ public class Album {
 		songs.add(new Song(song));
 	}
 	
+	@Override
+	public String toString() {
+		return String.format("%s, %s, %s, %s", albumTitle, artist, genre, year);
+	}
 }

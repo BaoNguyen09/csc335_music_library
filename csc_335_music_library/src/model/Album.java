@@ -39,7 +39,7 @@ public class Album {
 		String[] songList = new String[songListLength];
 		for (int i = 0; i < songListLength; i++) {
 			Song song = songs.get(i);
-			String songTitle = song.getTitle();
+			String songTitle = song.getSongTitle();
 			String songInfo = String.format("%s, %s, %s", songTitle, artist, title);
 			songList[i] = songInfo;
 		}

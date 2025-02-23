@@ -37,5 +37,13 @@ class SongTests {
 		Song song = new Song("Daydreamer", "Adele", "19");
 		assertEquals(false, song.isFavorite(), "Initially, favorite is set to false");
 	}
+	
+	@Test
+	void testMarkingASongAsFavorite() {
+		Song song = new Song("Daydreamer", "Adele", "19");
+		assertEquals(false, song.isFavorite(), "Initially, favorite is set to false");
+		song.markAsFavorite();
+		assertEquals(true, song.isFavorite(), "Afterwards, favorite is set to true");
+	}
 
 }

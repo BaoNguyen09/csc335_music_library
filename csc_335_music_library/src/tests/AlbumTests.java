@@ -11,26 +11,26 @@ class AlbumTests {
 
 	@Test
 	void testGetAlbumTitle() {
-		Album song = new Album("19", "Adele", "Pop", "2008");
-		assertEquals("19", song.getAlbumTitle(), "Album Title should be: 19");
+		Album album = new Album("19", "Adele", "Pop", "2008");
+		assertEquals("19", album.getAlbumTitle(), "Album Title should be: 19");
 	}
 	
 	@Test
 	void testGetArtist() {
-		Album song = new Album("19", "Adele", "Pop", "2008");
-		assertEquals("Adele", song.getArtist(), "Artist should be: Adele");
+		Album album = new Album("19", "Adele", "Pop", "2008");
+		assertEquals("Adele", album.getArtist(), "Artist should be: Adele");
 	}
 	
 	@Test
 	void testGetGenre() {
-		Album song = new Album("19", "Adele", "Pop", "2008");
-		assertEquals("Pop", song.getGenre(), "Genre should be: Pop");
+		Album album = new Album("19", "Adele", "Pop", "2008");
+		assertEquals("Pop", album.getGenre(), "Genre should be: Pop");
 	}
 	
 	@Test
 	void testGetYear() {
-		Album song = new Album("19", "Adele", "Pop", "2008");
-		assertEquals("2008", song.getYear(), "Year should be: 2008");
+		Album album = new Album("19", "Adele", "Pop", "2008");
+		assertEquals("2008", album.getYear(), "Year should be: 2008");
 	}
 	
 	@Test

@@ -52,4 +52,9 @@ public class Song {
 	public boolean isFavorite() {
 		return isFavorite;
 	}
+	
+	@Override
+    public String toString() {
+        return String.format("%s, %s, %s", songTitle, artist, albumTitle);
+    }
 }

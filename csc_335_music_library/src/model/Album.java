@@ -39,9 +39,7 @@ public class Album {
 		String[] songList = new String[songListLength];
 		for (int i = 0; i < songListLength; i++) {
 			Song song = songs.get(i);
-			String songTitle = song.getSongTitle();
-			String songInfo = String.format("%s, %s, %s", songTitle, artist, albumTitle);
-			songList[i] = songInfo;
+			songList[i] = song.toString();
 		}
 		return songList;
 	}
@@ -49,4 +47,5 @@ public class Album {
 	public void addSong(Song song) {
 		songs.add(new Song(song));
 	}
+	
 }

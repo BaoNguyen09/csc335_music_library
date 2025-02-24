@@ -31,7 +31,29 @@ public class MusicStore {
 		}
 	}
 	
+	public List<Song> searchSongByTitle(String songTitle) {
+		List<Song> songsWithTitle = songByTitle.get(songTitle);
+		return copySongsList(songsWithTitle);
+	}
 	
+	public List<Song> searchSongByArtist(String artist) {
+		List<Song> songsWithArtist = songByArtist.get(artist);
+		return copySongsList(songsWithArtist);
+	}
+	
+	
+	private List<Song> copySongsList(List<Song> songsList){
+		if (songsList == null) {
+			return new ArrayList<Song>();
+		}
+		List<Song> listCopy = new ArrayList<Song>();
+		
+		for (int i= 0; i < songsList.size(); i++) {
+			Song songCopy = new Song(songsList.get(i));
+			listCopy.add(songCopy);
+		}
+		return listCopy;
+	}
 	
 	/*
 	 * Description: Reads and process all albums files listed in the 
@@ -109,5 +131,7 @@ public class MusicStore {
 		// else it initializes a list for that key value with that value added
 	    map.computeIfAbsent(key, k -> new ArrayList<>()).add(value);
 	}
+	
+	
 
 }

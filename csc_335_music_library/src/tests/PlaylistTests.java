@@ -58,6 +58,14 @@ class PlaylistTests {
 	}
 	
 	@Test
+	void testDefaultPlaylist() {
+		Playlist playlist1 = new Playlist();
+		assertEquals("My playlist 1", playlist1.toString(), "Playlist title should be: My playlist 1");
+		Playlist playlist2 = new Playlist();
+		assertEquals("My playlist 2", playlist2.toString(), "Playlist title should be: My playlist 2");
+	}
+	
+	@Test
 	void testToString() {
 		Playlist playlist = new Playlist("My playlist");
 		assertEquals("My playlist", playlist.toString(), "Playlist info should be the playlist title");

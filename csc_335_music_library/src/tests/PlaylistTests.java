@@ -54,7 +54,7 @@ class PlaylistTests {
 		expectedSongList.add(song2);
 		expectedSongList.add(song3);
 		
-		assertIterableEquals(expectedSongList, playlist.getSongArray(), "getSongArray should return a list of Song objects");		
+		assertEquals(expectedSongList.toString(), playlist.getSongArray().toString(), "getSongArray should return a list of Song objects");		
 	}
 	
 	@Test

@@ -1,5 +1,7 @@
 package database;
 
+import static org.junit.jupiter.api.Assertions.fail;
+
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -27,7 +29,7 @@ public class MusicStore {
 		try {
 			processAlbums();
 		} catch (IOException e) {
-			e.printStackTrace();
+			fail("Error processing file: albums.txt");
 		}
 	}
 	

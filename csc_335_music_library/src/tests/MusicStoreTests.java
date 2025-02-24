@@ -19,17 +19,22 @@ class MusicStoreTests {
 	MusicStore store = new MusicStore();
 	
 	// Helper method that creates a string of all songs in the specified file
-	private ArrayList<String> readSongFile(String fileName) throws IOException {
-		BufferedReader reader = new BufferedReader(new FileReader("src/database/albums/" + fileName));
-		String line = reader.readLine();
+	private ArrayList<String> readSongFile(String fileName){
 		ArrayList<String> songList = new ArrayList<String>();
-		
-		while ((line = reader.readLine()) != null) {
-			songList.add(line.strip());
-		}
-		reader.close();
+		try(BufferedReader reader = new BufferedReader(new FileReader("src/database/albums/" + fileName))){
+			String line = reader.readLine();
+			
+			while ((line = reader.readLine()) != null) {
+				songList.add(line.strip());
+				reader.close();	
+			}
+			
+		} catch (IOException e) {
+	        fail("Error reading file: " + fileName);
+	    }
 		return songList;
 	}
+
 	
 	@Test
 	void testSearchSongByTitle1() {
@@ -123,7 +128,7 @@ class MusicStoreTests {
 			observed.add(song.getSongTitle());
 		}
 		
-		assertEquals(observed, expected);
+		assertEquals(expected, observed);
 	}
 	
 
@@ -160,7 +165,7 @@ class MusicStoreTests {
 			observed.add(song.getSongTitle());
 		}
 		
-		assertEquals(observed, expected, "the album's songsList is correct and in the right order");
+		assertEquals(expected, observed, "the album's songsList is correct and in the right order");
 	}
 	
 	@Test
@@ -179,7 +184,7 @@ class MusicStoreTests {
 
 	@Test
 	void testSearchAlbumByArtistEmpty() {
-		List<Album> albumList = store.searchAlbumByTitle("Not an Artist");
+		List<Album> albumList = store.searchAlbumByArtist("Not an Artist");
 		ArrayList<String> result = new ArrayList<String>();
 		for (int i= 0; i < albumList.size(); i++) {
 			result.add(albumList.get(i).toString());

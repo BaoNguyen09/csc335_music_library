@@ -11,6 +11,7 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 
 import database.MusicStore;
+import model.Album;
 import model.Song;
 
 class MusicStoreTests {
@@ -101,6 +102,89 @@ class MusicStoreTests {
 		ArrayList<String> expected = readSongFile("Sigh No More_Mumford & Sons.txt");
 		assertEquals(expected.toString(), observed.toString());
 
+	}
+	
+	@Test
+	void testSearchAlbumByTitle() throws IOException {
+		List<Album> albumList = store.searchAlbumByTitle("Boys & Girls");
+		ArrayList<String> result = new ArrayList<String>();
+		for (int i= 0; i < albumList.size(); i++) {
+			result.add(albumList.get(i).toString());
+		}
+		// Album.toString returns string "albumTitle, artist, genre, year"
+		assertEquals("[Boys & Girls, Alabama Shakes, Alternative, 2012]", result.toString());
+		
+		// Check if the songs list is correct and in the right order
+		ArrayList<String> expected = readSongFile("Boys & Girls_Alabama Shakes.txt");
+		ArrayList<Song> songArray = albumList.get(0).getSongArray();
+		
+		ArrayList<String> observed = new ArrayList<String>();
+		for (Song song: songArray) {
+			observed.add(song.getSongTitle());
+		}
+		
+		assertEquals(observed, expected);
+	}
+	
+
+	@Test
+	void testSearchAlbumByTitleEmpty() {
+		List<Album> albumList = store.searchAlbumByTitle("Not a Album");
+		ArrayList<String> result = new ArrayList<String>();
+		for (int i= 0; i < albumList.size(); i++) {
+			result.add(albumList.get(i).toString());
+		}
+		assertEquals("[]", result.toString());
+	}
+	
+	@Test
+	void testSearchAlbumByArtist() throws IOException {
+		List<Album> albumList = store.searchAlbumByArtist("Amos Lee");
+		ArrayList<String> result = new ArrayList<String>();
+		
+		// Converts each album in albumList to string
+		for (int i= 0; i < albumList.size(); i++) {
+			result.add(albumList.get(i).toString());
+		}
+		// Album.toString returns string "albumTitle, artist, genre, year"
+		assertEquals("[Mission Bell, Amos Lee, Singer/Songwriter, 2010]", result.toString(),
+				"album found from function is correct album");
+		
+		// Check if the songs list is correct and in the right order
+		ArrayList<String> expected = readSongFile("Mission Bell_Amos Lee.txt");
+		ArrayList<Song> songArray = albumList.get(0).getSongArray();
+		
+		// Converts each song in songArray into a string of songTitles
+		ArrayList<String> observed = new ArrayList<String>();
+		for (Song song: songArray) {
+			observed.add(song.getSongTitle());
+		}
+		
+		assertEquals(observed, expected, "the album's songsList is correct and in the right order");
+	}
+	
+	@Test
+	void testSearchAlbumByArtist2() throws IOException {
+		// Testing when there are multiple albums from same artist
+		List<Album> albumList = store.searchAlbumByArtist("Adele");
+		ArrayList<String> result = new ArrayList<String>();
+		
+		// Converts each album in albumList to string
+		for (int i= 0; i < albumList.size(); i++) {
+			result.add(albumList.get(i).getAlbumTitle());
+		}
+		assertEquals("[19, 21]", result.toString());
+	}
+	
+
+	@Test
+	void testSearchAlbumByArtistEmpty() {
+		List<Album> albumList = store.searchAlbumByTitle("Not an Artist");
+		ArrayList<String> result = new ArrayList<String>();
+		for (int i= 0; i < albumList.size(); i++) {
+			result.add(albumList.get(i).toString());
+		}
+		assertEquals("[]", result.toString());
 	}
 
 }

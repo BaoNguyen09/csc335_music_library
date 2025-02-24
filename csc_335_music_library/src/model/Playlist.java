@@ -5,19 +5,18 @@ import java.util.ArrayList;
 public class Playlist {
 	private String playlistTitle;
 	private ArrayList<Song> songs;
-	private static int playlistCount = 0; // static counter for PlayList instances
+	private static int defaultPlaylistCount = 1; // static counter for PlayList instances with no parameter
 	
 	public Playlist(String title) {
 		playlistTitle = title;
 		songs = new ArrayList<Song>();
-		playlistCount++;
 	}
 	
 	/* Constructor to generate default title if no title is provided */
 	public Playlist() {
-		this.playlistTitle = "My playlist " + playlistCount; // Default title with count
+		this.playlistTitle = "My playlist " + defaultPlaylistCount; // Default title with count
 		this.songs = new ArrayList<>();
-		playlistCount++;
+		defaultPlaylistCount++;
 	}
 	
 	/* Copy constructor */

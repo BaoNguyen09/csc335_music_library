@@ -26,9 +26,9 @@ class MusicStoreTests {
 			
 			while ((line = reader.readLine()) != null) {
 				songList.add(line.strip());
-				reader.close();	
 			}
-			
+			reader.close();	
+
 		} catch (IOException e) {
 	        fail("Error reading file: " + fileName);
 	    }

@@ -55,6 +55,32 @@ public class MusicStore {
 		return listCopy;
 	}
 	
+	
+	public List<Album> searchAlbumByTitle(String albumTitle) {
+		List<Album> albumsWithTitle = albumByTitle.get(albumTitle);
+		return copyAlbumsList(albumsWithTitle);
+	}
+	
+	public List<Album> searchAlbumByArtist(String artist) {
+		List<Album> albumsWithArtist = albumByArtist.get(artist);
+		return copyAlbumsList(albumsWithArtist);
+	}
+	
+	
+	private List<Album> copyAlbumsList(List<Album> albumsList){
+		if (albumsList == null) {
+			return new ArrayList<Album>();
+		}
+		List<Album> listCopy = new ArrayList<Album>();
+		
+		for (int i= 0; i < albumsList.size(); i++) {
+			Album albumCopy = new Album(albumsList.get(i));
+			listCopy.add(albumCopy);
+		}
+		return listCopy;
+	}
+
+	
 	/*
 	 * Description: Reads and process all albums files listed in the 
 	 *'src/database/albums/fileName' text file. (e.g. processing all 

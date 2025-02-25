@@ -1,13 +1,22 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Playlist {
 	private String playlistTitle;
-	private ArrayList<Song> songs;
-	
+	private List<Song> songs;
+
+	/* @pre title != null */
 	public Playlist(String title) {
 		playlistTitle = title;
+		songs = new ArrayList<Song>();
+	}
+	
+	/* Copy constructor */
+	public Playlist(Playlist anotherPlaylist) {
+		this.playlistTitle = anotherPlaylist.getPlaylistTitle();
+		this.songs = anotherPlaylist.getSongArray();
 	}
 	
 	public String getPlaylistTitle() {
@@ -22,6 +31,29 @@ public class Playlist {
 			songList[i] = song.toString();
 		}
 		return songList;
+	}
+	
+	public ArrayList<Song> getSongArray() {
+		ArrayList<Song> songArray = new ArrayList<Song>();
+		for (Song song: songs) {
+			songArray.add(new Song(song));
+		}
+		return songArray;
+	}
+	
+	public void addSongToPlaylist(Song song) {
+		// Check if Song instances is duplicated (shallow check)
+		if (!songs.contains(song)) {
+			// Compare song's values with each other (deep check)
+			for (Song songItem: songs) {
+				if (songItem.getSongTitle().equals(song.getSongTitle())
+						&& songItem.getAlbumTitle().equals(song.getAlbumTitle())
+						&& songItem.getArtist().equals(song.getArtist())) {
+					return; // stop if spot duplicated song
+				}
+			}
+			songs.add(new Song(song));
+		}
 	}
 	
 	@Override

@@ -26,7 +26,7 @@ class PlaylistTests {
 		playlist.addSongToPlaylist(song1);
 		playlist.addSongToPlaylist(song2);
 		playlist.addSongToPlaylist(song3);
-		
+				
 		String expectedSong1 = "Daydreamer, Adele, 19";
 		String expectedSong2 = "Best for Last, Adele, 19";
 		String expectedSong3 = "Tired, Adele, 19";
@@ -36,6 +36,27 @@ class PlaylistTests {
 		expectedSongLists[2] = expectedSong3;
 		
 		assertArrayEquals(expectedSongLists, playlist.getPlaylistSongs(), "getPlaylistSongs should return a list of song in format: title, artist, album");		
+	}
+	
+	@Test
+	void testAddSongDuplicatedSong() {
+		Song song1 = new Song("Daydreamer", "Adele", "19");
+		Song song2 = new Song("Daydreamer", "Adele", "19");
+		Song song3 = new Song("Daydreamer", "Bruno Mars", "19");
+		
+		Playlist playlist = new Playlist("My playlist");
+		playlist.addSongToPlaylist(song1);
+		playlist.addSongToPlaylist(song1); // duplicated Song object
+		playlist.addSongToPlaylist(song2); // duplicated song values
+		playlist.addSongToPlaylist(song3);
+		
+		String expectedSong1 = "Daydreamer, Adele, 19";
+		String expectedSong2 = "Daydreamer, Bruno Mars, 19";
+		String[] expectedSongLists = new String[2];
+		expectedSongLists[0] = expectedSong1;
+		expectedSongLists[1] = expectedSong2;
+		
+		assertArrayEquals(expectedSongLists, playlist.getPlaylistSongs(), "getPlaylistSongs should return a list of 2 songs in format: title, artist, album");		
 	}
 	
 	@Test

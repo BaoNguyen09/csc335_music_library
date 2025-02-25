@@ -63,23 +63,14 @@ class MusicStoreTests {
 	@Test
 	void testSearchSongByTitleEmpty() {
 		List<Song> songsList = store.searchSongByTitle("Not a Song");
-		ArrayList<String> result = new ArrayList<String>();
-		for (int i= 0; i < songsList.size(); i++) {
-			result.add(songsList.get(i).toString());
-		}
-		// Song.toString returns string "songTitle, artist, albumTitle"
-		assertEquals("[]", result.toString());
+		assertTrue(songsList.isEmpty());
 		
 	}
 	
 	@Test
 	void testSearchSongByArtistEmpty() {
 		List<Song> songsList = store.searchSongByArtist("Not an Artist");
-		ArrayList<String> observed = new ArrayList<String>();
-		for (int i= 0; i < songsList.size(); i++) {
-			observed.add(songsList.get(i).toString());
-		}
-		assertEquals("[]", observed.toString());
+		assertTrue(songsList.isEmpty());
 	}
 	
 	@Test
@@ -135,11 +126,7 @@ class MusicStoreTests {
 	@Test
 	void testSearchAlbumByTitleEmpty() {
 		List<Album> albumList = store.searchAlbumByTitle("Not a Album");
-		ArrayList<String> result = new ArrayList<String>();
-		for (int i= 0; i < albumList.size(); i++) {
-			result.add(albumList.get(i).toString());
-		}
-		assertEquals("[]", result.toString());
+		assertTrue(albumList.isEmpty());
 	}
 	
 	@Test
@@ -185,11 +172,7 @@ class MusicStoreTests {
 	@Test
 	void testSearchAlbumByArtistEmpty() {
 		List<Album> albumList = store.searchAlbumByArtist("Not an Artist");
-		ArrayList<String> result = new ArrayList<String>();
-		for (int i= 0; i < albumList.size(); i++) {
-			result.add(albumList.get(i).toString());
-		}
-		assertEquals("[]", result.toString());
+		assertTrue(albumList.isEmpty());
 	}
 
 }

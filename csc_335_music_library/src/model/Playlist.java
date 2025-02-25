@@ -5,12 +5,27 @@ import java.util.List;
 
 public class Playlist {
 	private String playlistTitle;
+<<<<<<< HEAD
 	private List<Song> songs;
+=======
+	private ArrayList<Song> songs;
+	private static int defaultPlaylistCount = 1; // static counter for PlayList instances with no parameter
+>>>>>>> branch '19-playlist---write-addsong-function' of https://github.com/BaoNguyen09/csc335_music_library.git
 	
 	/* @pre title != null */
 	public Playlist(String title) {
 		playlistTitle = title;
 		songs = new ArrayList<Song>();
+<<<<<<< HEAD
+=======
+	}
+	
+	/* Constructor to generate default title if no title is provided */
+	public Playlist() {
+		this.playlistTitle = "My playlist " + defaultPlaylistCount; // Default title with count
+		this.songs = new ArrayList<>();
+		defaultPlaylistCount++;
+>>>>>>> branch '19-playlist---write-addsong-function' of https://github.com/BaoNguyen09/csc335_music_library.git
 	}
 	
 	/* Copy constructor */

@@ -1,23 +1,16 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Playlist {
 	private String playlistTitle;
-	private ArrayList<Song> songs;
-	private static int playlistCount = 0; // static counter for PlayList instances
+	private List<Song> songs;
 	
+	/* @pre title != null */
 	public Playlist(String title) {
 		playlistTitle = title;
 		songs = new ArrayList<Song>();
-		playlistCount++;
-	}
-	
-	/* Constructor to generate default title if no title is provided */
-	public Playlist() {
-		this.playlistTitle = "My playlist " + playlistCount; // Default title with count
-		this.songs = new ArrayList<>();
-		playlistCount++;
 	}
 	
 	/* Copy constructor */
@@ -49,7 +42,18 @@ public class Playlist {
 	}
 	
 	public void addSongToPlaylist(Song song) {
-		songs.add(new Song(song));
+		// Check if Song instances is duplicated (shallow check)
+		if (!songs.contains(song)) {
+			// Compare song's values with each other (deep check)
+			for (Song songItem: songs) {
+				if (songItem.getSongTitle().equals(song.getSongTitle())
+						&& songItem.getAlbumTitle().equals(song.getAlbumTitle())
+						&& songItem.getArtist().equals(song.getArtist())) {
+					return; // stop if spot duplicated song
+				}
+			}
+			songs.add(new Song(song));
+		}
 	}
 	
 	@Override

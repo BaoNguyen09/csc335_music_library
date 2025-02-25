@@ -73,8 +73,8 @@ public class MusicStore {
 		if (albumsList == null) {
 			return new ArrayList<Album>();
 		}
-		List<Album> listCopy = new ArrayList<Album>();
 		
+		List<Album> listCopy = new ArrayList<Album>();
 		for (int i= 0; i < albumsList.size(); i++) {
 			Album albumCopy = new Album(albumsList.get(i));
 			listCopy.add(albumCopy);

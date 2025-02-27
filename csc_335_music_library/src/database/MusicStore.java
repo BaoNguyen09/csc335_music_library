@@ -27,19 +27,19 @@ public class MusicStore {
 		albumByArtist = new HashMap<String, List<Album>>();
 		
 		try {
-			processAlbums();
-		} catch (IOException e) {
-			fail("Error processing file: albums.txt");
-		}
+	        processAlbums();
+	    } catch (IOException e) {
+	        throw new RuntimeException("Failed to process albums.txt", e);
+	    }
 	}
 	
 	public List<Song> searchSongByTitle(String songTitle) {
-		List<Song> songsWithTitle = songByTitle.get(songTitle);
+		List<Song> songsWithTitle = songByTitle.get(songTitle.toUpperCase());
 		return copySongsList(songsWithTitle);
 	}
 	
 	public List<Song> searchSongByArtist(String artist) {
-		List<Song> songsWithArtist = songByArtist.get(artist);
+		List<Song> songsWithArtist = songByArtist.get(artist.toUpperCase());
 		return copySongsList(songsWithArtist);
 	}
 	
@@ -59,12 +59,12 @@ public class MusicStore {
 	
 	
 	public List<Album> searchAlbumByTitle(String albumTitle) {
-		List<Album> albumsWithTitle = albumByTitle.get(albumTitle);
+		List<Album> albumsWithTitle = albumByTitle.get(albumTitle.toUpperCase());
 		return copyAlbumsList(albumsWithTitle);
 	}
 	
 	public List<Album> searchAlbumByArtist(String artist) {
-		List<Album> albumsWithArtist = albumByArtist.get(artist);
+		List<Album> albumsWithArtist = albumByArtist.get(artist.toUpperCase());
 		return copyAlbumsList(albumsWithArtist);
 	}
 	
@@ -123,32 +123,38 @@ public class MusicStore {
 	 */
 	private void processFile(String filePath) throws IOException{
 		BufferedReader reader;
-		reader = new BufferedReader(new FileReader(filePath));
-		// First line is formatted: Album Title, Artist, Genre, Year
-		String line = reader.readLine();
-		String[] albumInfo = line.strip().split(",");
-		
-		String albumTitle = albumInfo[0];
-		String artist = albumInfo[1];
-		Album currAlbum = new Album(albumTitle, artist, albumInfo[2], albumInfo[3]);
-		
-		// For each song in the album, add it to album
-		while ((line = reader.readLine()) != null) {
-			String songTitle = line.strip();
-			Song currSong = new Song(songTitle, artist, albumTitle);
-			currAlbum.addSong(currSong);
+		try {
+			reader = new BufferedReader(new FileReader(filePath));
 			
-			// Adding to the songs map
-			addToMapList(songByArtist, artist, currSong);
-			addToMapList(songByTitle, songTitle, currSong);
+			// First line is formatted: Album Title, Artist, Genre, Year
+			String line = reader.readLine();
+			String[] albumInfo = line.strip().split(",");
 			
+			String albumTitle = albumInfo[0];
+			String artist = albumInfo[1];
+			Album currAlbum = new Album(albumTitle, artist, albumInfo[2], albumInfo[3]);
+			
+			// For each song in the album, add it to album
+			while ((line = reader.readLine()) != null) {
+				String songTitle = line.strip();
+				Song currSong = new Song(songTitle, artist, albumTitle);
+				currAlbum.addSong(currSong);
+				
+				// Adding to the songs map
+				addToMapList(songByArtist, artist.toUpperCase(), currSong);
+				addToMapList(songByTitle, songTitle.toUpperCase(), currSong);
+				
+			}
+			
+			// Adding to the albums map
+			addToMapList(albumByTitle, albumTitle.toUpperCase(), currAlbum);
+			addToMapList(albumByArtist, artist.toUpperCase(), currAlbum);
+			
+			reader.close();
+			
+		} catch (FileNotFoundException e) {
+	        throw new RuntimeException("Failed to process albums.txt", e);
 		}
-		
-		// Adding to the albums map
-		addToMapList(albumByTitle, albumTitle, currAlbum);
-		addToMapList(albumByArtist, artist, currAlbum);
-		
-		reader.close();
 		
 	}
 	

@@ -23,5 +23,14 @@ public class LibraryModel {
 		albumByArtist = new HashMap<String, List<Album>>();
 	}
 	
-	
+	public String[] getSongTitles() {
+		int songListLength = songByTitle.size();
+		String[] songList = new String[songListLength];
+		int i = 0;
+		for (String songTitle: songByTitle.keySet()) {
+			songList[i] = songTitle;
+			i++;
+		}
+		return songList;
+	}
 }

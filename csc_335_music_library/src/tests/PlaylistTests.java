@@ -36,8 +36,10 @@ class PlaylistTests {
 		assertArrayEquals(expectedSongLists, playlist.getPlaylistSongs(), "getPlaylistSongs should return a list of 2 songs in format: title, artist, album");
 		
 		playlist.removeSong("Daydreamer", "19", "Adele");
+		boolean removeStatus = playlist.removeSong("Die with a last smile", "2025", "Adele"); // remove song not in playlist
 		String[] expectedSongLists2 = new String[1];
 		expectedSongLists2[0] = expectedSong2;
+		assertEquals(false, removeStatus, "If song isn't in the playlist, return false");
 		assertArrayEquals(expectedSongLists2, playlist.getPlaylistSongs(), "getPlaylistSongs should return a list of 1 song in format: title, artist, album");
 	}
 

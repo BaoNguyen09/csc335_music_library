@@ -41,10 +41,28 @@ public class LibraryModel {
 		String[] artistList = new String[artistListLength];
 		int i = 0;
 		for (String artist: songByArtist.keySet()) {
-			artistList[i] = artist;
+			artistList[i] = capitalizeFirstLetter(artist.toLowerCase());
 			i++;
 		}
 		return artistList;
+	}
+	
+	/* This helper method capitalize first letter of each word used for all-lowercase artist name */
+	private String capitalizeFirstLetter(String word) {
+		if (word == null || word.isEmpty()) {
+            return word;
+        }
+		String result = "";
+		String[] words = word.split(" ");
+		
+		for (String w : words) {
+            if (!w.isEmpty()) {
+                result += Character.toUpperCase(w.charAt(0));
+                result += w.substring(1);
+                result += " ";
+            }
+        }
+        return result.trim(); // Remove trailing space
 	}
 	
 	public String[] getAlbumTitles() {

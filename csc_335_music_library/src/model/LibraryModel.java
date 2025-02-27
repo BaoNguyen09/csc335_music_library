@@ -87,4 +87,14 @@ public class LibraryModel {
 		}
 		return playlistList;
 	}
+	
+	public String[] getFavoriteSongs() {
+		int songListLength = favoriteSongs.size();
+		String[] songList = new String[songListLength];
+		for (int i = 0; i < songListLength; i++) {
+			Song song = favoriteSongs.get(i);
+			songList[i] = song.toString();
+		}
+		return songList;
+	}
 }

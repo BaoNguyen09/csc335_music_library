@@ -35,10 +35,11 @@ class PlaylistTests {
 
 		assertArrayEquals(expectedSongLists, playlist.getPlaylistSongs(), "getPlaylistSongs should return a list of 2 songs in format: title, artist, album");
 		
-		playlist.removeSong("Daydreamer");
+		playlist.removeSong("Daydreamer", "19", "Adele");
 		String[] expectedSongLists2 = new String[1];
 		expectedSongLists2[0] = expectedSong2;
 		assertArrayEquals(expectedSongLists2, playlist.getPlaylistSongs(), "getPlaylistSongs should return a list of 1 song in format: title, artist, album");
+	}
 
 	void testGetSongsAndAddSong() {
 		Song song1 = new Song("Daydreamer", "Adele", "19");

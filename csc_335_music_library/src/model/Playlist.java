@@ -53,16 +53,21 @@ public class Playlist {
 				}
 			}
 			songs.add(new Song(song));
+		}
 	}
     
-  public void removeSong(String songTitle) {
+	/* Return boolean for View to check if song is successfully removed */
+	public boolean removeSong(String songTitle, String albumTitle, String artist) {
 		for (Song song: songs) {
-			if (song.getSongTitle() == songTitle) {
-				songs.remove(song);
-				break;
+			// requires songTitle, albumTitle, and artist to remove the single song
+			if (song.getSongTitle() == songTitle 
+					&& song.getAlbumTitle() == albumTitle
+					&& song.getArtist() == artist) {
+				return songs.remove(song);
 			}
 		}
-  }
+		return false;
+	}
 	
 	@Override
 	public String toString() {

@@ -33,4 +33,26 @@ public class LibraryModel {
 		}
 		return songList;
 	}
+	
+	public String[] getArtists() {
+		int artistListLength = songByArtist.size();
+		String[] artistList = new String[artistListLength];
+		int i = 0;
+		for (String artist: songByArtist.keySet()) {
+			artistList[i] = artist;
+			i++;
+		}
+		return artistList;
+	}
+	
+	public String[] getAlbumTitles() {
+		int albumListLength = albumByTitle.size();
+		String[] albumList = new String[albumListLength];
+		int i = 0;
+		for (String albumTitle: albumByTitle.keySet()) {
+			albumList[i] = albumTitle;
+			i++;
+		}
+		return albumList;
+	}
 }

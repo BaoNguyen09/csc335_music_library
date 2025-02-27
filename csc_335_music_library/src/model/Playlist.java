@@ -57,16 +57,11 @@ public class Playlist {
 	}
     
 	/* Return boolean for View to check if song is successfully removed */
-	public boolean removeSong(String songTitle, String albumTitle, String artist) {
-		for (Song song: songs) {
-			// requires songTitle, albumTitle, and artist to remove the single song
-			if (song.getSongTitle() == songTitle 
-					&& song.getAlbumTitle() == albumTitle
-					&& song.getArtist() == artist) {
-				return songs.remove(song);
-			}
+	public Song removeSong(int index) {
+		if (index >= 0 && index < songs.size()) {
+			return songs.remove(index);
 		}
-		return false;
+		return null; // if index isn't valid
 	}
 	
 	@Override

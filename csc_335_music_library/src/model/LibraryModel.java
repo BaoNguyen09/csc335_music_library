@@ -30,7 +30,7 @@ public class LibraryModel {
 		String[] songList = new String[songListLength];
 		int i = 0;
 		for (String songTitle: songByTitle.keySet()) {
-			songList[i] = songTitle;
+			songList[i] = songByTitle.get(songTitle).get(0).getSongTitle();
 			i++;
 		}
 		return songList;
@@ -70,7 +70,7 @@ public class LibraryModel {
 		String[] albumList = new String[albumListLength];
 		int i = 0;
 		for (String albumTitle: albumByTitle.keySet()) {
-			albumList[i] = albumTitle;
+			albumList[i] = albumByTitle.get(albumTitle).get(0).getAlbumTitle();
 			i++;
 		}
 		return albumList;

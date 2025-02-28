@@ -61,23 +61,10 @@ public class LibraryModel {
 			String albumTitle = song.getAlbumTitle();
 			String artist = song.getArtist();
 			String rating = song.getRating().toString();
-			System.out.println(rating);
 			songList[i] = String.format("%s by %s in album %s - %s", title, artist, albumTitle, rating);
 			i++;
 		}
 		return songList;
-//		ArrayList<String> songRatings = new ArrayList<String>();
-//		for (String songTitle: songByTitle.keySet()) {
-//			for (Song song: songByTitle.get(songTitle)) {
-//				String title = song.getSongTitle();
-//				String albumTitle = song.getAlbumTitle();
-//				String artist = song.getArtist();
-//				String rating = song.getRating().toString();
-//				System.out.println(rating);
-//				songRatings.add(String.format("%s by %s in album %s - %s", title, artist, albumTitle, rating));
-//			}
-//		}
-//		return songRatings;
 	}
 	
 	/* This helper method capitalize first letter of each word used for all-lowercase artist name */
@@ -298,13 +285,12 @@ public class LibraryModel {
 		if (!this.containsSong(songTitle, artist, album)) {
 			return false;
 		}
-		List<Song> songsWithTitleInLib = this.searchSongByTitle(songTitle.toUpperCase());
-		for (Song song : songsWithTitleInLib) {
+		for (Song song : songs) {
 			if (song.getArtist().equalsIgnoreCase(artist) 
-					&& song.getAlbumTitle().equalsIgnoreCase(album)) {
+					&& song.getAlbumTitle().equalsIgnoreCase(album)
+					&& song.getSongTitle().equalsIgnoreCase(songTitle)) {
 				// set rating for song
 				song.setRating(rating);
-				System.out.println(rating);
 				if (rating == Rating.FIVE_STAR) favoriteSongs.add(song);
 				return true;
 			}			
@@ -317,10 +303,10 @@ public class LibraryModel {
 		if (!this.containsSong(songTitle, artist, album)) {
 			return false;
 		}
-		List<Song> songsWithTitleInLib = this.searchSongByTitle(songTitle.toUpperCase());
-		for (Song song : songsWithTitleInLib) {
-			if (song.getArtist().equalsIgnoreCase(artist) &&
-					song.getAlbumTitle().equalsIgnoreCase(album)) {
+		for (Song song : songs) {
+			if (song.getArtist().equalsIgnoreCase(artist)
+					&& song.getAlbumTitle().equalsIgnoreCase(album)
+					&& song.getSongTitle().equalsIgnoreCase(songTitle)) {
 					// favorite a song
 					song.markAsFavorite();
 					favoriteSongs.add(song);

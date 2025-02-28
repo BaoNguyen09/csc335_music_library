@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import database.MusicStore;
+import model.Song.Rating;
 
 public class LibraryModel {
 	
@@ -95,7 +96,7 @@ public class LibraryModel {
 		String[] songList = new String[songListLength];
 		for (int i = 0; i < songListLength; i++) {
 			Song song = favoriteSongs.get(i);
-			songList[i] = song.toString();
+			songList[i] = song.getSongTitle();
 		}
 		return songList;
 	}
@@ -259,5 +260,41 @@ public class LibraryModel {
 		// if the key already exist then it just adds the value to the list
 		// else it initializes a list for that key value with that value added
 	    map.computeIfAbsent(key, k -> new ArrayList<>()).add(value);
+	}
+	
+	public boolean rateSong(String songTitle, String artist, String album, Rating rating) {
+		// Make sure the song is already to the library
+		if (!this.containsSong(songTitle, artist, album)) {
+			return false;
+		}
+		List<Song> songsWithTitleInLib = this.searchSongByTitle(songTitle.toUpperCase());
+		for (Song song : songsWithTitleInLib) {
+			if (song.getArtist().equalsIgnoreCase(artist) &&
+					song.getAlbumTitle().equalsIgnoreCase(album)) {
+					// set rating for song
+					song.setRating(rating);
+					if (rating == Rating.FIVE_STAR) favoriteSongs.add(song);
+					return true;
+			}			
+		}
+		return false;
+	}
+	
+	public boolean markAsFavorite(String songTitle, String artist, String album) {
+		// Make sure the song is already to the library
+		if (!this.containsSong(songTitle, artist, album)) {
+			return false;
+		}
+		List<Song> songsWithTitleInLib = this.searchSongByTitle(songTitle.toUpperCase());
+		for (Song song : songsWithTitleInLib) {
+			if (song.getArtist().equalsIgnoreCase(artist) &&
+					song.getAlbumTitle().equalsIgnoreCase(album)) {
+					// favorite a song
+					song.markAsFavorite();
+					favoriteSongs.add(song);
+					return true;
+			}			
+		}
+		return false;
 	}
 }

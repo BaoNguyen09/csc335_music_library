@@ -1,5 +1,6 @@
 package tests;
 
+import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.io.BufferedReader;
@@ -34,11 +35,16 @@ class MusicStoreTests {
 	    }
 		return songList;
 	}
-
 	
 	@Test
-	void testSearchSongByTitle1() {
-		List<Song> songsList = store.searchSongByTitle("In My Place");
+	void testSearchSongByTitleEmpty() {
+		List<Song> songsList = store.searchSongByTitle("Not a Song");
+		assertTrue(songsList.isEmpty());
+		
+	}
+	@Test
+	void testSearchSongByTitleSingleSong() {
+		List<Song> songsList = store.searchSongByTitle("in my place");
 		ArrayList<String> result = new ArrayList<String>();
 		for (int i= 0; i < songsList.size(); i++) {
 			result.add(songsList.get(i).toString());
@@ -49,33 +55,22 @@ class MusicStoreTests {
 	}
 	
 	@Test
-	void testSearchSongByTitle2() {
-		List<Song> songsList = store.searchSongByTitle("Missing Persons 1 & 2");
+	void testSearchSongByTitleDupSong() {
+		List<Song> songsList = store.searchSongByTitle("LULLABY");
 		ArrayList<String> result = new ArrayList<String>();
 		for (int i= 0; i < songsList.size(); i++) {
 			result.add(songsList.get(i).toString());
 		}
-		// Song.toString returns string "songTitle, artist, albumTitle"
-		assertEquals("[Missing Persons 1 & 2, OneRepublic, Waking Up]", result.toString());
-		
-	}
-
-	@Test
-	void testSearchSongByTitleEmpty() {
-		List<Song> songsList = store.searchSongByTitle("Not a Song");
-		assertTrue(songsList.isEmpty());
-		
+		assertEquals(result.size(), 2);
+		// Song.toString returns string "songTitle, artist, albumTitle
+		assertEquals("Lullaby, Leonard Cohen, Old Ideas", result.get(0).toString());	
+		assertEquals("Lullaby, OneRepublic, Waking Up", result.get(1).toString());	
 	}
 	
 	@Test
-	void testSearchSongByArtistEmpty() {
-		List<Song> songsList = store.searchSongByArtist("Not an Artist");
-		assertTrue(songsList.isEmpty());
-	}
-	
-	@Test
-	void testSearchSongByArtist1() throws IOException {
-		List<Song> songsList = store.searchSongByArtist("Adele");
+	void testSearchSongByArtist1() {
+		List<Song> songsList = store.searchSongByArtist("AdElE");
+		
 		ArrayList<String> observed = new ArrayList<String>();
 		for (int i= 0; i < songsList.size(); i++) {
 			observed.add(songsList.get(i).getSongTitle());
@@ -83,13 +78,14 @@ class MusicStoreTests {
 		
 		ArrayList<String> expected = readSongFile("19_Adele.txt");
 		expected.addAll(readSongFile("21_Adele.txt"));
+		
 		assertEquals(expected.toString(), observed.toString());
 
 	}
 	
 	@Test
-	void testSearchSongByArtist2() throws IOException {
-		List<Song> songsList = store.searchSongByArtist("Mumford & Sons");
+	void testSearchSongByArtist2() {
+		List<Song> songsList = store.searchSongByArtist("mumford & Sons");
 		ArrayList<String> observed = new ArrayList<String>();
 		for (int i= 0; i < songsList.size(); i++) {
 			observed.add(songsList.get(i).getSongTitle());
@@ -99,10 +95,15 @@ class MusicStoreTests {
 		assertEquals(expected.toString(), observed.toString());
 
 	}
+	@Test
+	void testSearchAlbumByTitleEmpty() {
+		List<Album> albumList = store.searchAlbumByTitle("Not a Album");
+		assertTrue(albumList.isEmpty());
+	}
 	
 	@Test
-	void testSearchAlbumByTitle() throws IOException {
-		List<Album> albumList = store.searchAlbumByTitle("Boys & Girls");
+	void testSearchAlbumByTitle() {
+		List<Album> albumList = store.searchAlbumByTitle("Boys & girls");
 		ArrayList<String> result = new ArrayList<String>();
 		for (int i= 0; i < albumList.size(); i++) {
 			result.add(albumList.get(i).toString());
@@ -122,16 +123,15 @@ class MusicStoreTests {
 		assertEquals(expected, observed);
 	}
 	
-
 	@Test
-	void testSearchAlbumByTitleEmpty() {
-		List<Album> albumList = store.searchAlbumByTitle("Not a Album");
+	void testSearchAlbumByArtistEmpty() {
+		List<Album> albumList = store.searchAlbumByArtist("Not an Artist");
 		assertTrue(albumList.isEmpty());
 	}
 	
 	@Test
-	void testSearchAlbumByArtist() throws IOException {
-		List<Album> albumList = store.searchAlbumByArtist("Amos Lee");
+	void testSearchAlbumByArtist() {
+		List<Album> albumList = store.searchAlbumByArtist("Amos lee");
 		ArrayList<String> result = new ArrayList<String>();
 		
 		// Converts each album in albumList to string
@@ -156,9 +156,11 @@ class MusicStoreTests {
 	}
 	
 	@Test
-	void testSearchAlbumByArtist2() throws IOException {
+	void testSearchAlbumByArtist2() {
+		
 		// Testing when there are multiple albums from same artist
 		List<Album> albumList = store.searchAlbumByArtist("Adele");
+		assertEquals(2, albumList.size());
 		ArrayList<String> result = new ArrayList<String>();
 		
 		// Converts each album in albumList to string
@@ -168,11 +170,5 @@ class MusicStoreTests {
 		assertEquals("[19, 21]", result.toString());
 	}
 	
-
-	@Test
-	void testSearchAlbumByArtistEmpty() {
-		List<Album> albumList = store.searchAlbumByArtist("Not an Artist");
-		assertTrue(albumList.isEmpty());
-	}
 
 }

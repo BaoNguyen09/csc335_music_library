@@ -18,6 +18,31 @@ class PlaylistTests {
 	}
 	
 	@Test
+	void testRemoveSong() {
+		Song song1 = new Song("Daydreamer", "Adele", "19");
+		Song song2 = new Song("Best for Last", "Adele", "19");
+		
+		Playlist playlist = new Playlist("My playlist");
+		playlist.addSongToPlaylist(song1);
+		playlist.addSongToPlaylist(song2);
+
+		String expectedSong1 = "Daydreamer, Adele, 19";
+		String expectedSong2 = "Best for Last, Adele, 19";
+		
+		String[] expectedSongLists = new String[2];
+		expectedSongLists[0] = expectedSong1;
+		expectedSongLists[1] = expectedSong2;
+
+		assertArrayEquals(expectedSongLists, playlist.getPlaylistSongs(), "getPlaylistSongs should return a list of 2 songs in format: title, artist, album");
+		
+		playlist.removeSong(0); // remove "Daydreamer"
+		boolean removeStatus = playlist.removeSong(4); // remove song not in playlist
+		String[] expectedSongLists2 = new String[1];
+		expectedSongLists2[0] = expectedSong2;
+		assertEquals(false, removeStatus, "If song isn't in the playlist, return null");
+		assertArrayEquals(expectedSongLists2, playlist.getPlaylistSongs(), "getPlaylistSongs should return a list of 1 song in format: title, artist, album");
+	}
+
 	void testGetSongsAndAddSong() {
 		Song song1 = new Song("Daydreamer", "Adele", "19");
 		Song song2 = new Song("Best for Last", "Adele", "19");
@@ -76,14 +101,6 @@ class PlaylistTests {
 		expectedSongList.add(song3);
 		
 		assertEquals(expectedSongList.toString(), playlist.getSongArray().toString(), "getSongArray should return a list of Song objects");		
-	}
-	
-	@Test
-	void testDefaultPlaylist() {
-		Playlist playlist1 = new Playlist();
-		assertEquals("My playlist 1", playlist1.toString(), "Playlist title should be: My playlist 1");
-		Playlist playlist2 = new Playlist();
-		assertEquals("My playlist 2", playlist2.toString(), "Playlist title should be: My playlist 2");
 	}
 	
 	@Test

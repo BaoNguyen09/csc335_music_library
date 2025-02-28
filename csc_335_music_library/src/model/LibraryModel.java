@@ -50,6 +50,19 @@ public class LibraryModel {
 		return artistList;
 	}
 	
+	public List<String> getSongRatings() {
+		ArrayList<String> songRatings = new ArrayList<String>();
+		for (String songTitle: songByTitle.keySet()) {
+			for (Song song: songByTitle.get(songTitle)) {
+				String albumTitle = song.getAlbumTitle();
+				String artist = song.getArtist();
+				String rating = song.getRating().toString();
+				songRatings.add(String.format("%s by %s in album %s - %s", songTitle, artist, albumTitle, rating));
+			}
+		}
+		return songRatings;
+	}
+	
 	/* This helper method capitalize first letter of each word used for all-lowercase artist name */
 	private String capitalizeFirstLetter(String word) {
 		if (word == null || word.isEmpty()) {

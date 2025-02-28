@@ -19,6 +19,49 @@ class LibraryModelTests {
 
 	MusicStore store = new MusicStore();
 	LibraryModel library = new LibraryModel();
+
+	// TESTING GETTER METHODS
+	@Test 
+	void testGetSongTitles_CaseInsensitive() {
+		library.addSong(store, "If I lose My mind" , "Dolly Parton", "Coat of Many Colors");
+		library.addSong(store, "here i Am" , "Dolly Parton", "Coat of Many Colors");
+
+		assertEquals(2, library.getSongTitles().length, "Two song titles should be returned");
+		assertEquals(true, containsItem(library.getSongTitles(), "Here I Am"), "The title should be original capitalization");
+		assertEquals(true, containsItem(library.getSongTitles(), "If I Lose My Mind"), "The title should be original capitalization");
+		assertEquals(false, containsItem(library.getSongTitles(), "Early Morning Breeze"), "This song wasn't added to the library");
+	}
+	
+	@Test 
+	void testGetArtist_CaseInsensitive() {
+		library.addSong(store, "If I lose My mind" , "Dolly parton", "Coat of Many Colors");
+		library.addSong(store, "DayDreamer" , "adele", "19");
+
+		assertEquals(2, library.getArtists().length, "Two artists should be returned");
+		assertEquals(true, containsItem(library.getArtists(), "Adele"), "The artist name should be original capitalization");
+		assertEquals(true, containsItem(library.getArtists(), "Dolly Parton"), "The artist name should be original capitalization");
+		assertEquals(false, containsItem(library.getArtists(), "Amos Lee"), "This artist wasn't added to the library");
+	}
+	
+	@Test 
+	void testGetAlbumTitles_CaseInsensitive() {
+		library.addAlbum(store, "coat of many Colors", "Dolly parton");
+		library.addAlbum(store, "19", "adele");
+
+		assertEquals(2, library.getAlbumTitles().length, "Two album titles should be returned");
+		assertEquals(true, containsItem(library.getAlbumTitles(), "Coat of Many Colors"), "The album title should be original capitalization");
+		assertEquals(true, containsItem(library.getAlbumTitles(), "19"), "The album title should be original capitalization");
+		assertEquals(false, containsItem(library.getAlbumTitles(), "Mission Bell"), "This album wasn't added to the library");
+	}
+	
+	boolean containsItem(String[] items, String item) {
+		for (int i=0; i<items.length; i++) {
+			if (item.equals(items[i])) {
+				return true;
+			}
+		}
+		return false;
+	}
 	
 	// TESTING ADD SONG
 	@Test
@@ -64,7 +107,6 @@ class LibraryModelTests {
 		// store, songTitle, artist, and album
 		assertTrue(library.addSong(store, "If I Lose My Mind" , "Dolly Parton", "Coat of Many Colors"));
 		assertFalse(library.addSong(store, "If I Lose My Mind" , "Dolly Parton", "Coat of Many Colors"));
-
 		List<Song> songListByTitle = library.searchSongByTitle("if i lose my mind");
 		List<Song> songListByArtist = library.searchSongByArtist("dolly parton");
 		assertEquals(1, songListByTitle.size());
@@ -72,8 +114,33 @@ class LibraryModelTests {
 		
 		Song expectedSong = new Song("If I Lose My Mind" , "Dolly Parton", "Coat of Many Colors");
 		assertEquals(expectedSong.toString(), songListByTitle.get(0).toString());
-		assertEquals(expectedSong.toString(), songListByArtist.get(0).toString());	
+		assertEquals(expectedSong.toString(), songListByArtist.get(0).toString());
 	}
+	
+	@Test
+	void testAddSongFailToFindSongTitle() {
+		// store, songTitle, artist, and album
+		assertFalse(library.addSong(store, "Not a song" , "Dolly Parton", "Coat of Many Colors"));
+		List<Song> observedSongList = library.searchSongByTitle("Not a song");
+		assertEquals(0, observedSongList.size());	
+	}
+	
+	@Test
+	void testAddSongFailToFindArtist() {
+		// store, songTitle, artist, and album
+		assertFalse(library.addSong(store, "If I Lose My Mind" , "Not artist", "Coat of Many Colors"));
+		List<Song> observedSongList = library.searchSongByTitle("Not a song");
+		assertEquals(0, observedSongList.size());	
+	}
+
+	@Test
+	void testAddSongFailToFindAlbum() {
+		// store, songTitle, artist, and album
+		assertFalse(library.addSong(store, "If I Lose My Mind" , "Dolly Parton", "not an album"));
+		List<Song> observedSongList = library.searchSongByTitle("Not a song");
+		assertEquals(0, observedSongList.size());	
+	}
+	
 	
 	@Test
 	void testAddSongFailToFindSongTitle() {

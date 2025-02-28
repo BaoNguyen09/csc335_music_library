@@ -33,11 +33,17 @@ public class MusicStore {
 		}
 	}
 	
+	/* 
+	 * @pre songTitle != null
+	 */
 	public List<Song> searchSongByTitle(String songTitle) {
 		List<Song> songsWithTitle = songByTitle.get(songTitle.toUpperCase());
 		return copySongsList(songsWithTitle);
 	}
 	
+	/* 
+	 * @pre artist != null
+	 */
 	public List<Song> searchSongByArtist(String artist) {
 		List<Song> songsWithArtist = songByArtist.get(artist.toUpperCase());
 		return copySongsList(songsWithArtist);
@@ -57,12 +63,17 @@ public class MusicStore {
 		return listCopy;
 	}
 	
-	
+	/* 
+	 * @pre albumTitle != null
+	 */
 	public List<Album> searchAlbumByTitle(String albumTitle) {
 		List<Album> albumsWithTitle = albumByTitle.get(albumTitle.toUpperCase());
 		return copyAlbumsList(albumsWithTitle);
 	}
 	
+	/* 
+	 * @pre artist != null
+	 */
 	public List<Album> searchAlbumByArtist(String artist) {
 		List<Album> albumsWithArtist = albumByArtist.get(artist.toUpperCase());
 		return copyAlbumsList(albumsWithArtist);

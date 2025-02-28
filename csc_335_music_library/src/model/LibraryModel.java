@@ -190,6 +190,38 @@ public class LibraryModel {
 		
 	}
 	
+	/* Adds a specific song to a specified playlist.
+	 * 
+	 * @pre store != null, songTitle != null, artist != null, album != null
+	 */
+	public boolean addSongToPlaylist(String playlistName, String songTitle, String artist, String album) {
+		// Search playlist to make sure it exists
+		Playlist playlist = playlistByTitle.get(playlistName);
+		if (playlist == null) {
+			return false;
+		} 
+		
+		// prevents same song from being added twice
+		if (this.containsSong(songTitle, artist, album)) {
+			return false;
+		}
+		
+		List<Song> songsWithTitle = songByTitle.get(songTitle.toUpperCase());
+		for (Song song : songsWithTitle) {
+			if (song.getArtist().equalsIgnoreCase(artist) &&
+					song.getAlbumTitle().equalsIgnoreCase(album)) {
+				
+					// add song to song to playlist list
+					playlists.add(playlist);
+					// add song to playlist object
+					playlist.addSongToPlaylist(song);
+					return true;
+			}			
+		}
+		return false;
+		
+	}
+	
 	// Search functions
 	
 	/* 

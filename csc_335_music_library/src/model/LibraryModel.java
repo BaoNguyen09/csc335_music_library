@@ -12,6 +12,7 @@ public class LibraryModel {
 	
 	List<Playlist> playlists;
 	List<Song> favoriteSongs;
+	List<Song> songs;
 	private Map<String, List<Song>> songByTitle;
 	private Map<String, List<Song>> songByArtist;
 	private Map<String, List<Album>> albumByTitle;
@@ -26,6 +27,7 @@ public class LibraryModel {
 		albumByTitle = new HashMap<String, List<Album>>();
 		albumByArtist = new HashMap<String, List<Album>>();
 		playlistByTitle = new HashMap<String, Playlist>();
+		songs = new ArrayList<Song>();
 	}
 	
 	public String[] getSongTitles() {
@@ -50,17 +52,32 @@ public class LibraryModel {
 		return artistList;
 	}
 	
-	public List<String> getSongRatings() {
-		ArrayList<String> songRatings = new ArrayList<String>();
-		for (String songTitle: songByTitle.keySet()) {
-			for (Song song: songByTitle.get(songTitle)) {
-				String albumTitle = song.getAlbumTitle();
-				String artist = song.getArtist();
-				String rating = song.getRating().toString();
-				songRatings.add(String.format("%s by %s in album %s - %s", songTitle, artist, albumTitle, rating));
-			}
+	public String[] getSongRatings() {
+		int songListLength = songs.size();
+		String[] songList = new String[songListLength];
+		int i = 0;
+		for (Song song: songs) {
+			String title = song.getSongTitle();
+			String albumTitle = song.getAlbumTitle();
+			String artist = song.getArtist();
+			String rating = song.getRating().toString();
+			System.out.println(rating);
+			songList[i] = String.format("%s by %s in album %s - %s", title, artist, albumTitle, rating);
+			i++;
 		}
-		return songRatings;
+		return songList;
+//		ArrayList<String> songRatings = new ArrayList<String>();
+//		for (String songTitle: songByTitle.keySet()) {
+//			for (Song song: songByTitle.get(songTitle)) {
+//				String title = song.getSongTitle();
+//				String albumTitle = song.getAlbumTitle();
+//				String artist = song.getArtist();
+//				String rating = song.getRating().toString();
+//				System.out.println(rating);
+//				songRatings.add(String.format("%s by %s in album %s - %s", title, artist, albumTitle, rating));
+//			}
+//		}
+//		return songRatings;
 	}
 	
 	/* This helper method capitalize first letter of each word used for all-lowercase artist name */
@@ -130,6 +147,7 @@ public class LibraryModel {
 					// add song to songs hashmap
 					addToMapList(songByTitle, songTitle.toUpperCase(), new Song(song));
 					addToMapList(songByArtist, artist.toUpperCase(), new Song(song));
+					songs.add(song); // add to all song list to keep track
 					return true;
 			}			
 		}
@@ -282,12 +300,13 @@ public class LibraryModel {
 		}
 		List<Song> songsWithTitleInLib = this.searchSongByTitle(songTitle.toUpperCase());
 		for (Song song : songsWithTitleInLib) {
-			if (song.getArtist().equalsIgnoreCase(artist) &&
-					song.getAlbumTitle().equalsIgnoreCase(album)) {
-					// set rating for song
-					song.setRating(rating);
-					if (rating == Rating.FIVE_STAR) favoriteSongs.add(song);
-					return true;
+			if (song.getArtist().equalsIgnoreCase(artist) 
+					&& song.getAlbumTitle().equalsIgnoreCase(album)) {
+				// set rating for song
+				song.setRating(rating);
+				System.out.println(rating);
+				if (rating == Rating.FIVE_STAR) favoriteSongs.add(song);
+				return true;
 			}			
 		}
 		return false;

@@ -27,10 +27,10 @@ public class MusicStore {
 		albumByArtist = new HashMap<String, List<Album>>();
 		
 		try {
-	        processAlbums();
-	    } catch (IOException e) {
-	        throw new RuntimeException("Failed to process albums.txt", e);
-	    }
+			processAlbums();
+		} catch (IOException e) {
+			throw new RuntimeException("Failed to process albums.txt");
+		}
 	}
 	
 	/* 

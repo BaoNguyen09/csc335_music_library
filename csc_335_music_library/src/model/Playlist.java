@@ -55,6 +55,15 @@ public class Playlist {
 			songs.add(new Song(song));
 		}
 	}
+    
+	/* Return boolean for View to check if song is successfully removed */
+	public boolean removeSong(int index) {
+		if (index >= 0 && index < songs.size()) {
+			songs.remove(index);
+			return true; // return a value for View to check if it's removed
+		}
+		return false; // if index isn't valid
+	}
 	
 	@Override
 	public String toString() {

@@ -190,6 +190,24 @@ public class LibraryModel {
 		
 	}
 	
+	/* Adds a playlist to the library. Title must match exactly and is case sensitive.
+	 * 
+	 * @pre store != null, songTitle != null, artist != null, album != null
+	 */
+	public boolean addPlaylist(String playlistTitle) {
+		// Search playlist to make sure it doesn't exist
+		if (playlistByTitle.get(playlistTitle) != null) {
+			return false;
+		}
+		// Create playlist and add it to playlists and hashmap
+		Playlist newPlaylist = new Playlist(playlistTitle);
+		playlists.add(newPlaylist);
+		playlistByTitle.put(playlistTitle, newPlaylist);
+		return true;
+		
+	}
+	
+	
 	/* Adds a specific song to a specified playlist.
 	 * 
 	 * @pre store != null, songTitle != null, artist != null, album != null

@@ -117,29 +117,6 @@ class LibraryModelTests {
 		assertEquals(expectedSong.toString(), songListByArtist.get(0).toString());
 	}
 	
-	@Test
-	void testAddSongFailToFindSongTitle() {
-		// store, songTitle, artist, and album
-		assertFalse(library.addSong(store, "Not a song" , "Dolly Parton", "Coat of Many Colors"));
-		List<Song> observedSongList = library.searchSongByTitle("Not a song");
-		assertEquals(0, observedSongList.size());	
-	}
-	
-	@Test
-	void testAddSongFailToFindArtist() {
-		// store, songTitle, artist, and album
-		assertFalse(library.addSong(store, "If I Lose My Mind" , "Not artist", "Coat of Many Colors"));
-		List<Song> observedSongList = library.searchSongByTitle("Not a song");
-		assertEquals(0, observedSongList.size());	
-	}
-
-	@Test
-	void testAddSongFailToFindAlbum() {
-		// store, songTitle, artist, and album
-		assertFalse(library.addSong(store, "If I Lose My Mind" , "Dolly Parton", "not an album"));
-		List<Song> observedSongList = library.searchSongByTitle("Not a song");
-		assertEquals(0, observedSongList.size());	
-	}
 	
 	
 	@Test

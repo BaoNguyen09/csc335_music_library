@@ -253,6 +253,14 @@ public class LibraryModel {
 		return listCopy;
 	}
 	
+	/* 
+	 * @pre albumTitle != null
+	 */
+	public Playlist searchPlaylistByTitle(String playlistTitle) {
+		Playlist playlist = playlistByTitle.get(playlistTitle.toUpperCase());
+		return new Playlist(playlist);
+	}
+	
 	
 	// Function adds to the respective map
 	private <K, V> void addToMapList(Map<K, List<V>> map, K key, V value) {

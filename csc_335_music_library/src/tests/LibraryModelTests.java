@@ -20,6 +20,49 @@ class LibraryModelTests {
 	MusicStore store = new MusicStore();
 	LibraryModel library = new LibraryModel();
 	
+	// TESTING GETTER METHODS
+	@Test 
+	void testGetSongTitles_CaseInsensitive() {
+		library.addSong(store, "If I lose My mind" , "Dolly Parton", "Coat of Many Colors");
+		library.addSong(store, "here i Am" , "Dolly Parton", "Coat of Many Colors");
+
+		assertEquals(2, library.getSongTitles().length, "Two song titles should be returned");
+		assertEquals(true, containsItem(library.getSongTitles(), "Here I Am"), "The title should be original capitalization");
+		assertEquals(true, containsItem(library.getSongTitles(), "If I Lose My Mind"), "The title should be original capitalization");
+		assertEquals(false, containsItem(library.getSongTitles(), "Early Morning Breeze"), "This song wasn't added to the library");
+	}
+	
+	@Test 
+	void testGetArtist_CaseInsensitive() {
+		library.addSong(store, "If I lose My mind" , "Dolly parton", "Coat of Many Colors");
+		library.addSong(store, "DayDreamer" , "adele", "19");
+
+		assertEquals(2, library.getArtists().length, "Two artists should be returned");
+		assertEquals(true, containsItem(library.getArtists(), "Adele"), "The artist name should be original capitalization");
+		assertEquals(true, containsItem(library.getArtists(), "Dolly Parton"), "The artist name should be original capitalization");
+		assertEquals(false, containsItem(library.getArtists(), "Amos Lee"), "This artist wasn't added to the library");
+	}
+	
+	@Test 
+	void testGetAlbumTitles_CaseInsensitive() {
+		library.addAlbum(store, "coat of many Colors", "Dolly parton");
+		library.addAlbum(store, "19", "adele");
+
+		assertEquals(2, library.getAlbumTitles().length, "Two album titles should be returned");
+		assertEquals(true, containsItem(library.getAlbumTitles(), "Coat of Many Colors"), "The album title should be original capitalization");
+		assertEquals(true, containsItem(library.getAlbumTitles(), "19"), "The album title should be original capitalization");
+		assertEquals(false, containsItem(library.getAlbumTitles(), "Mission Bell"), "This album wasn't added to the library");
+	}
+	
+	boolean containsItem(String[] items, String item) {
+		for (int i=0; i<items.length; i++) {
+			if (item.equals(items[i])) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	// TESTING ADD SONG
 	@Test
 	void testAddSongSuccess() {

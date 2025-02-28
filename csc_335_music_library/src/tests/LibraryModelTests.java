@@ -237,4 +237,5 @@ class LibraryModelTests {
 		assertEquals(true, containsItem(library.getFavoriteSongs(), "If I Lose My Mind"), "The title should be original capitalization");
 		assertEquals(false, containsItem(library.getFavoriteSongs(), "Behind Me Now"), "This song isn't favorite");
 	}
+  
 }

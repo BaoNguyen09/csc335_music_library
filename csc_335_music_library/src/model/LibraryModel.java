@@ -20,6 +20,10 @@ public class LibraryModel {
 		albumByArtist = new HashMap<String, List<Album>>();
 	}
 	
+	/* Adds a specific song to the library.
+	 * 
+	 * @pre store != null, songTitle != null, artist != null, album != null
+	 */
 	public boolean addSong(MusicStore store, String songTitle, String artist, String album) {
 		// prevents same song from being added twice
 		if (this.containsSong(songTitle, artist, album)) {
@@ -39,7 +43,11 @@ public class LibraryModel {
 		
 	}
 	
-	// Helper method to detect if the song already exist in the library
+	
+		/* Helper method to detect if the song already exist in the library.
+		 * 
+		 * @pre songTitle != null, artist != null, album != null
+		 */
 		private boolean containsSong(String songTitle, String artist, String album) {
 			List<Song> songsWithTitleInLib = songByTitle.get(songTitle.toUpperCase());
 			if (songsWithTitleInLib == null) {
@@ -55,6 +63,10 @@ public class LibraryModel {
 			
 		}
 	
+	/* Adds an album and all its songs to the library.
+	 * 
+	 * @pre songTitle != null, artist != null, album != null
+	 */
 	public boolean addAlbum(MusicStore store, String albumTitle, String artist) {
 		// prevents same album from being added twice
 		if (this.containsAlbum(albumTitle, artist)) {
@@ -80,7 +92,10 @@ public class LibraryModel {
 		return false;
 	}
 	
-	// Helper method to detect if the album already exist in the library
+	/* Helper method to detect if the album already exist in the library
+	 * 
+	 * @pre albumTitle != null, artist != null
+	 */
 	private boolean containsAlbum(String albumTitle, String artist) {
 		List<Album> albumWithTitleInLib = albumByTitle.get(albumTitle.toUpperCase());
 		if (albumWithTitleInLib == null) {
@@ -97,16 +112,23 @@ public class LibraryModel {
 	
 	// Search functions
 	
+	/* 
+	 * @pre songTitle != null
+	 */
 	public List<Song> searchSongByTitle(String songTitle) {
 		List<Song> songsWithTitle = songByTitle.get(songTitle.toUpperCase());
 		return copySongsList(songsWithTitle);
 	}
 	
+	/* 
+	 * @pre artist != null
+	 */
 	public List<Song> searchSongByArtist(String artist) {
 		List<Song> songsWithArtist = songByArtist.get(artist.toUpperCase());
 		return copySongsList(songsWithArtist);
 	}
 	
+
 	private List<Song> copySongsList(List<Song> songsList){
 		if (songsList == null) {
 			return new ArrayList<Song>();
@@ -121,11 +143,17 @@ public class LibraryModel {
 	}
 	
 	
+	/* 
+	 * @pre albumTitle != null
+	 */
 	public List<Album> searchAlbumByTitle(String albumTitle) {
 		List<Album> albumsWithTitle = albumByTitle.get(albumTitle.toUpperCase());
 		return copyAlbumsList(albumsWithTitle);
 	}
 	
+	/* 
+	 * @pre artist != null
+	 */
 	public List<Album> searchAlbumByArtist(String artist) {
 		List<Album> albumsWithArtist = albumByArtist.get(artist.toUpperCase());
 		return copyAlbumsList(albumsWithArtist);

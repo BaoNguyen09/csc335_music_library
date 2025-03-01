@@ -303,5 +303,39 @@ class LibraryModelTests {
 		Optional<Playlist> playlist = library.searchPlaylistByTitle("not a playlist");
 		assertTrue(playlist.isEmpty());
 	};
-
+	
+	@Test
+	void testRemoveSongFromPlaylistEmpty() {
+		library.addPlaylist("Empty playlist");
+		assertFalse(library.removeSongFromPlaylist("Empty playlist", 0));
+	}
+	
+	@Test
+	void testRemoveSongFromPlaylistDoesNotExist() {
+		assertFalse(library.removeSongFromPlaylist("Not a playlist", 0));
+	}
+	@Test
+	void testRemoveSongFromPlaylistSuccess() {
+		assertTrue(library.addPlaylist("My Playlist 1"));
+		library.addSong(store, "Daylight", "Coldplay", "A Rush of Blood to the Head");
+		
+		// playlist name, songTitle, artist, album
+		assertTrue(library.addSongToPlaylist("My Playlist 1", "Daylight",
+				"ColdPlay", "A Rush of Blood to the Head"));
+		
+		Optional<Playlist> playlist = library.searchPlaylistByTitle("My Playlist 1");
+		String[] observed = playlist.get().getPlaylistSongs();
+		assertEquals(1, observed.length);
+		
+		String[] expected = new String[1];
+		expected[0] = "Daylight, Coldplay, A Rush of Blood to the Head";
+		assertEquals(expected[0], observed[0]);
+		
+		// REMOVE SONG
+		assertTrue(library.removeSongFromPlaylist("My Playlist 1", 0));
+		
+		playlist = library.searchPlaylistByTitle("My Playlist 1");
+		observed = playlist.get().getPlaylistSongs();
+		assertEquals(0, observed.length);
+	}
 }

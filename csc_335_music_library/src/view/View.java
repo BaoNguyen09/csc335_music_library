@@ -29,7 +29,7 @@ public class View {
 					}
 					if (command == 1) {
 					    searchMusicStore(console, musicStore);
-						  showCommandMenu();
+						showCommandMenu();
 
 					}
 					if (command == 2) {
@@ -225,7 +225,7 @@ public class View {
 	    int searchChoice = 0;
 	    
 	    // Keep showing the sub-menu until the user chooses to exit
-	    while (searchChoice != 5) {
+	    while (searchChoice != 6) {
 	        System.out.println("""
 	        		
 	            Search in Music Library:
@@ -233,14 +233,15 @@ public class View {
 	            2. Search Song By Artist
 	            3. Search Album By Title
 	            4. Search Album By Artist
-	            5. Return to Main Menu
+	            5. Search Playlist by Title
+	            6. Return to Main Menu
 	            """);
 
 	        System.out.print("Enter your search choice: ");
 	        try {
 	            searchChoice = Integer.parseInt(console.nextLine().trim());
 	        } catch (NumberFormatException e) {
-	            System.out.println("Invalid input. Please enter a number 1-5.");
+	            System.out.println("Invalid input. Please enter a number 1-6.");
 	            continue;  // re-display the sub-menu
 	        }
 
@@ -272,6 +273,29 @@ public class View {
 	                printAlbum(foundAlbums, artist);
 	            }
 	            case 5 -> {
+	                System.out.print("Enter the playlist title: ");
+	                String playlistTitle = console.nextLine();
+	                Optional<Playlist> maybePlaylist = library.searchPlaylistByTitle(playlistTitle);
+	                if (maybePlaylist.isEmpty()) {
+	                    System.out.println("No playlist with that title. Returning to main menu...");
+	                    break; // or return to the sub-menu
+	                }
+
+	                // Get the actual playlist
+	                Playlist playlist = maybePlaylist.get();
+	                List<Song> songs = playlist.getSongArray();
+	                if (songs.isEmpty()) {
+	                    System.out.println("This playlist has no songs.");
+	                    break; // or return to the sub-menu
+	                }
+
+	                // Show the user all songs with their indexes
+	                System.out.println("Songs in \"" + playlistTitle + "\":");
+	                for (int i = 0; i < songs.size(); i++) {
+	                    System.out.println(i + ": " + songs.get(i).getSongTitle());
+	                }
+	            }
+	            case 6 -> {
 	                System.out.println("Returning to Main Menu...");
 	                // The while loop will end because searchChoice == 5
 	            }
@@ -514,7 +538,7 @@ public class View {
 	                // 'addSongToPlaylist' returns true if added successfully, false if song isn't in the store or playlist doesn't exist
 	                boolean added = library.addSongToPlaylist(playlistName, songTitle, artist, albumTitle);
 	                if (added) {
-	                    System.out.println(String.format("%s was added successfully to playlist: %s", songTitle, playlistName));
+	                    System.out.println(String.format("\"%s\" was added successfully to playlist: %s", songTitle, playlistName));
 	                } else {
 	                    System.out.println("Fail: Song isn't in the store or playlist doesn't exist");
 	                }

@@ -34,12 +34,13 @@ public class View {
 
 					}
 					if (command == 3) {
-						System.out.println("Add to library");
 						addSongToLibrary(console, library, musicStore);
 						showCommandMenu();
 					}
 					if (command == 4) {
-						System.out.println("Get a list of items from library");
+						showItemsInLibrary(console, library);
+						showCommandMenu();
+						
 					}
 					if (command == 5) {
 						System.out.println("Create a playlist");
@@ -280,11 +281,11 @@ public class View {
 	    while (searchChoice != 3) {
 	        System.out.println("""
 	        		
-	            Add To Library:
+		        Add To Library:
 	            1. A song
 	            2. A whole album
 	            3. Return to Main Menu
-	            """);
+		            """);
 
 	        System.out.print("Enter your search choice: ");
 	        try {
@@ -327,6 +328,79 @@ public class View {
 	        }
 	    }
 	}
+	
+	private static void showItemsInLibrary(Scanner console, LibraryModel library) {
+		int searchChoice = 0;
+	    
+	    // Keep showing the sub-menu until the user chooses to exit
+	    while (searchChoice != 6) {
+	        System.out.println("""
+	        		
+				        		Add To Library:
+				        		    1. Get all song titles
+				        		    2. Get all artist names
+				        		    3. Get all album titles
+				        		    4. Get all playlist titles
+				        		    5. Get all favorite song titles
+				        		    6. Return to Main Menu
+	        		    		""");
+	       
+
+	        System.out.print("Enter your search choice: ");
+	        try {
+	            searchChoice = Integer.parseInt(console.nextLine().trim());
+	        } catch (NumberFormatException e) {
+	            System.out.println("Invalid input. Please enter a number 1-3.");
+	            continue;  // re-display the sub-menu
+	        }
+
+	        switch (searchChoice) {
+	            case 1 -> {
+	                String[] songTitles = library.getSongTitles();
+	                printItems(songTitles, "song titles");
+	            }
+	            case 2 -> {
+	            	String[] artists = library.getArtists();
+	                printItems(artists, "artists");
+
+	            }
+	            case 3 -> {
+	            	String[] albumTitles = library.getAlbumTitles();
+	                printItems(albumTitles, "album titles");
+
+	            }
+	            case 4 -> {
+	            	String[] playlistTitles = library.getPlaylistTitles();
+	                printItems(playlistTitles, "playlist titles");
+
+	            }
+	            case 5 -> {
+	            	String[] favoriteSongs= library.getFavoriteSongs();
+	                printItems(favoriteSongs, "favorite songs");
+
+	            }
+	            case 6 -> {
+	                System.out.println("Returning to Main Menu...");
+	                // The while loop will end because searchChoice == 5
+	            }
+	            default -> {
+	                System.out.println("Invalid choice. Please try again.");
+	            }
+	        }
+	    }
+	}
+	
+		// Helper method to print item out as line by line
+		public static void printItems(String[] foundItems, String searchTerm) {
+			if (foundItems.length == 0) {
+	            System.out.println(String.format("No  %s found", searchTerm));
+	        } else {
+	            System.out.println(String.format("Found %s:", searchTerm));
+	            for (int i=0; i<foundItems.length; i++) {
+	                System.out.println("- " + foundItems[i]);
+	            }
+	        }
+		}
 	
 
 }

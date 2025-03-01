@@ -14,11 +14,55 @@ import database.MusicStore;
 import model.Album;
 import model.LibraryModel;
 import model.Song;
+import model.Song.Rating;
 
 class LibraryModelTests {
 
 	MusicStore store = new MusicStore();
 	LibraryModel library = new LibraryModel();
+	
+	// TESTING GETTER METHODS
+	@Test 
+	void testGetSongTitles_CaseInsensitive() {
+		library.addSong(store, "If I lose My mind" , "Dolly Parton", "Coat of Many Colors");
+		library.addSong(store, "here i Am" , "Dolly Parton", "Coat of Many Colors");
+
+		assertEquals(2, library.getSongTitles().length, "Two song titles should be returned");
+		assertEquals(true, containsItem(library.getSongTitles(), "Here I Am"), "The title should be original capitalization");
+		assertEquals(true, containsItem(library.getSongTitles(), "If I Lose My Mind"), "The title should be original capitalization");
+		assertEquals(false, containsItem(library.getSongTitles(), "Early Morning Breeze"), "This song wasn't added to the library");
+	}
+	
+	@Test 
+	void testGetArtist_CaseInsensitive() {
+		library.addSong(store, "If I lose My mind" , "Dolly parton", "Coat of Many Colors");
+		library.addSong(store, "DayDreamer" , "adele", "19");
+
+		assertEquals(2, library.getArtists().length, "Two artists should be returned");
+		assertEquals(true, containsItem(library.getArtists(), "Adele"), "The artist name should be original capitalization");
+		assertEquals(true, containsItem(library.getArtists(), "Dolly Parton"), "The artist name should be original capitalization");
+		assertEquals(false, containsItem(library.getArtists(), "Amos Lee"), "This artist wasn't added to the library");
+	}
+	
+	@Test 
+	void testGetAlbumTitles_CaseInsensitive() {
+		library.addAlbum(store, "coat of many Colors", "Dolly parton");
+		library.addAlbum(store, "19", "adele");
+
+		assertEquals(2, library.getAlbumTitles().length, "Two album titles should be returned");
+		assertEquals(true, containsItem(library.getAlbumTitles(), "Coat of Many Colors"), "The album title should be original capitalization");
+		assertEquals(true, containsItem(library.getAlbumTitles(), "19"), "The album title should be original capitalization");
+		assertEquals(false, containsItem(library.getAlbumTitles(), "Mission Bell"), "This album wasn't added to the library");
+	}
+	
+	boolean containsItem(String[] items, String item) {
+		for (int i=0; i<items.length; i++) {
+			if (item.equals(items[i])) {
+				return true;
+			}
+		}
+		return false;
+	}
 	
 	// TESTING ADD SONG
 	@Test
@@ -164,4 +208,34 @@ class LibraryModelTests {
 	    }
 		return songList;
 	}
+	
+	@Test 
+	void testRateSong() {
+		library.addSong(store, "If I lose My mind" , "Dolly parton", "Coat of Many Colors");
+		library.rateSong("If I lose My mind" , "Dolly parton", "Coat of Many Colors", Rating.FOUR_STAR);
+		library.addSong(store, "DayDreamer" , "adele", "19");
+		library.rateSong("DayDreamer" , "adele", "19", Rating.FIVE_STAR);
+		library.addSong(store, "Behind me now" , "Amos Lee", "Mission Bell"); // this song rating is set as default
+		String[] songRatings = library.getSongRatings();
+		
+		assertEquals(3, library.getSongRatings().length, "All songs should be returned");
+		assertEquals(true, containsItem(songRatings, "If I Lose My Mind by Dolly Parton in album Coat of Many Colors - FOUR_STAR"), "This song is rated 4 stars");
+		assertEquals(true, containsItem(songRatings, "Daydreamer by Adele in album 19 - FIVE_STAR"), "This song is rated 5 stars");
+		assertEquals(true, containsItem(songRatings, "Behind Me Now by Amos Lee in album Mission Bell - UNRATED"), "This song is not rated yet");
+	}
+	
+	@Test 
+	void testMarkAsFavorite() {
+		library.addSong(store, "If I lose My mind" , "Dolly parton", "Coat of Many Colors");
+		library.markAsFavorite("If I lose My mind" , "Dolly parton", "Coat of Many Colors");
+		library.addSong(store, "DayDreamer" , "adele", "19");
+		library.rateSong("DayDreamer" , "adele", "19", Rating.FIVE_STAR); // five star will automatically set the song as favorite
+		library.addSong(store, "Behind me now" , "Amos Lee", "Mission Bell");
+
+		assertEquals(2, library.getFavoriteSongs().length, "Two favorite song titles should be returned");
+		assertEquals(true, containsItem(library.getFavoriteSongs(), "Daydreamer"), "The title should be original capitalization");
+		assertEquals(true, containsItem(library.getFavoriteSongs(), "If I Lose My Mind"), "The title should be original capitalization");
+		assertEquals(false, containsItem(library.getFavoriteSongs(), "Behind Me Now"), "This song isn't favorite");
+	}
+  
 }

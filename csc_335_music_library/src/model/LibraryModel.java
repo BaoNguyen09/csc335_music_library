@@ -6,18 +6,116 @@ import java.util.List;
 import java.util.Map;
 
 import database.MusicStore;
+import model.Song.Rating;
 
 public class LibraryModel {
+	
+	List<Playlist> playlists;
+	List<Song> favoriteSongs;
+	List<Song> songs;
 	private Map<String, List<Song>> songByTitle;
 	private Map<String, List<Song>> songByArtist;
 	private Map<String, List<Album>> albumByTitle;
 	private Map<String, List<Album>> albumByArtist;
+	private Map<String, Playlist> playlistByTitle;
 	
 	public LibraryModel() {
+		playlists = new ArrayList<Playlist>();
+		favoriteSongs = new ArrayList<Song>();
 		songByTitle = new HashMap<String, List<Song>>();
 		songByArtist = new HashMap<String, List<Song>>();
 		albumByTitle = new HashMap<String, List<Album>>();
 		albumByArtist = new HashMap<String, List<Album>>();
+		playlistByTitle = new HashMap<String, Playlist>();
+		songs = new ArrayList<Song>();
+	}
+	
+	public String[] getSongTitles() {
+		int songListLength = songByTitle.size();
+		String[] songList = new String[songListLength];
+		int i = 0;
+		for (String songTitle: songByTitle.keySet()) {
+			songList[i] = songByTitle.get(songTitle).get(0).getSongTitle();
+			i++;
+		}
+		return songList;
+	}
+	
+	public String[] getArtists() {
+		int artistListLength = songByArtist.size();
+		String[] artistList = new String[artistListLength];
+		int i = 0;
+		for (String artist: songByArtist.keySet()) {
+			artistList[i] = capitalizeFirstLetter(artist.toLowerCase());
+			i++;
+		}
+		return artistList;
+	}
+	
+	public String[] getSongRatings() {
+		int songListLength = songs.size();
+		String[] songList = new String[songListLength];
+		int i = 0;
+		for (Song song: songs) {
+			String title = song.getSongTitle();
+			String albumTitle = song.getAlbumTitle();
+			String artist = song.getArtist();
+			String rating = song.getRating().toString();
+			songList[i] = String.format("%s by %s in album %s - %s", title, artist, albumTitle, rating);
+			i++;
+		}
+		return songList;
+	}
+	
+	/* This helper method capitalize first letter of each word used for all-lowercase artist name */
+	private String capitalizeFirstLetter(String word) {
+		if (word == null || word.isEmpty()) {
+            return word;
+        }
+		String result = "";
+		String[] words = word.split(" ");
+		
+		for (String w : words) {
+            if (!w.isEmpty()) {
+                result += Character.toUpperCase(w.charAt(0));
+                result += w.substring(1);
+                result += " ";
+            }
+        }
+        return result.trim(); // Remove trailing space
+	}
+	
+	public String[] getAlbumTitles() {
+		int albumListLength = albumByTitle.size();
+		String[] albumList = new String[albumListLength];
+		int i = 0;
+		for (String albumTitle: albumByTitle.keySet()) {
+			albumList[i] = albumByTitle.get(albumTitle).get(0).getAlbumTitle();
+			i++;
+		}
+		return albumList;
+	}
+	
+	public String[] getPlaylistTitles() {
+		int playlistListLength = playlistByTitle.size();
+		String[] playlistList = new String[playlistListLength];
+		int i = 0;
+		for (String playlistTitle: playlistByTitle.keySet()) {
+			// get playlist title from Playlist object to preserve capitalization
+			playlistList[i] = playlistByTitle.get(playlistTitle).toString();
+			i++;
+		}
+		return playlistList;
+	}
+	
+	public String[] getFavoriteSongs() {
+		int songListLength = favoriteSongs.size();
+		String[] songList = new String[songListLength];
+		for (int i = 0; i < songListLength; i++) {
+			Song song = favoriteSongs.get(i);
+			songList[i] = song.getSongTitle();
+		}
+		return songList;
 	}
 	
 	/* Adds a specific song to the library.
@@ -36,6 +134,7 @@ public class LibraryModel {
 					// add song to songs hashmap
 					addToMapList(songByTitle, songTitle.toUpperCase(), new Song(song));
 					addToMapList(songByArtist, artist.toUpperCase(), new Song(song));
+					songs.add(song); // add to all song list to keep track
 					return true;
 			}			
 		}
@@ -43,26 +142,25 @@ public class LibraryModel {
 		
 	}
 	
-	
-		/* Helper method to detect if the song already exist in the library.
-		 * 
-		 * @pre songTitle != null, artist != null, album != null
-		 */
-		private boolean containsSong(String songTitle, String artist, String album) {
-			List<Song> songsWithTitleInLib = songByTitle.get(songTitle.toUpperCase());
-			if (songsWithTitleInLib == null) {
-				return false;
-			}
-			for (Song song: songsWithTitleInLib) {
-				if (song.getArtist().equalsIgnoreCase(artist) && 
-						song.getAlbumTitle().equalsIgnoreCase(album)) {
-					return true;
-				}
-			}
+	/* Helper method to detect if the song already exist in the library.
+	 * 
+	 * @pre songTitle != null, artist != null, album != null
+	 */
+	private boolean containsSong(String songTitle, String artist, String album) {
+		List<Song> songsWithTitleInLib = songByTitle.get(songTitle.toUpperCase());
+		if (songsWithTitleInLib == null) {
 			return false;
-			
 		}
-	
+		for (Song song: songsWithTitleInLib) {
+			if (song.getArtist().equalsIgnoreCase(artist) && 
+					song.getAlbumTitle().equalsIgnoreCase(album)) {
+				return true;
+			}
+		}
+		return false;
+		
+	}
+
 	/* Adds an album and all its songs to the library.
 	 * 
 	 * @pre songTitle != null, artist != null, album != null
@@ -181,4 +279,41 @@ public class LibraryModel {
 		// else it initializes a list for that key value with that value added
 	    map.computeIfAbsent(key, k -> new ArrayList<>()).add(value);
 	}
+	
+	public boolean rateSong(String songTitle, String artist, String album, Rating rating) {
+		// Make sure the song is already to the library
+		if (!this.containsSong(songTitle, artist, album)) {
+			return false;
+		}
+		for (Song song : songs) {
+			if (song.getArtist().equalsIgnoreCase(artist) 
+					&& song.getAlbumTitle().equalsIgnoreCase(album)
+					&& song.getSongTitle().equalsIgnoreCase(songTitle)) {
+				// set rating for song
+				song.setRating(rating);
+				if (rating == Rating.FIVE_STAR) favoriteSongs.add(song);
+				return true;
+			}			
+		}
+		return false;
+	}
+	
+	public boolean markAsFavorite(String songTitle, String artist, String album) {
+		// Make sure the song is already to the library
+		if (!this.containsSong(songTitle, artist, album)) {
+			return false;
+		}
+		for (Song song : songs) {
+			if (song.getArtist().equalsIgnoreCase(artist)
+					&& song.getAlbumTitle().equalsIgnoreCase(album)
+					&& song.getSongTitle().equalsIgnoreCase(songTitle)) {
+					// favorite a song
+					song.markAsFavorite();
+					favoriteSongs.add(song);
+					return true;
+			}			
+		}
+		return false;
+	}
+  
 }

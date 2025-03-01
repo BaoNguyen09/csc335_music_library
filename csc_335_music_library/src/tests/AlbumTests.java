@@ -71,7 +71,7 @@ class AlbumTests {
 		expectedSongList.add(song2);
 		expectedSongList.add(song3);
 		
-		assertIterableEquals(expectedSongList, album.getSongArray(), "getSongs should return a list of song in format: title, artist, album");		
+		assertEquals(expectedSongList.toString(), album.getSongArray().toString(), "getSongs should return a list of song in format: title, artist, album");		
 	}
 	
 	@Test

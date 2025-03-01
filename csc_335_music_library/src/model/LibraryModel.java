@@ -173,7 +173,7 @@ public class LibraryModel {
 			return false;
 		}
 		
-		List<Album> albumWithTitle = store.searchAlbumByTitle(albumTitle);
+		List<Album> albumWithTitle = store.searchAlbumByTitle(albumTitle.toUpperCase());
 		for (Album album : albumWithTitle) {
 			if (album.getArtist().equalsIgnoreCase(artist)) {
 			

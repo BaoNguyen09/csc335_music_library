@@ -193,7 +193,7 @@ public class LibraryModel {
 	
 	/* Adds a playlist to the library. Title must match exactly and is case sensitive.
 	 * 
-	 * @pre playlistTitle
+	 * @pre playlistTitle != null
 	 */
 	public boolean addPlaylist(String playlistTitle) {
 		// Search playlist to make sure it doesn't exist
@@ -207,6 +207,7 @@ public class LibraryModel {
 		return true;
 		
 	}
+	
 	
 	
 	/* Adds a specific song to a specified playlist.
@@ -231,8 +232,6 @@ public class LibraryModel {
 			if (song.getArtist().equalsIgnoreCase(artist) &&
 					song.getAlbumTitle().equalsIgnoreCase(album)) {
 				
-					// add song to song to playlist list
-					playlists.add(playlist);
 					// add song to playlist object
 					playlist.addSongToPlaylist(song);
 					return true;
@@ -242,7 +241,29 @@ public class LibraryModel {
 		
 	}
 	
-	// Search functions
+	/* Removes a specific song from a specified playlist using a given
+	 * index location representing the song index of the playlist song array.
+	 * 
+	 * @pre playlistName != null, location != null
+	 */
+	public boolean removeSongFromPlaylist(String playlistName, int location) {
+		// Search playlist to make sure it exists
+		Playlist playlist = playlistByTitle.get(playlistName);
+		if (playlist == null) {
+			return false;
+		} 
+		
+		// Checks that song location actually one of the song index
+		if (location < 0 || location >= playlist.getSongArray().size()) {
+			return false;
+		}
+		
+		playlist.removeSong(location);
+		return true;
+		
+	}
+	
+	// SEARCH FUNCTIONS
 	
 	/* 
 	 * @pre songTitle != null

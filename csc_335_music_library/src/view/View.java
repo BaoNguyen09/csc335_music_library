@@ -26,7 +26,8 @@ public class View {
 					}
 					if (command == 1) {
 					    searchMusicStore(console, musicStore);
-						showCommandMenu();
+						  showCommandMenu();
+
 					}
 					if (command == 2) {
 						searchLibrary(console, library);
@@ -115,7 +116,7 @@ public class View {
 	    // Keep showing the sub-menu until the user chooses to exit
 	    while (searchChoice != 5) {
 	        System.out.println("""
-	        		
+
 	            Search in Music Store:
 	            1. Search Song By Title
 	            2. Search Song By Artist
@@ -268,6 +269,5 @@ public class View {
 	        }
 	    }
 	}
-	
 
 }

@@ -7,11 +7,13 @@ import java.util.Map;
 import java.util.Optional;
 
 import database.MusicStore;
+import model.Song.Rating;
 
 public class LibraryModel {
   
 	List<Playlist> playlists;
 	List<Song> favoriteSongs;
+	List<Song> songs;
 	private Map<String, List<Song>> songByTitle;
 	private Map<String, List<Song>> songByArtist;
 	private Map<String, List<Album>> albumByTitle;
@@ -26,6 +28,7 @@ public class LibraryModel {
 		albumByTitle = new HashMap<String, List<Album>>();
 		albumByArtist = new HashMap<String, List<Album>>();
 		playlistByTitle = new HashMap<String, Playlist>();
+		songs = new ArrayList<Song>();
 	}
 	
 	public String[] getSongTitles() {
@@ -48,6 +51,21 @@ public class LibraryModel {
 			i++;
 		}
 		return artistList;
+	}
+	
+	public String[] getSongRatings() {
+		int songListLength = songs.size();
+		String[] songList = new String[songListLength];
+		int i = 0;
+		for (Song song: songs) {
+			String title = song.getSongTitle();
+			String albumTitle = song.getAlbumTitle();
+			String artist = song.getArtist();
+			String rating = song.getRating().toString();
+			songList[i] = String.format("%s by %s in album %s - %s", title, artist, albumTitle, rating);
+			i++;
+		}
+		return songList;
 	}
 	
 	/* This helper method capitalize first letter of each word used for all-lowercase artist name */
@@ -96,7 +114,7 @@ public class LibraryModel {
 		String[] songList = new String[songListLength];
 		for (int i = 0; i < songListLength; i++) {
 			Song song = favoriteSongs.get(i);
-			songList[i] = song.toString();
+			songList[i] = song.getSongTitle();
 		}
 		return songList;
 	}
@@ -117,6 +135,7 @@ public class LibraryModel {
 					// add song to songs hashmap
 					addToMapList(songByTitle, songTitle.toUpperCase(), new Song(song));
 					addToMapList(songByArtist, artist.toUpperCase(), new Song(song));
+					songs.add(song); // add to all song list to keep track
 					return true;
 			}			
 		}
@@ -348,4 +367,41 @@ public class LibraryModel {
 		// else it initializes a list for that key value with that value added
 	    map.computeIfAbsent(key, k -> new ArrayList<>()).add(value);
 	}
+	
+	public boolean rateSong(String songTitle, String artist, String album, Rating rating) {
+		// Make sure the song is already to the library
+		if (!this.containsSong(songTitle, artist, album)) {
+			return false;
+		}
+		for (Song song : songs) {
+			if (song.getArtist().equalsIgnoreCase(artist) 
+					&& song.getAlbumTitle().equalsIgnoreCase(album)
+					&& song.getSongTitle().equalsIgnoreCase(songTitle)) {
+				// set rating for song
+				song.setRating(rating);
+				if (rating == Rating.FIVE_STAR) favoriteSongs.add(song);
+				return true;
+			}			
+		}
+		return false;
+	}
+	
+	public boolean markAsFavorite(String songTitle, String artist, String album) {
+		// Make sure the song is already to the library
+		if (!this.containsSong(songTitle, artist, album)) {
+			return false;
+		}
+		for (Song song : songs) {
+			if (song.getArtist().equalsIgnoreCase(artist)
+					&& song.getAlbumTitle().equalsIgnoreCase(album)
+					&& song.getSongTitle().equalsIgnoreCase(songTitle)) {
+					// favorite a song
+					song.markAsFavorite();
+					favoriteSongs.add(song);
+					return true;
+			}			
+		}
+		return false;
+	}
+  
 }

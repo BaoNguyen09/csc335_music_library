@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import database.MusicStore;
 
@@ -192,7 +193,7 @@ public class LibraryModel {
 	
 	/* Adds a playlist to the library. Title must match exactly and is case sensitive.
 	 * 
-	 * @pre store != null, songTitle != null, artist != null, album != null
+	 * @pre playlistTitle
 	 */
 	public boolean addPlaylist(String playlistTitle) {
 		// Search playlist to make sure it doesn't exist
@@ -210,7 +211,7 @@ public class LibraryModel {
 	
 	/* Adds a specific song to a specified playlist.
 	 * 
-	 * @pre store != null, songTitle != null, artist != null, album != null
+	 * @pre playlistName != null, songTitle != null, artist != null, album != null
 	 */
 	public boolean addSongToPlaylist(String playlistName, String songTitle, String artist, String album) {
 		// Search playlist to make sure it exists
@@ -219,10 +220,11 @@ public class LibraryModel {
 			return false;
 		} 
 		
-		// prevents same song from being added twice
-		if (this.containsSong(songTitle, artist, album)) {
+		// Only add songs that are in the library
+		if (!this.containsSong(songTitle, artist, album)) {
 			return false;
 		}
+		
 		
 		List<Song> songsWithTitle = songByTitle.get(songTitle.toUpperCase());
 		for (Song song : songsWithTitle) {
@@ -303,12 +305,18 @@ public class LibraryModel {
 		return listCopy;
 	}
 	
-	/* 
-	 * @pre albumTitle != null
+	/* This method searches for the playlist object based on the playlist title.
+	 * If such a playlist does not exist it would return isempty optional
+	 * variable, else it returns the actual playlist object.
+	 * 
+	 * @pre playlistTitle != null
 	 */
-	public Playlist searchPlaylistByTitle(String playlistTitle) {
-		Playlist playlist = playlistByTitle.get(playlistTitle.toUpperCase());
-		return new Playlist(playlist);
+	public Optional<Playlist> searchPlaylistByTitle(String playlistTitle) {
+		Playlist playlist = playlistByTitle.get(playlistTitle);
+		if (playlist == null){
+			return Optional.empty();
+		}		
+		return Optional.of(new Playlist(playlist));
 	}
 	
 	

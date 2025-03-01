@@ -35,6 +35,8 @@ public class View {
 					}
 					if (command == 3) {
 						System.out.println("Add to library");
+						addSongToLibrary(console, library, musicStore);
+						showCommandMenu();
 					}
 					if (command == 4) {
 						System.out.println("Get a list of items from library");
@@ -259,6 +261,63 @@ public class View {
 	                printAlbum(foundAlbums, artist);
 	            }
 	            case 5 -> {
+	                System.out.println("Returning to Main Menu...");
+	                // The while loop will end because searchChoice == 5
+	            }
+	            default -> {
+	                System.out.println("Invalid choice. Please try again.");
+	            }
+	        }
+	    }
+	}
+	
+	// COMMAND THREE menu options - Used the same code structure as above but
+	// changed to add song to library
+	private static void addSongToLibrary(Scanner console, LibraryModel library, MusicStore store) {
+		int searchChoice = 0;
+	    
+	    // Keep showing the sub-menu until the user chooses to exit
+	    while (searchChoice != 3) {
+	        System.out.println("""
+	        		
+	            Add To Library:
+	            1. A song
+	            2. A whole album
+	            3. Return to Main Menu
+	            """);
+
+	        System.out.print("Enter your search choice: ");
+	        try {
+	            searchChoice = Integer.parseInt(console.nextLine().trim());
+	        } catch (NumberFormatException e) {
+	            System.out.println("Invalid input. Please enter a number 1-3.");
+	            continue;  // re-display the sub-menu
+	        }
+
+	        switch (searchChoice) {
+	            case 1 -> {
+	                System.out.print("Enter the song title: ");
+	                String title = console.nextLine();
+	                System.out.print("Enter the album title: ");
+	                String album = console.nextLine();
+	                System.out.print("Enter the artist name: ");
+	                String artist = console.nextLine();
+	                boolean status = library.addSong(store, title, artist, album);
+	                if (status) System.out.println("Added song successfully!");
+	                else System.out.println("Song wasn't added successfully, make sure song is present in the store");
+	                
+	            }
+	            case 2 -> {
+	                System.out.print("Enter the album title: ");
+	                String album = console.nextLine();
+	                System.out.print("Enter the artist name: ");
+	                String artist = console.nextLine();
+	                boolean status = library.addAlbum(store, album, artist);
+	                if (status) System.out.println("The album was successfully added");
+	                else System.out.println("Album wasn't added successfully, make sure album is present in the store");
+
+	            }
+	            case 3 -> {
 	                System.out.println("Returning to Main Menu...");
 	                // The while loop will end because searchChoice == 5
 	            }

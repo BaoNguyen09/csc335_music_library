@@ -20,7 +20,7 @@ class LibraryModelTests {
 
 	MusicStore store = new MusicStore();
 	LibraryModel library = new LibraryModel();
-	
+
 	// TESTING GETTER METHODS
 	@Test 
 	void testGetSongTitles_CaseInsensitive() {
@@ -108,7 +108,6 @@ class LibraryModelTests {
 		// store, songTitle, artist, and album
 		assertTrue(library.addSong(store, "If I Lose My Mind" , "Dolly Parton", "Coat of Many Colors"));
 		assertFalse(library.addSong(store, "If I Lose My Mind" , "Dolly Parton", "Coat of Many Colors"));
-
 		List<Song> songListByTitle = library.searchSongByTitle("if i lose my mind");
 		List<Song> songListByArtist = library.searchSongByArtist("dolly parton");
 		assertEquals(1, songListByTitle.size());
@@ -116,8 +115,10 @@ class LibraryModelTests {
 		
 		Song expectedSong = new Song("If I Lose My Mind" , "Dolly Parton", "Coat of Many Colors");
 		assertEquals(expectedSong.toString(), songListByTitle.get(0).toString());
-		assertEquals(expectedSong.toString(), songListByArtist.get(0).toString());	
+		assertEquals(expectedSong.toString(), songListByArtist.get(0).toString());
 	}
+	
+	
 	
 	@Test
 	void testAddSongFailToFindSongTitle() {

@@ -9,7 +9,7 @@ import database.MusicStore;
 import model.Song.Rating;
 
 public class LibraryModel {
-	
+  
 	List<Playlist> playlists;
 	List<Song> favoriteSongs;
 	List<Song> songs;
@@ -142,25 +142,26 @@ public class LibraryModel {
 		
 	}
 	
-	/* Helper method to detect if the song already exist in the library.
-	 * 
-	 * @pre songTitle != null, artist != null, album != null
-	 */
-	private boolean containsSong(String songTitle, String artist, String album) {
-		List<Song> songsWithTitleInLib = songByTitle.get(songTitle.toUpperCase());
-		if (songsWithTitleInLib == null) {
-			return false;
-		}
-		for (Song song: songsWithTitleInLib) {
-			if (song.getArtist().equalsIgnoreCase(artist) && 
-					song.getAlbumTitle().equalsIgnoreCase(album)) {
-				return true;
+	
+		/* Helper method to detect if the song already exist in the library.
+		 * 
+		 * @pre songTitle != null, artist != null, album != null
+		 */
+		private boolean containsSong(String songTitle, String artist, String album) {
+			List<Song> songsWithTitleInLib = songByTitle.get(songTitle.toUpperCase());
+			if (songsWithTitleInLib == null) {
+				return false;
 			}
+			for (Song song: songsWithTitleInLib) {
+				if (song.getArtist().equalsIgnoreCase(artist) && 
+						song.getAlbumTitle().equalsIgnoreCase(album)) {
+					return true;
+				}
+			}
+			return false;
+			
 		}
-		return false;
-		
-	}
-
+	
 	/* Adds an album and all its songs to the library.
 	 * 
 	 * @pre songTitle != null, artist != null, album != null

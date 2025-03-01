@@ -329,6 +329,8 @@ public class View {
 	    }
 	}
 	
+	// COMMAND FOUR menu options - Used the same code structure as above but
+	// changed to show items in library
 	private static void showItemsInLibrary(Scanner console, LibraryModel library) {
 		int searchChoice = 0;
 	    
@@ -350,7 +352,7 @@ public class View {
 	        try {
 	            searchChoice = Integer.parseInt(console.nextLine().trim());
 	        } catch (NumberFormatException e) {
-	            System.out.println("Invalid input. Please enter a number 1-3.");
+	            System.out.println("Invalid input. Please enter a number 1-6.");
 	            continue;  // re-display the sub-menu
 	        }
 

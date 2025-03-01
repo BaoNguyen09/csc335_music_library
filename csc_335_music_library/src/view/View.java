@@ -1,11 +1,13 @@
 package view;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Scanner;
 
 import database.MusicStore;
 import model.Album;
 import model.LibraryModel;
+import model.Playlist;
 import model.Song;
 import model.Song.Rating;
 
@@ -518,19 +520,45 @@ public class View {
 	                }
 	            }
 	            case 2 -> {
-	            	System.out.print("Enter the wanted playlist name: ");
+	            	// This part of the code to print out all songs in the playlist was
+	            	// generated using ChatGPT.
+	            	
+	                System.out.print("Enter the playlist name: ");
 	                String playlistName = console.nextLine().trim();
-	                System.out.print("Enter the song location (look at the index next to each song): ");
+
+	                Optional<Playlist> maybePlaylist = library.searchPlaylistByTitle(playlistName);
+	                if (maybePlaylist.isEmpty()) {
+	                    System.out.println("No playlist with that title. Returning to main menu...");
+	                    break; // or return to the sub-menu
+	                }
+
+	                // Get the actual playlist
+	                Playlist playlist = maybePlaylist.get();
+	                List<Song> songs = playlist.getSongArray();
+	                if (songs.isEmpty()) {
+	                    System.out.println("This playlist has no songs.");
+	                    break; // or return to the sub-menu
+	                }
+
+	                // Show the user all songs with their indexes
+	                System.out.println("Songs in \"" + playlistName + "\":");
+	                for (int i = 0; i < songs.size(); i++) {
+	                    System.out.println(i + ": " + songs.get(i).getSongTitle());
+	                }
+
+	                // prompt for the index to remove
+	                System.out.print("Enter the index of the song to remove: ");
 	                int index = Integer.parseInt(console.nextLine().trim());
 
-	                // 'removeSongFromPlaylist' returns true if removed successfully, false if playlist doesn't exist or index is invalid
+	                // removeSongFromPlaylist returns true if successful, false if invalid
 	                boolean removed = library.removeSongFromPlaylist(playlistName, index);
 	                if (removed) {
-	                    System.out.println(String.format("Song was removed successfully to playlist: %s", playlistName));
+	                    System.out.printf("Song was removed successfully from playlist: %s%n", playlistName);
 	                } else {
-	                    System.out.println("Fail: Index isn't valid or playlist doesn't exist");
+	                    System.out.println("Fail: index isn't valid or playlist doesn't exist.");
 	                }
 	            }
+
 	            case 3 -> {
 	                System.out.println("Returning to Main Menu...");
 	            }

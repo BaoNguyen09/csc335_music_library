@@ -7,12 +7,14 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 
 import database.MusicStore;
 import model.Album;
 import model.LibraryModel;
+import model.Playlist;
 import model.Song;
 import model.Song.Rating;
 
@@ -120,31 +122,6 @@ class LibraryModelTests {
 	
 	
 	
-	@Test
-	void testAddSongFailToFindSongTitle() {
-		// store, songTitle, artist, and album
-		assertFalse(library.addSong(store, "Not a song" , "Dolly Parton", "Coat of Many Colors"));
-		List<Song> observedSongList = library.searchSongByTitle("Not a song");
-		assertEquals(0, observedSongList.size());	
-	}
-	
-	@Test
-	void testAddSongFailToFindArtist() {
-		// store, songTitle, artist, and album
-		assertFalse(library.addSong(store, "If I Lose My Mind" , "Not artist", "Coat of Many Colors"));
-		List<Song> observedSongList = library.searchSongByTitle("Not a song");
-		assertEquals(0, observedSongList.size());	
-	}
-
-	@Test
-	void testAddSongFailToFindAlbum() {
-		// store, songTitle, artist, and album
-		assertFalse(library.addSong(store, "If I Lose My Mind" , "Dolly Parton", "not an album"));
-		List<Song> observedSongList = library.searchSongByTitle("Not a song");
-		assertEquals(0, observedSongList.size());	
-	}
-	
-	
 	// TESTING ADD ALBUM
 	
 	@Test
@@ -209,7 +186,137 @@ class LibraryModelTests {
 	    }
 		return songList;
 	}
+
+	// TESTING PLAYLIST METHODS
 	
+	// helper method to ensure that expected string list is what
+	// the observed string list is
+	private boolean testStringListEquals (String[] expected, String[] observed) {
+		for (int i=0; i <expected.length; i++) {
+			if (expected[i] != observed[i]) {
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	@Test
+	void testAddPlaylist() {
+		assertTrue(library.addPlaylist("hello"));
+		String[] expected = new String[1];
+		expected[0] = "hello";
+		
+		// Test that the two string lists are the same
+		assertTrue(testStringListEquals(expected, library.getPlaylistTitles()));
+		
+	}
+	
+	@Test
+	void testAddPlaylistSameName() {
+		assertTrue(library.addPlaylist("hello"));
+		assertFalse(library.addPlaylist("hello"));
+		String[] expected = new String[1];
+		expected[0] = "hello";
+		
+		// Test that the two string lists are the same
+		assertTrue(testStringListEquals(expected, library.getPlaylistTitles()));
+		
+	}
+	
+	@Test
+	void testAddSongToPlaylistFailNoSongInLibrary() {
+		assertTrue(library.addPlaylist("My Playlist 1"));
+		// playlist name, songTitle, artist, album
+		assertFalse(library.addSongToPlaylist("My Playlist 1", "Daylight",
+				"ColdPlay", "A Rush of Blood to the Head"));
+	}
+	
+	@Test
+	void testAddSongToPlaylistSuccess() {
+		assertTrue(library.addPlaylist("My Playlist 1"));
+		library.addSong(store, "Daylight", "Coldplay", "A Rush of Blood to the Head");
+		
+		// playlist name, songTitle, artist, album
+		assertTrue(library.addSongToPlaylist("My Playlist 1", "Daylight",
+				"ColdPlay", "A Rush of Blood to the Head"));
+		
+		// Checks that playlist does exist and it's contents are as expected
+		Optional<Playlist> playlist = library.searchPlaylistByTitle("My Playlist 1");
+		assertTrue(playlist.isPresent());
+		String[] observed = playlist.get().getPlaylistSongs();
+		assertEquals(1, observed.length);
+		
+		String[] expected = new String[1];
+		expected[0] = "Daylight, Coldplay, A Rush of Blood to the Head";
+		assertEquals(expected[0], observed[0]);
+		
+		// Testing adding second song
+		library.addSong(store, "one road to freedom", "ben harper", "fight for Your Mind");
+		
+		// playlist name, songTitle, artist, album
+		assertTrue(library.addSongToPlaylist("My Playlist 1", "one road to Freedom",
+				"ben harper", "fight for your mind"));
+		
+		playlist = library.searchPlaylistByTitle("My Playlist 1");
+		assertTrue(playlist.isPresent());
+		observed = playlist.get().getPlaylistSongs();
+		assertEquals(2, observed.length);
+		
+		expected = new String[2];
+		expected[0] = "Daylight, Coldplay, A Rush of Blood to the Head";
+		expected[1] = "One Road to Freedom, Ben Harper, Fight for Your Mind";
+		assertEquals(expected[0], observed[0]);
+		assertEquals(expected[1], observed[1]);
+	
+	}
+	
+	@Test
+	void testAddSongPlaylistDoesNotExist() {
+		assertFalse(library.addSongToPlaylist("hello", "Daylight",
+				"ColdPlay", "A Rush of Blood to the Head"));
+	};
+	
+	@Test
+	void testSearchPlaylistDoesNotExist() {
+		Optional<Playlist> playlist = library.searchPlaylistByTitle("not a playlist");
+		assertTrue(playlist.isEmpty());
+	};
+	
+	@Test
+	void testRemoveSongFromPlaylistEmpty() {
+		library.addPlaylist("Empty playlist");
+		assertFalse(library.removeSongFromPlaylist("Empty playlist", 0));
+	}
+	
+	@Test
+	void testRemoveSongFromPlaylistDoesNotExist() {
+		assertFalse(library.removeSongFromPlaylist("Not a playlist", 0));
+	}
+	@Test
+	void testRemoveSongFromPlaylistSuccess() {
+		assertTrue(library.addPlaylist("My Playlist 1"));
+		library.addSong(store, "Daylight", "Coldplay", "A Rush of Blood to the Head");
+		
+		// playlist name, songTitle, artist, album
+		assertTrue(library.addSongToPlaylist("My Playlist 1", "Daylight",
+				"ColdPlay", "A Rush of Blood to the Head"));
+		
+		Optional<Playlist> playlist = library.searchPlaylistByTitle("My Playlist 1");
+		String[] observed = playlist.get().getPlaylistSongs();
+		assertEquals(1, observed.length);
+		
+		String[] expected = new String[1];
+		expected[0] = "Daylight, Coldplay, A Rush of Blood to the Head";
+		assertEquals(expected[0], observed[0]);
+		
+		// REMOVE SONG
+		assertTrue(library.removeSongFromPlaylist("My Playlist 1", 0));
+		
+		playlist = library.searchPlaylistByTitle("My Playlist 1");
+		observed = playlist.get().getPlaylistSongs();
+		assertEquals(0, observed.length);
+	}
+
 	@Test 
 	void testRateSong() {
 		library.addSong(store, "If I lose My mind" , "Dolly parton", "Coat of Many Colors");
@@ -239,4 +346,5 @@ class LibraryModelTests {
 		assertEquals(false, containsItem(library.getFavoriteSongs(), "Behind Me Now"), "This song isn't favorite");
 	}
   
+
 }

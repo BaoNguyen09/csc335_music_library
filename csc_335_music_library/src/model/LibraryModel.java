@@ -11,9 +11,9 @@ import model.Song.Rating;
 
 public class LibraryModel {
   
-	List<Playlist> playlists;
-	List<Song> favoriteSongs;
-	List<Song> songs;
+	private List<Playlist> playlists;
+	private List<Song> favoriteSongs;
+	private List<Song> songs;
 	private Map<String, List<Song>> songByTitle;
 	private Map<String, List<Song>> songByArtist;
 	private Map<String, List<Album>> albumByTitle;

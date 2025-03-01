@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import database.MusicStore;
 import model.Song.Rating;
@@ -209,7 +210,79 @@ public class LibraryModel {
 		
 	}
 	
-	// Search functions
+	/* Adds a playlist to the library. Title must match exactly and is case sensitive.
+	 * 
+	 * @pre playlistTitle != null
+	 */
+	public boolean addPlaylist(String playlistTitle) {
+		// Search playlist to make sure it doesn't exist
+		if (playlistByTitle.get(playlistTitle) != null) {
+			return false;
+		}
+		// Create playlist and add it to playlists and hashmap
+		Playlist newPlaylist = new Playlist(playlistTitle);
+		playlists.add(newPlaylist);
+		playlistByTitle.put(playlistTitle, newPlaylist);
+		return true;
+		
+	}
+	
+	
+	
+	/* Adds a specific song to a specified playlist.
+	 * 
+	 * @pre playlistName != null, songTitle != null, artist != null, album != null
+	 */
+	public boolean addSongToPlaylist(String playlistName, String songTitle, String artist, String album) {
+		// Search playlist to make sure it exists
+		Playlist playlist = playlistByTitle.get(playlistName);
+		if (playlist == null) {
+			return false;
+		} 
+		
+		// Only add songs that are in the library
+		if (!this.containsSong(songTitle, artist, album)) {
+			return false;
+		}
+		
+		
+		List<Song> songsWithTitle = songByTitle.get(songTitle.toUpperCase());
+		for (Song song : songsWithTitle) {
+			if (song.getArtist().equalsIgnoreCase(artist) &&
+					song.getAlbumTitle().equalsIgnoreCase(album)) {
+				
+					// add song to playlist object
+					playlist.addSongToPlaylist(song);
+					return true;
+			}			
+		}
+		return false;
+		
+	}
+	
+	/* Removes a specific song from a specified playlist using a given
+	 * index location representing the song index of the playlist song array.
+	 * 
+	 * @pre playlistName != null, location != null
+	 */
+	public boolean removeSongFromPlaylist(String playlistName, int location) {
+		// Search playlist to make sure it exists
+		Playlist playlist = playlistByTitle.get(playlistName);
+		if (playlist == null) {
+			return false;
+		} 
+		
+		// Checks that song location actually one of the song index
+		if (location < 0 || location >= playlist.getSongArray().size()) {
+			return false;
+		}
+		
+		playlist.removeSong(location);
+		return true;
+		
+	}
+	
+	// SEARCH FUNCTIONS
 	
 	/* 
 	 * @pre songTitle != null
@@ -270,6 +343,20 @@ public class LibraryModel {
 			listCopy.add(albumCopy);
 		}
 		return listCopy;
+	}
+	
+	/* This method searches for the playlist object based on the playlist title.
+	 * If such a playlist does not exist it would return isempty optional
+	 * variable, else it returns the actual playlist object.
+	 * 
+	 * @pre playlistTitle != null
+	 */
+	public Optional<Playlist> searchPlaylistByTitle(String playlistTitle) {
+		Playlist playlist = playlistByTitle.get(playlistTitle);
+		if (playlist == null){
+			return Optional.empty();
+		}		
+		return Optional.of(new Playlist(playlist));
 	}
 	
 	

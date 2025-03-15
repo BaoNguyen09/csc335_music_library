@@ -1,0 +1,36 @@
+<project xmlns="https://maven.apache.org/POM/4.0.0" xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>JAVAApplications</groupId>
+  <artifactId>csc_335_music_library</artifactId>
+  <version>Version1</version>
+  
+  <dependencies>
+  	<!-- https://mvnrepository.com/artifact/org.mindrot/jbcrypt -->
+	<dependency>
+   	 	<groupId>org.mindrot</groupId>
+    	<artifactId>jbcrypt</artifactId>
+    	<version>0.4</version>
+	</dependency>
+  </dependencies>
+  
+  <build>
+    <sourceDirectory>src</sourceDirectory>
+    <resources>
+      <resource>
+        <directory>src</directory>
+        <excludes>
+          <exclude>**/*.java</exclude>
+        </excludes>
+      </resource>
+    </resources>
+    <plugins>
+      <plugin>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.13.0</version>
+        <configuration>
+          <release>23</release>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+</project>

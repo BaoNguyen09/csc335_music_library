@@ -14,6 +14,7 @@ public class Song {
 	};
 	private Rating rating;
 	private boolean isFavorite;
+	private int streamCount;
 	
 	/* @pre songTitle != null & artist != null && albumTitle != null */
 	public Song(String songTitle, String artist, String albumTitle) {
@@ -63,10 +64,18 @@ public class Song {
 	public void markAsFavorite() {
 		isFavorite = true;
 	}
+	
+	public int getStreamCount() {
+		return streamCount;
+	}
+	
+	public void updateStreamCount() {
+		streamCount ++;
+	}
 
-  @Override
-  public String toString() {
-    return String.format("%s, %s, %s", songTitle, artist, albumTitle);
-  }
+	@Override
+	public String toString() {
+		return String.format("%s, %s, %s", songTitle, artist, albumTitle);
+	}
     
 }

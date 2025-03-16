@@ -37,9 +37,9 @@ class AlbumTests {
 	
 	@Test
 	void testGetSongsAndAddSong() {
-		Song song1 = new Song("Daydreamer", "Adele", "19");
-		Song song2 = new Song("Best for Last", "Adele", "19");
-		Song song3 = new Song("Tired", "Adele", "19");
+		Song song1 = new Song("Daydreamer", "Adele", "19", "Pop");
+		Song song2 = new Song("Best for Last", "Adele", "19", "Pop");
+		Song song3 = new Song("Tired", "Adele", "19", "Pop");
 		Album album = new Album("19", "Adele", "Pop", "2008");
 		album.addSong(song1);
 		album.addSong(song2);
@@ -58,9 +58,9 @@ class AlbumTests {
 	
 	@Test
 	void testGetSongArray() {
-		Song song1 = new Song("Daydreamer", "Adele", "19");
-		Song song2 = new Song("Best for Last", "Adele", "19");
-		Song song3 = new Song("Tired", "Adele", "19");
+		Song song1 = new Song("Daydreamer", "Adele", "19", "Pop");
+		Song song2 = new Song("Best for Last", "Adele", "19", "Pop");
+		Song song3 = new Song("Tired", "Adele", "19", "Pop");
 		Album album = new Album("19", "Adele", "Pop", "2008");
 		album.addSong(song1);
 		album.addSong(song2);
@@ -81,7 +81,7 @@ class AlbumTests {
 		assertArrayEquals(expectedSongList1, album.getSongs(), "Initially, getSongs return an empty array");
 		
 		Album copyAlbum = new Album(album);
-		Song song = new Song("Daydreamer", "Adele", "19");
+		Song song = new Song("Daydreamer", "Adele", "19", "Pop");
 		album.addSong(song);
 		String[] expectedSongList2 = new String[1];
 		String expectedSong = "Daydreamer, Adele, 19";

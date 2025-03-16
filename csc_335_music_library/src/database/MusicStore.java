@@ -1,7 +1,5 @@
 package database;
 
-import static org.junit.jupiter.api.Assertions.fail;
-
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -149,12 +147,13 @@ public class MusicStore {
             String[] albumInfo = line.strip().split(",");
             String albumTitle = albumInfo[0];
             String artist = albumInfo[1];
-            Album currAlbum = new Album(albumTitle, artist, albumInfo[2], albumInfo[3]);
+            String genre = albumInfo[2];
+            Album currAlbum = new Album(albumTitle, artist, genre, albumInfo[3]);
             
             // For each song line, add it to the album
             while ((line = reader.readLine()) != null) {
                 String songTitle = line.strip();
-                Song currSong = new Song(songTitle, artist, albumTitle);
+                Song currSong = new Song(songTitle, artist, albumTitle, genre);
                 currAlbum.addSong(currSong);
 
                 // Add to the songs map

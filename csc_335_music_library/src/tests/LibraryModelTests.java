@@ -76,7 +76,7 @@ class LibraryModelTests {
 		assertEquals(1, songListByTitle.size());
 		assertEquals(1, songListByTitle.size());
 		
-		Song expectedSong = new Song("If I Lose My Mind" , "Dolly Parton", "Coat of Many Colors");
+		Song expectedSong = new Song("If I Lose My Mind" , "Dolly Parton", "Coat of Many Colors", "Pop");
 		assertEquals(expectedSong.toString(), songListByTitle.get(0).toString());
 		assertEquals(expectedSong.toString(), songListByArtist.get(0).toString());
 	}
@@ -92,14 +92,14 @@ class LibraryModelTests {
 		assertEquals(1, observedSongList.size());
 		assertEquals(1, songListByArtist.size());
 		assertEquals(0, songListByArtist2.size());
-		Song expectedSong = new Song("Lullaby" , "Leonard Cohen", "Old Ideas");
+		Song expectedSong = new Song("Lullaby" , "Leonard Cohen", "Old Ideas", "Pop");
 		assertEquals("["+ expectedSong.toString() + "]", observedSongList.toString());
 		
 		// Testing when adding the dup lullaby song
 		assertTrue(library.addSong(store, "lullaby" , "onerepublic", "waking up"));
 		observedSongList = library.searchSongByTitle("lullaby");
 		assertEquals(2, observedSongList.size());
-		Song secondSong = new Song("Lullaby", "OneRepublic", "Waking Up");
+		Song secondSong = new Song("Lullaby", "OneRepublic", "Waking Up", "Pop");
 		assertEquals("["+ expectedSong.toString() + ", " + secondSong.toString() + "]", 
 				observedSongList.toString());
 
@@ -115,7 +115,7 @@ class LibraryModelTests {
 		assertEquals(1, songListByTitle.size());
 		assertEquals(1, songListByTitle.size());
 		
-		Song expectedSong = new Song("If I Lose My Mind" , "Dolly Parton", "Coat of Many Colors");
+		Song expectedSong = new Song("If I Lose My Mind" , "Dolly Parton", "Coat of Many Colors", "Pop");
 		assertEquals(expectedSong.toString(), songListByTitle.get(0).toString());
 		assertEquals(expectedSong.toString(), songListByArtist.get(0).toString());
 	}

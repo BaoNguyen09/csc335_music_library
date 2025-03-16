@@ -14,8 +14,8 @@ class RecentSongsTests {
 
 	@Test
 	void testGetPlaylistTitle() {
-		RecentSongs playlist = new RecentSongs("My playlist");
-		assertEquals("My playlist", playlist.getPlaylistTitle(), "Playlist Title should be: My playlist");
+		RecentSongs playlist = new RecentSongs();
+		assertEquals("Most Recently Played Songs", playlist.getPlaylistTitle(), "Playlist Title should be: Most Recently Played Songs");
 	}
 	
 	@Test
@@ -23,7 +23,7 @@ class RecentSongsTests {
 		Song song1 = new Song("Daydreamer", "Adele", "19");
 		Song song2 = new Song("Best for Last", "Adele", "19");
 		Song song3 = new Song("Tired", "Adele", "19");
-		RecentSongs playlist = new RecentSongs("My playlist");
+		RecentSongs playlist = new RecentSongs();
 		playlist.addSongToPlaylist(song1);
 		playlist.addSongToPlaylist(song2);
 		playlist.addSongToPlaylist(song3);
@@ -45,7 +45,7 @@ class RecentSongsTests {
 		Song song2 = new Song("Daydreamer", "Adele", "19");
 		Song song3 = new Song("Daydreamer", "Bruno Mars", "19");
 		
-		RecentSongs playlist = new RecentSongs("My playlist");
+		RecentSongs playlist = new RecentSongs();
 		playlist.addSongToPlaylist(song1);
 		playlist.addSongToPlaylist(song3);
 		playlist.addSongToPlaylist(song2); // duplicated song values
@@ -74,7 +74,7 @@ class RecentSongsTests {
 		Song song10 = new Song("Heartbreaker", "Alabama Shakes", "Boys & Girls");
 		Song song11 = new Song("Boys & Girls", "Alabama Shakes", "Boys & Girls");
 
-		RecentSongs playlist = new RecentSongs("My playlist");
+		RecentSongs playlist = new RecentSongs();
 		playlist.addSongToPlaylist(song1);
 		playlist.addSongToPlaylist(song2);
 		playlist.addSongToPlaylist(song3);
@@ -138,7 +138,7 @@ class RecentSongsTests {
 		Song song2 = new Song("Best for Last", "Adele", "19");
 		Song song3 = new Song("Tired", "Adele", "19");
 		
-		RecentSongs playlist = new RecentSongs("My playlist");
+		RecentSongs playlist = new RecentSongs();
 		playlist.addSongToPlaylist(song1);
 		playlist.addSongToPlaylist(song2);
 		playlist.addSongToPlaylist(song3);
@@ -153,8 +153,8 @@ class RecentSongsTests {
 	
 	@Test
 	void testToString() {
-		Playlist playlist = new Playlist("My playlist");
-		assertEquals("My playlist", playlist.toString(), "Playlist info should be the playlist title");
+		RecentSongs playlist = new RecentSongs();
+		assertEquals("Most Recently Played Songs", playlist.toString(), "Playlist info should be the playlist title");
 	}
 
 }

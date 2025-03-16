@@ -7,8 +7,8 @@ import java.util.Queue;
 public class RecentSongs extends Playlist {
 	private Queue<Song> songs;
 	
-	public RecentSongs(String title) {
-		super(title);
+	public RecentSongs() {
+		super("Most Recently Played Songs");
 		songs = new LinkedList<Song>();
 	}
 	

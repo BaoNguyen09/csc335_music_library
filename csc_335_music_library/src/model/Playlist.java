@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Playlist {
 	private String playlistTitle;
-	private List<Song> songs;
+	protected List<Song> songs;
 
 	/* @pre title != null */
 	public Playlist(String title) {

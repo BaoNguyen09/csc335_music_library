@@ -1,5 +1,7 @@
 package model;
 
+import java.util.Objects;
+
 public class Song {
 	private String songTitle;
 	private String artist;
@@ -71,6 +73,23 @@ public class Song {
 	
 	public void updateStreamCount() {
 		streamCount ++;
+	}
+	
+	@Override
+	public boolean equals(Object song) {
+		if (song == null) return false;
+		if (this == song) return true;
+		if (this.getClass() != song.getClass()) return false;
+		Song other = (Song) song;
+		return this.getSongTitle().equals(other.getSongTitle())
+				&& this.getAlbumTitle().equals(other.getAlbumTitle())
+				&& this.getArtist().equals(other.getArtist());
+	
+	}
+	
+	@Override
+	public int hashCode() {
+		return Objects.hash(this.getSongTitle(), this.getAlbumTitle(), this.getArtist());
 	}
 
 	@Override

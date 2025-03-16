@@ -16,7 +16,7 @@ public class Song {
 	};
 	private Rating rating;
 	private boolean isFavorite;
-	private int streamCount;
+	private Integer streamCount;
 	
 	/* @pre songTitle != null & artist != null && albumTitle != null */
 	public Song(String songTitle, String artist, String albumTitle) {
@@ -67,7 +67,7 @@ public class Song {
 		isFavorite = true;
 	}
 	
-	public int getStreamCount() {
+	public Integer getStreamCount() {
 		return streamCount;
 	}
 	

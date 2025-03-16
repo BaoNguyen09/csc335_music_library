@@ -42,16 +42,8 @@ public class Playlist {
 	}
 	
 	public void addSongToPlaylist(Song song) {
-		// Check if Song instances is duplicated (shallow check)
+		// Check if Song instances is duplicated (deep check)
 		if (!songs.contains(song)) {
-			// Compare song's values with each other (deep check)
-			for (Song songItem: songs) {
-				if (songItem.getSongTitle().equals(song.getSongTitle())
-						&& songItem.getAlbumTitle().equals(song.getAlbumTitle())
-						&& songItem.getArtist().equals(song.getArtist())) {
-					return; // stop if spot duplicated song
-				}
-			}
 			songs.add(new Song(song));
 		}
 	}

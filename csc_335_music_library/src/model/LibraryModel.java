@@ -16,6 +16,7 @@ public class LibraryModel {
 	private List<Song> songs;
 	private Map<String, List<Song>> songByTitle;
 	private Map<String, List<Song>> songByArtist;
+	private Map<String, List<Song>> songByGenre;
 	private Map<String, List<Album>> albumByTitle;
 	private Map<String, List<Album>> albumByArtist;
 	private Map<String, Playlist> playlistByTitle;
@@ -25,6 +26,7 @@ public class LibraryModel {
 		favoriteSongs = new ArrayList<Song>();
 		songByTitle = new HashMap<String, List<Song>>();
 		songByArtist = new HashMap<String, List<Song>>();
+		songByGenre = new HashMap<String, List<Song>>();
 		albumByTitle = new HashMap<String, List<Album>>();
 		albumByArtist = new HashMap<String, List<Album>>();
 		playlistByTitle = new HashMap<String, Playlist>();
@@ -131,12 +133,13 @@ public class LibraryModel {
 		List<Song> songsWithTitle = store.searchSongByTitle(songTitle);
 		for (Song song : songsWithTitle) {
 			if (song.getArtist().equalsIgnoreCase(artist) &&
-					song.getAlbumTitle().equalsIgnoreCase(album)) {
-					// add song to songs hashmap
-					addToMapList(songByTitle, songTitle.toUpperCase(), new Song(song));
-					addToMapList(songByArtist, artist.toUpperCase(), new Song(song));
-					songs.add(song); // add to all song list to keep track
-					return true;
+				song.getAlbumTitle().equalsIgnoreCase(album)) {
+				// add song to songs hashmap
+				addToMapList(songByTitle, songTitle.toUpperCase(), new Song(song));
+				addToMapList(songByArtist, artist.toUpperCase(), new Song(song));
+				addToMapList(songByGenre, song.getGenre().toUpperCase(), new Song(song));
+				songs.add(song); // add to all song list to keep track
+				return true;
 			}			
 		}
 		return false;
@@ -298,6 +301,14 @@ public class LibraryModel {
 	public List<Song> searchSongByArtist(String artist) {
 		List<Song> songsWithArtist = songByArtist.get(artist.toUpperCase());
 		return copySongsList(songsWithArtist);
+	}
+	
+	/* 
+	 * @pre genre != null
+	 */
+	public List<Song> searchSongByGenre(String genre) {
+		List<Song> songsWithGenre = songByGenre.get(genre.toUpperCase());
+		return copySongsList(songsWithGenre);
 	}
 	
 

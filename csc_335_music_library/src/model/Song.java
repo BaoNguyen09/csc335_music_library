@@ -25,6 +25,7 @@ public class Song {
 		this.albumTitle = albumTitle;
 		rating = Rating.UNRATED;
 		isFavorite = false;
+		streamCount = 0;
 	}
 	
 	/* Copy constructor */
@@ -34,6 +35,7 @@ public class Song {
 		this.albumTitle = anotherSong.getAlbumTitle();
 		rating = anotherSong.getRating();
 		isFavorite = anotherSong.isFavorite();
+		streamCount = anotherSong.getStreamCount();
 	}
 	
 	public String getSongTitle() {

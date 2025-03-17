@@ -96,9 +96,10 @@ public class View {
 							2. Search in Library
 								a. for a song by title
 								b. for a song by artist
-								c. for an album by title
-								d. for an album by artist
-								e. for a playlist by title
+								c. for a song by genre
+								d. for an album by title
+								e. for an album by artist
+								f. for a playlist by title
 							3. Add to library
 								a. song
 								b. album (with all the songs)
@@ -231,17 +232,18 @@ public class View {
 	            Search in Music Library:
 	            1. Search Song By Title
 	            2. Search Song By Artist
-	            3. Search Album By Title
-	            4. Search Album By Artist
-	            5. Search Playlist by Title
-	            6. Return to Main Menu
+	            3. Search Song by Genre
+	            4. Search Album By Title
+	            5. Search Album By Artist
+	            6. Search Playlist by Title
+	            7. Return to Main Menu
 	            """);
 
 	        System.out.print("Enter your search choice: ");
 	        try {
 	            searchChoice = Integer.parseInt(console.nextLine().trim());
 	        } catch (NumberFormatException e) {
-	            System.out.println("Invalid input. Please enter a number 1-6.");
+	            System.out.println("Invalid input. Please enter a number 1-7.");
 	            continue;  // re-display the sub-menu
 	        }
 
@@ -261,18 +263,24 @@ public class View {
 
 	            }
 	            case 3 -> {
+	                System.out.print("Enter the genre title: ");
+	                String genre = console.nextLine();
+	                List<Song> foundSongs = library.searchSongByGenre(genre);
+	                printSong(foundSongs, genre);
+	            }
+	            case 4 -> {
 	                System.out.print("Enter the album title: ");
 	                String albumTitle = console.nextLine();
 	                List<Album> foundAlbums = library.searchAlbumByTitle(albumTitle);
 	                printAlbum(foundAlbums, albumTitle);
 	            }
-	            case 4 -> {
+	            case 5 -> {
 	                System.out.print("Enter the artist name: ");
 	                String artist = console.nextLine();
 	                List<Album> foundAlbums = library.searchAlbumByArtist(artist);
 	                printAlbum(foundAlbums, artist);
 	            }
-	            case 5 -> {
+	            case 6 -> {
 	                System.out.print("Enter the playlist title: ");
 	                String playlistTitle = console.nextLine();
 	                Optional<Playlist> maybePlaylist = library.searchPlaylistByTitle(playlistTitle);
@@ -295,7 +303,7 @@ public class View {
 	                    System.out.println(i + ": " + songs.get(i).getSongTitle());
 	                }
 	            }
-	            case 6 -> {
+	            case 7 -> {
 	                System.out.println("Returning to Main Menu...");
 	                // The while loop will end because searchChoice == 5
 	            }

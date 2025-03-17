@@ -11,7 +11,8 @@ public class MostPlayedSongs extends Playlist{
 	
 	@Override
 	public void addSongToPlaylist(Song song) {
-		int lowestStreamCount = songs.get(0).getStreamCount();
+		int lowestStreamCount = 0;
+		if (songs.size() > 0) lowestStreamCount = songs.get(0).getStreamCount();
 		
 		// Check if Song instances is already added (deep check)
 		if (!songs.contains(song)) {

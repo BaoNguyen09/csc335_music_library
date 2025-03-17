@@ -28,7 +28,7 @@ public class MusicStore {
 		try {
 			processAlbums();
 		} catch (IOException e) {
-			throw new RuntimeException("Failed to process albums.txt");
+			throw new RuntimeException(e.getMessage());
 		}
 	}
 	

@@ -226,7 +226,7 @@ public class View {
 	    int searchChoice = 0;
 	    
 	    // Keep showing the sub-menu until the user chooses to exit
-	    while (searchChoice != 6) {
+	    while (searchChoice != 7) {
 	        System.out.println("""
 	        		
 	            Search in Music Library:
@@ -305,7 +305,7 @@ public class View {
 	            }
 	            case 7 -> {
 	                System.out.println("Returning to Main Menu...");
-	                // The while loop will end because searchChoice == 5
+	                // The while loop will end because searchChoice == 7
 	            }
 	            default -> {
 	                System.out.println("Invalid choice. Please try again.");

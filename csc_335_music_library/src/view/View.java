@@ -16,6 +16,7 @@ import model.User;
 public class View {
 	public static void main(String[] args) {
 	    UserStorage storage = new UserStorage();
+	    MusicStore musicStore = new MusicStore();
 	    // Create a single Scanner for the entire program.
 	    Scanner scanner = new Scanner(System.in);
 	    
@@ -28,7 +29,6 @@ public class View {
 	        }
 	    
 	        LibraryModel library = currentUser.getLibrary();
-	        MusicStore musicStore = new MusicStore();
 	        showCommandMenu();
 	        int command = 0;
 	    
@@ -115,7 +115,7 @@ public class View {
                 continue;
             }
             if (choice == 3) {
-            	System.out.println("Exiting the program...");
+            	System.out.println("Program closed.");
             	System.exit(1);
             }
             if (choice == 1 || choice == 2) {
@@ -134,26 +134,25 @@ public class View {
             User user = storage.loadUser(username, password);
             if (user != null) {
                 System.out.println("Login successful!");
-                return user;
             } else {
                 System.out.println("Invalid credentials.");
-                return null;
             }
+            return user;
         } else { // choice == 2
             boolean created = storage.createUser(username, password);
             if (created) {
                 System.out.println("Account created successfully!");
-                return storage.loadUser(username, password);
             } else {
                 System.out.println("User with that username already exists. Please try logging in.");
-                return storage.loadUser(username, password);
             }
+            return storage.loadUser(username, password);
         }
     }
 
 	
 	public static void showCommandMenu() {
 		System.out.println( """
+				
 							Welcome to Music Library App!
 							Below are available commands. To call any, please enter the correct index:
 							0. Print the command menu

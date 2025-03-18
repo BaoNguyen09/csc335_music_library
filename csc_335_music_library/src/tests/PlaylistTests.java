@@ -19,8 +19,8 @@ class PlaylistTests {
 	
 	@Test
 	void testRemoveSong() {
-		Song song1 = new Song("Daydreamer", "Adele", "19");
-		Song song2 = new Song("Best for Last", "Adele", "19");
+		Song song1 = new Song("Daydreamer", "Adele", "19", "Pop");
+		Song song2 = new Song("Best for Last", "Adele", "19", "Pop");
 		
 		Playlist playlist = new Playlist("My playlist");
 		playlist.addSongToPlaylist(song1);
@@ -44,9 +44,9 @@ class PlaylistTests {
 	}
 
 	void testGetSongsAndAddSong() {
-		Song song1 = new Song("Daydreamer", "Adele", "19");
-		Song song2 = new Song("Best for Last", "Adele", "19");
-		Song song3 = new Song("Tired", "Adele", "19");
+		Song song1 = new Song("Daydreamer", "Adele", "19", "Pop");
+		Song song2 = new Song("Best for Last", "Adele", "19", "Pop");
+		Song song3 = new Song("Tired", "Adele", "19", "Pop");
 		Playlist playlist = new Playlist("My playlist");
 		playlist.addSongToPlaylist(song1);
 		playlist.addSongToPlaylist(song2);
@@ -65,9 +65,9 @@ class PlaylistTests {
 	
 	@Test
 	void testAddSongDuplicatedSong() {
-		Song song1 = new Song("Daydreamer", "Adele", "19");
-		Song song2 = new Song("Daydreamer", "Adele", "19");
-		Song song3 = new Song("Daydreamer", "Bruno Mars", "19");
+		Song song1 = new Song("Daydreamer", "Adele", "19", "Pop");
+		Song song2 = new Song("Daydreamer", "Adele", "19", "Pop");
+		Song song3 = new Song("Daydreamer", "Bruno Mars", "19", "Pop");
 		
 		Playlist playlist = new Playlist("My playlist");
 		playlist.addSongToPlaylist(song1);
@@ -86,9 +86,9 @@ class PlaylistTests {
 	
 	@Test
 	void testGetSongArray() {
-		Song song1 = new Song("Daydreamer", "Adele", "19");
-		Song song2 = new Song("Best for Last", "Adele", "19");
-		Song song3 = new Song("Tired", "Adele", "19");
+		Song song1 = new Song("Daydreamer", "Adele", "19", "Pop");
+		Song song2 = new Song("Best for Last", "Adele", "19", "Pop");
+		Song song3 = new Song("Tired", "Adele", "19", "Pop");
 		
 		Playlist playlist = new Playlist("My playlist");
 		playlist.addSongToPlaylist(song1);

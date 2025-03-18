@@ -76,11 +76,10 @@ class LibraryModelTests {
 		assertEquals(1, songListByTitle.size());
 		assertEquals(1, songListByTitle.size());
 		
-		Song expectedSong = new Song("If I Lose My Mind" , "Dolly Parton", "Coat of Many Colors");
+		Song expectedSong = new Song("If I Lose My Mind" , "Dolly Parton", "Coat of Many Colors", "Pop");
 		assertEquals(expectedSong.toString(), songListByTitle.get(0).toString());
 		assertEquals(expectedSong.toString(), songListByArtist.get(0).toString());
 	}
-	
 	
 	@Test
 	void testAddSongSameTitle() {
@@ -92,19 +91,20 @@ class LibraryModelTests {
 		assertEquals(1, observedSongList.size());
 		assertEquals(1, songListByArtist.size());
 		assertEquals(0, songListByArtist2.size());
-		Song expectedSong = new Song("Lullaby" , "Leonard Cohen", "Old Ideas");
+		Song expectedSong = new Song("Lullaby" , "Leonard Cohen", "Old Ideas", "Pop");
 		assertEquals("["+ expectedSong.toString() + "]", observedSongList.toString());
 		
 		// Testing when adding the dup lullaby song
 		assertTrue(library.addSong(store, "lullaby" , "onerepublic", "waking up"));
 		observedSongList = library.searchSongByTitle("lullaby");
 		assertEquals(2, observedSongList.size());
-		Song secondSong = new Song("Lullaby", "OneRepublic", "Waking Up");
+		Song secondSong = new Song("Lullaby", "OneRepublic", "Waking Up", "Pop");
 		assertEquals("["+ expectedSong.toString() + ", " + secondSong.toString() + "]", 
 				observedSongList.toString());
 
 		
 	}
+	
 	@Test
 	void testAddSongNoDuplication() {
 		// store, songTitle, artist, and album
@@ -115,7 +115,7 @@ class LibraryModelTests {
 		assertEquals(1, songListByTitle.size());
 		assertEquals(1, songListByTitle.size());
 		
-		Song expectedSong = new Song("If I Lose My Mind" , "Dolly Parton", "Coat of Many Colors");
+		Song expectedSong = new Song("If I Lose My Mind" , "Dolly Parton", "Coat of Many Colors", "Pop");
 		assertEquals(expectedSong.toString(), songListByTitle.get(0).toString());
 		assertEquals(expectedSong.toString(), songListByArtist.get(0).toString());
 	}
@@ -292,6 +292,7 @@ class LibraryModelTests {
 	void testRemoveSongFromPlaylistDoesNotExist() {
 		assertFalse(library.removeSongFromPlaylist("Not a playlist", 0));
 	}
+	
 	@Test
 	void testRemoveSongFromPlaylistSuccess() {
 		assertTrue(library.addPlaylist("My Playlist 1"));
@@ -347,4 +348,15 @@ class LibraryModelTests {
 	}
   
 
+	@Test
+	void testSearchSongByGenre() {
+		// store, songTitle, artist, and album
+		assertTrue(library.addSong(store, "If I Lose My Mind" , "Dolly Parton", "Coat of Many Colors")); // genre: Traditional Country
+		assertTrue(library.addSong(store, "daydreamer" , "Adele", "19")); // genre: Pop
+		
+		Song expectedSong = new Song("If I Lose My Mind" , "Dolly Parton", "Coat of Many Colors", "Traditional Country");
+		Song expectedSong2 = new Song("Daydreamer" , "Adele", "19", "Pop");
+		assertEquals(expectedSong.toString(), library.searchSongByGenre("traditional country").get(0).toString());
+		assertEquals(expectedSong2.toString(), library.searchSongByGenre("pop").get(0).toString());
+	}
 }

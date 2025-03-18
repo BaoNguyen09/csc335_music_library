@@ -19,7 +19,11 @@ public class MostPlayedSongs extends Playlist{
 			// if stream count of this new song >= lowestStreamCount, add it to the list
 			if (song.getStreamCount() >= lowestStreamCount || songs.size() <= 10) songs.add(song);
 			else return;
-		} 
+		} else {
+			// this is to cover case where song already exists but the new version has updated stream count
+			songs.remove(song);
+			songs.add(song);
+		}
 		
 		// Sort this song list again to update the order with new stream count
 		Collections.sort(songs, new Comparator<Song>(){

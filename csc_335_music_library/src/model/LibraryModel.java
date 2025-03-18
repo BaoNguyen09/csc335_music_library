@@ -133,8 +133,8 @@ public class LibraryModel {
 			if (song.getArtist().equalsIgnoreCase(artist) &&
 					song.getAlbumTitle().equalsIgnoreCase(album)) {
 					// add song to songs hashmap
-					addToMapList(songByTitle, songTitle.toUpperCase(), new Song(song));
-					addToMapList(songByArtist, artist.toUpperCase(), new Song(song));
+					addToMapList(songByTitle, songTitle.toUpperCase(), song);
+					addToMapList(songByArtist, artist.toUpperCase(), song);
 					songs.add(song); // add to all song list to keep track
 					return true;
 			}			
@@ -289,7 +289,10 @@ public class LibraryModel {
 	 */
 	public List<Song> searchSongByTitle(String songTitle) {
 		List<Song> songsWithTitle = songByTitle.get(songTitle.toUpperCase());
-		return copySongsList(songsWithTitle);
+		if (songsWithTitle == null) {
+			return new ArrayList<Song>();
+		}
+		return songsWithTitle;
 	}
 	
 	/* 

@@ -19,6 +19,8 @@ public class LibraryModel {
 	private Map<String, List<Album>> albumByTitle;
 	private Map<String, List<Album>> albumByArtist;
 	private Map<String, Playlist> playlistByTitle;
+	private MostPlayedSongs mostPlayedSongs;
+	private RecentSongs recentSongs;
 	
 	public LibraryModel() {
 		playlists = new ArrayList<Playlist>();
@@ -29,6 +31,8 @@ public class LibraryModel {
 		albumByArtist = new HashMap<String, List<Album>>();
 		playlistByTitle = new HashMap<String, Playlist>();
 		songs = new ArrayList<Song>();
+		mostPlayedSongs = new MostPlayedSongs();
+		recentSongs = new RecentSongs();
 	}
 	
 	public String[] getSongTitles() {
@@ -133,8 +137,8 @@ public class LibraryModel {
 			if (song.getArtist().equalsIgnoreCase(artist) &&
 					song.getAlbumTitle().equalsIgnoreCase(album)) {
 					// add song to songs hashmap
-					addToMapList(songByTitle, songTitle.toUpperCase(), new Song(song));
-					addToMapList(songByArtist, artist.toUpperCase(), new Song(song));
+					addToMapList(songByTitle, songTitle.toUpperCase(), song);
+					addToMapList(songByArtist, artist.toUpperCase(), song);
 					songs.add(song); // add to all song list to keep track
 					return true;
 			}			
@@ -144,24 +148,24 @@ public class LibraryModel {
 	}
 	
 	
-		/* Helper method to detect if the song already exist in the library.
-		 * 
-		 * @pre songTitle != null, artist != null, album != null
-		 */
-		private boolean containsSong(String songTitle, String artist, String album) {
-			List<Song> songsWithTitleInLib = songByTitle.get(songTitle.toUpperCase());
-			if (songsWithTitleInLib == null) {
-				return false;
-			}
-			for (Song song: songsWithTitleInLib) {
-				if (song.getArtist().equalsIgnoreCase(artist) && 
-						song.getAlbumTitle().equalsIgnoreCase(album)) {
-					return true;
-				}
-			}
+	/* Helper method to detect if the song already exist in the library.
+	 * 
+	 * @pre songTitle != null, artist != null, album != null
+	 */
+	private boolean containsSong(String songTitle, String artist, String album) {
+		List<Song> songsWithTitleInLib = songByTitle.get(songTitle.toUpperCase());
+		if (songsWithTitleInLib == null) {
 			return false;
-			
 		}
+		for (Song song: songsWithTitleInLib) {
+			if (song.getArtist().equalsIgnoreCase(artist) && 
+					song.getAlbumTitle().equalsIgnoreCase(album)) {
+				return true;
+			}
+		}
+		return false;
+		
+	}
 	
 	/* Adds an album and all its songs to the library.
 	 * 
@@ -402,6 +406,36 @@ public class LibraryModel {
 			}			
 		}
 		return false;
+	}
+	
+	// This function will find an existing song object in library and update the stream count
+	public void updateStreamCount(Song song) {
+		for (Song internalSong: songs) {
+			if (internalSong.equals(song)) {
+				internalSong.updateStreamCount();
+				return;
+			}
+		}
+		
+	}
+	
+	// This function is to update these two playlists with a recently played song in library and new stream count
+	public void playSong(Song song) {
+		for (Song internalSong: songs) {
+			if (internalSong.equals(song)) {
+				recentSongs.addSongToPlaylist(new Song(song));
+				mostPlayedSongs.addSongToPlaylist(new Song(song));
+				return;
+			}
+		}
+	}
+	
+	public List<Song> getRecentSongs() {
+		return copySongsList(recentSongs.getSongArray());
+	}
+	
+	public List<Song> getMostPlayedSongs() {
+		return copySongsList(mostPlayedSongs.getSongArray());
 	}
   
 }

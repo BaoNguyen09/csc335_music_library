@@ -17,7 +17,7 @@ public class MostPlayedSongs extends Playlist{
 		// Check if Song instances is already added (deep check)
 		if (!songs.contains(song)) {
 			// if stream count of this new song >= lowestStreamCount, add it to the list
-			if (song.getStreamCount() >= lowestStreamCount || songs.size() <= 10) songs.add(song);
+			if (song.getStreamCount() >= lowestStreamCount || songs.size() < 10) songs.add(song);
 			else return;
 		} 
 		

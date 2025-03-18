@@ -32,3 +32,7 @@ tmp/
 local.properties
 .loadpath
 .factorypath
+/target/
+
+# JSON files
+./src/database/users/*.json

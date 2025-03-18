@@ -5,86 +5,155 @@ import java.util.Optional;
 import java.util.Scanner;
 
 import database.MusicStore;
+import database.UserStorage;
 import model.Album;
 import model.LibraryModel;
 import model.Playlist;
 import model.Song;
 import model.Song.Rating;
+import model.User;
 
 public class View {
 	public static void main(String[] args) {
-		LibraryModel library = new LibraryModel();
-		MusicStore musicStore = new MusicStore();
-		showCommandMenu();
-		int command = 0;
-		
-		try (Scanner console = new Scanner(System.in)) {
-			// program loop
-			while (command != 9) {
-				try {
-					System.out.print("Enter your command (in int): ");
-					command = Integer.valueOf(console.nextLine());
-					if (command == 0) {
-						showCommandMenu();
-					}
-					if (command == 1) {
-					    searchMusicStore(console, musicStore);
-						showCommandMenu();
-
-					}
-					if (command == 2) {
-						searchLibrary(console, library);
-						showCommandMenu();
-
-					}
-					if (command == 3) {
-						addSongToLibrary(console, library, musicStore);
-						showCommandMenu();
-					}
-					if (command == 4) {
-						showItemsInLibrary(console, library);
-						showCommandMenu();
-						
-					}
-					if (command == 5) {
-						createPlayList(console, library);
-						showCommandMenu();
-
-					}
-					if (command == 6) {
-						addOrRemoveSongFromPlaylist(console, library);
-						showCommandMenu();
-					}
-					if (command == 7) {
-						markSongAsFavorite(console, library);
-						showCommandMenu();
-					}
-					if (command == 8) {
-						rateSong(console, library);
-						showCommandMenu();
-					}
-					if (command > 9 || command < 0) {
-						System.out.println("Please enter valid command");
-					}
-					if (command == 9) {
-						System.out.println("Exiting the program...");
-						break;
-					}
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-			console.close();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		System.out.println("Program closed. Thank you!");
+	    UserStorage storage = new UserStorage();
+	    MusicStore musicStore = new MusicStore();
+	    // Create a single Scanner for the entire program.
+	    Scanner scanner = new Scanner(System.in);
+	    
+	    while (true) {
+	        // CREATING ACCOUNT/LOGGING IN
+	        User currentUser = authenticateUser(scanner, storage);
+	        while (currentUser == null) {
+	            System.out.println("Authentication failed. Please Retry.");
+	            currentUser = authenticateUser(scanner, storage);
+	        }
+	    
+	        LibraryModel library = currentUser.getLibrary();
+	        showCommandMenu();
+	        int command = 0;
+	    
+	        // MENU OPTIONS FOR USER
+	        // Use the same scanner instance for commands.
+	        while (command != 9) {
+	            try {
+	                System.out.print("Enter your command (in int): ");
+	                command = Integer.valueOf(scanner.nextLine());
+	                if (command == 0) {
+	                    showCommandMenu();
+	                }
+	                if (command == 1) {
+	                    searchMusicStore(scanner, musicStore);
+	                    showCommandMenu();
+	                }
+	                if (command == 2) {
+	                    searchLibrary(scanner, library);
+	                    showCommandMenu();
+	                }
+	                if (command == 3) {
+	                    addSongToLibrary(scanner, library, musicStore);
+	                    showCommandMenu();
+	                }
+	                if (command == 4) {
+	                    showItemsInLibrary(scanner, library);
+	                    showCommandMenu();
+	                }
+	                if (command == 5) {
+	                    createPlayList(scanner, library);
+	                    showCommandMenu();
+	                }
+	                if (command == 6) {
+	                    addOrRemoveSongFromPlaylist(scanner, library);
+	                    showCommandMenu();
+	                }
+	                if (command == 7) {
+	                    markSongAsFavorite(scanner, library);
+	                    showCommandMenu();
+	                }
+	                if (command == 8) {
+	                    rateSong(scanner, library);
+	                    showCommandMenu();
+	                }
+	                if (command > 9 || command < 0) {
+	                    System.out.println("Please enter valid command");
+	                }
+	                if (command == 9) {
+	                    // Updating the user music library and saving the updated user data to database
+	                    currentUser.updateLibrary(library);
+	                    storage.saveUser(currentUser);
+	                    System.out.println("Saving and logging out...");
+	                    break;
+	                }
+	            } catch (Exception e) {
+	                e.printStackTrace();
+	            }
+	        }
+	        // The outer loop continues and prompts for authentication again.
+	    }
+	    // scanner.close(); // You could close it here when exiting the program.
 	}
+
 	
+    /**
+     * Handles user authentication by prompting for login or account creation.
+     * @param scanner the Scanner used for user input
+     * @param storage the UserStorage instance for loading/creating users
+     * @return the authenticated User, or null if authentication fails
+     */
+    private static User authenticateUser(Scanner scanner, UserStorage storage) {
+        System.out.println("\nWelcome! Do you want to:");
+        System.out.println("1. Log in");
+        System.out.println("2. Create a new account");
+        System.out.println("3. Exit Program");
+        
+        int choice = 0;
+        while (true) {
+            System.out.print("Enter your command (int): ");
+            try {
+                choice = Integer.parseInt(scanner.nextLine());
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid input, please enter 1 or 2.");
+                continue;
+            }
+            if (choice == 3) {
+            	System.out.println("Program closed.");
+            	System.exit(1);
+            }
+            if (choice == 1 || choice == 2) {
+                break;
+            } else {
+                System.out.println("Invalid choice. Please choose 1 for login or 2 for account creation.");
+            }
+        }
+        
+        System.out.print("Enter username: ");
+        String username = scanner.nextLine().trim();
+        System.out.print("Enter password: ");
+        String password = scanner.nextLine().trim();
+        
+        if (choice == 1) {
+            User user = storage.loadUser(username, password);
+            if (user != null) {
+                System.out.println("Login successful!");
+            } else {
+                System.out.println("Invalid credentials.");
+            }
+            return user;
+        } else { // choice == 2
+            boolean created = storage.createUser(username, password);
+            if (created) {
+                System.out.println("Account created successfully!");
+            } else {
+                System.out.println("User with that username already exists. Please try logging in.");
+                return null;
+            }
+            return storage.loadUser(username, password);
+        }
+    }
+
 	
 	public static void showCommandMenu() {
 		System.out.println( """
+				
 							Welcome to Music Library App!
 							Below are available commands. To call any, please enter the correct index:
 							0. Print the command menu
@@ -114,7 +183,7 @@ public class View {
 							6. Add/remove a song from playlist
 							7. Mark a song as "favorite"
 							8. Rate a song
-							9. Exit
+							9. Save and Log Out
 							
 							""");
 	}

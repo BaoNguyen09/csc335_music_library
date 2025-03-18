@@ -33,6 +33,18 @@ public class LibraryModel {
 		songs = new ArrayList<Song>();
 	}
 	
+	// copy constructor for the libraryModel
+	public LibraryModel(LibraryModel otherLibrary) {
+		playlists = otherLibrary.playlists;
+		favoriteSongs = otherLibrary.favoriteSongs;
+		songByTitle = otherLibrary.songByTitle;
+		songByArtist =  otherLibrary.songByArtist;
+		albumByTitle = otherLibrary.albumByTitle;
+		albumByArtist = otherLibrary.albumByArtist;
+		playlistByTitle = otherLibrary.playlistByTitle;
+		songs = otherLibrary.songs;
+	}
+	
 	public String[] getSongTitles() {
 		int songListLength = songByTitle.size();
 		String[] songList = new String[songListLength];

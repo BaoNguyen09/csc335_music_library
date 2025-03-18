@@ -293,10 +293,7 @@ public class LibraryModel {
 	 */
 	public List<Song> searchSongByTitle(String songTitle) {
 		List<Song> songsWithTitle = songByTitle.get(songTitle.toUpperCase());
-		if (songsWithTitle == null) {
-			return new ArrayList<Song>();
-		}
-		return songsWithTitle;
+		return copySongsList(songsWithTitle);
 	}
 	
 	/* 

@@ -1,5 +1,7 @@
 package model;
 
+import java.util.Objects;
+
 public class Song {
 	private String songTitle;
 	private String artist;
@@ -15,6 +17,7 @@ public class Song {
 	};
 	private Rating rating;
 	private boolean isFavorite;
+	private Integer streamCount;
 	
 	/* @pre songTitle != null & artist != null && albumTitle != null */
 	public Song(String songTitle, String artist, String albumTitle, String genre) {
@@ -24,6 +27,7 @@ public class Song {
 		this.genre = genre;
 		rating = Rating.UNRATED;
 		isFavorite = false;
+		streamCount = 0;
 	}
 	
 	/* Copy constructor */
@@ -34,6 +38,7 @@ public class Song {
 		this.genre = anotherSong.getGenre();
 		rating = anotherSong.getRating();
 		isFavorite = anotherSong.isFavorite();
+		streamCount = anotherSong.getStreamCount();
 	}
 	
 	public String getSongTitle() {
@@ -70,10 +75,35 @@ public class Song {
 	public void markAsFavorite() {
 		isFavorite = true;
 	}
+	
+	public Integer getStreamCount() {
+		return streamCount;
+	}
+	
+	public void updateStreamCount() {
+		streamCount ++;
+	}
+	
+	@Override
+	public boolean equals(Object song) {
+		if (song == null) return false;
+		if (this == song) return true;
+		if (this.getClass() != song.getClass()) return false;
+		Song other = (Song) song;
+		return this.getSongTitle().equals(other.getSongTitle())
+				&& this.getAlbumTitle().equals(other.getAlbumTitle())
+				&& this.getArtist().equals(other.getArtist());
+	
+	}
+	
+	@Override
+	public int hashCode() {
+		return Objects.hash(this.getSongTitle(), this.getAlbumTitle(), this.getArtist());
+	}
 
-  @Override
-  public String toString() {
-    return String.format("%s, %s, %s", songTitle, artist, albumTitle);
-  }
+	@Override
+	public String toString() {
+		return String.format("%s, %s, %s", songTitle, artist, albumTitle);
+	}
     
 }

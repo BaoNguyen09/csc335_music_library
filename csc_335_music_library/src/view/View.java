@@ -1,5 +1,6 @@
 package view;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
@@ -8,7 +9,9 @@ import database.MusicStore;
 import database.UserStorage;
 import model.Album;
 import model.LibraryModel;
+import model.MostPlayedSongs;
 import model.Playlist;
+import model.RecentSongs;
 import model.Song;
 import model.Song.Rating;
 import model.User;
@@ -173,12 +176,15 @@ public class View {
 								a. song
 								b. album (with all the songs)
 							4. Get a list of items from library
-								a. song titles (any order) 
+								a. song titles (any order)
 								b. artist (any order)
 								c. albums (any order)
 								d. playlist (any order)
 								e. favorite songs (any order)
-								f. all song ratings (any order)
+								f. play a song in library
+								g. get recently played songs
+								h. get most played songs
+								i. all song ratings (any order)
 							5. Create a playlist
 							6. Add/remove a song from playlist
 							7. Mark a song as "favorite"
@@ -259,10 +265,14 @@ public class View {
 		if (foundSongs.isEmpty()) {
             System.out.println("No songs found for title: " + searchTerm);
         } else {
-            System.out.println("Found songs:");
+            if (searchTerm.contains("stream count")) System.out.println("Most played songs:");
+            else if (searchTerm.contains("recently played")) System.out.println("Recent songs (most recent -> least recent):");
+            else System.out.println("Found songs: ");
+            int index = 1;
             for (Song s : foundSongs) {
-                System.out.println("- " + s.getSongTitle() + " by " + s.getArtist());
+                System.out.println(String.format("%d. %s by %s (%d streams)", index, s.getSongTitle(), s.getArtist(), s.getStreamCount()));
                 System.out.println("	Album: " + s.getAlbumTitle() + "\n");
+                index ++;
             }
         }
 	}
@@ -455,7 +465,7 @@ public class View {
 		int searchChoice = 0;
 	    
 	    // Keep showing the sub-menu until the user chooses to exit
-	    while (searchChoice != 7) {
+	    while (searchChoice != 10) {
 	        System.out.println("""
 	        		
 				        		Add To Library:
@@ -465,7 +475,10 @@ public class View {
 				        		    4. Get all playlist titles
 				        		    5. Get all favorite song titles
 				        		    6. Get all song ratings
-				        		    7. Return to Main Menu
+				        		    7. Play a song in library
+				        		    8. Get recently played songs
+				        		    9. Get most played songs
+				        		    10. Return to Main Menu
 	        		    		""");
 	       
 
@@ -473,7 +486,7 @@ public class View {
 	        try {
 	            searchChoice = Integer.parseInt(console.nextLine().trim());
 	        } catch (NumberFormatException e) {
-	            System.out.println("Invalid input. Please enter a number 1-7.");
+	            System.out.println("Invalid input. Please enter a number 1-10.");
 	            continue;  // re-display the sub-menu
 	        }
 
@@ -508,6 +521,44 @@ public class View {
 
 	            }
 	            case 7 -> {
+	            	System.out.print("Enter the song title: ");
+	                String title = console.nextLine();
+	                List<Song> foundSongs = library.searchSongByTitle(title);
+	                int songChoice = 0;
+	                
+	                if (foundSongs.size() > 0) {
+	                	if (foundSongs.size() > 1) {
+	                		printSong(foundSongs, title);
+	                		System.out.println("Which song you want to play (enter the index)?");
+		                	songChoice = console.nextInt() - 1;
+		                	// keep asking if the input is invalid
+	                		while (songChoice < 1 && songChoice > foundSongs.size()) {
+	                			System.out.println("Invalid index, please try again.");
+	                			songChoice = console.nextInt() - 1;
+	                		}
+	                	}
+	                	Song chosenSong = foundSongs.get(songChoice);
+		                playSong(chosenSong, library);
+	                
+	                } else {
+	                	System.out.println(String.format("The song %s is not found anywhere in the library", title));
+	                }
+	                
+	                
+	            }
+	            case 8 -> {
+	            	List<Song> recentSongList= library.getRecentSongs();
+	            	Collections.reverse(recentSongList);
+	                printSong(recentSongList, "recently played songs (most recent -> least recent)");
+
+	            }
+	            case 9 -> {
+	            	List<Song> mostPlayedSongList= library.getMostPlayedSongs();
+	            	Collections.reverse(mostPlayedSongList);
+	                printSong(mostPlayedSongList, "most played songs (with stream count): ");
+
+	            }
+	            case 10 -> {
 	                System.out.println("Returning to Main Menu...");
 	                // The while loop will end because searchChoice == 5
 	            }
@@ -518,17 +569,30 @@ public class View {
 	    }
 	}
 	
-		// Helper method to print item out as line by line
-		public static void printItems(String[] foundItems, String searchTerm) {
-			if (foundItems.length == 0) {
-	            System.out.println(String.format("No  %s found", searchTerm));
-	        } else {
-	            System.out.println(String.format("Found %s:", searchTerm));
-	            for (int i=0; i<foundItems.length; i++) {
-	                System.out.println("- " + foundItems[i]);
-	            }
-	        }
-		}
+	// Helper method to print item out as line by line
+	private static void printItems(String[] foundItems, String searchTerm) {
+		if (foundItems.length == 0) {
+            System.out.println(String.format("No  %s found", searchTerm));
+        } else {
+            System.out.println(String.format("Found %s:", searchTerm));
+            int index = 1;
+            for (int i=0; i<foundItems.length; i++) {
+                System.out.println(index + ". " + foundItems[i]);
+                index ++;
+            }
+        }
+	}
+	
+	// Helper method to display song play and update stream count
+	private static void playSong(Song song, LibraryModel library) {
+		// Display song play
+		System.out.println(String.format("\nListening to %s by %s", song.getSongTitle(), song.getArtist()));
+		System.out.println("\n🎶♫ lılılı.ılılı.lılılı.ıllı ♪♬");
+		System.out.println("↻      ◁     ||     ▷       ↺");
+		// update mostPlayedSongs and recentSongs lists
+		library.updateStreamCount(song);
+		library.playSong(song);
+	}
 	
 
 	

@@ -10,37 +10,37 @@ class SongTests {
 
 	@Test
 	void testGetSongTitle() {
-		Song song = new Song("Daydreamer", "Adele", "19");
+		Song song = new Song("Daydreamer", "Adele", "19", "Pop");
 		assertEquals("Daydreamer", song.getSongTitle(), "Song Title should be: Daydreamer");
 	}
 	
 	@Test
 	void testGetArtist() {
-		Song song = new Song("Daydreamer", "Adele", "19");
+		Song song = new Song("Daydreamer", "Adele", "19", "Pop");
 		assertEquals("Adele", song.getArtist(), "Song Artist should be: Adele");
 	}
 	
 	@Test
 	void testGetAlbumTitle() {
-		Song song = new Song("Daydreamer", "Adele", "19");
+		Song song = new Song("Daydreamer", "Adele", "19", "Pop");
 		assertEquals("19", song.getAlbumTitle(), "Song Album Title should be: 19");
 	}
 	
 	@Test
 	void testGetDefaultRating() {
-		Song song = new Song("Daydreamer", "Adele", "19");
+		Song song = new Song("Daydreamer", "Adele", "19", "Pop");
 		assertEquals(Rating.UNRATED, song.getRating(), "Initially, rating is set to UNRATED");
 	}
 	
 	@Test
 	void testGetDefaultIsFavorite() {
-		Song song = new Song("Daydreamer", "Adele", "19");
+		Song song = new Song("Daydreamer", "Adele", "19", "Pop");
 		assertEquals(false, song.isFavorite(), "Initially, favorite is set to false");
 	}
 	
 	@Test
 	void testSetRating() {
-		Song song = new Song("Daydreamer", "Adele", "19");
+		Song song = new Song("Daydreamer", "Adele", "19", "Pop");
 		assertEquals(Rating.UNRATED, song.getRating(), "Initially, rating is set to UNRATED");
 		song.setRating(Rating.FIVE_STAR);
 		assertEquals(Rating.FIVE_STAR, song.getRating(), "Afterwards, rating is set to FIVE_STAR");
@@ -49,7 +49,7 @@ class SongTests {
 
   @Test
 	void testMarkingASongAsFavorite() {
-		Song song = new Song("Daydreamer", "Adele", "19");
+		Song song = new Song("Daydreamer", "Adele", "19", "Pop");
 		assertEquals(false, song.isFavorite(), "Initially, favorite is set to false");
 		song.markAsFavorite();
 		assertEquals(true, song.isFavorite(), "Afterwards, favorite is set to true");

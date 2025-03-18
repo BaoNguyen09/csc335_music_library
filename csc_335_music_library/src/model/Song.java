@@ -6,6 +6,7 @@ public class Song {
 	private String songTitle;
 	private String artist;
 	private String albumTitle;
+	private String genre;
 	public enum Rating {
 		UNRATED,
 		ONE_STAR,
@@ -19,10 +20,11 @@ public class Song {
 	private Integer streamCount;
 	
 	/* @pre songTitle != null & artist != null && albumTitle != null */
-	public Song(String songTitle, String artist, String albumTitle) {
+	public Song(String songTitle, String artist, String albumTitle, String genre) {
 		this.songTitle = songTitle;
 		this.artist = artist;
 		this.albumTitle = albumTitle;
+		this.genre = genre;
 		rating = Rating.UNRATED;
 		isFavorite = false;
 		streamCount = 0;
@@ -33,6 +35,7 @@ public class Song {
 		this.songTitle = anotherSong.getSongTitle();
 		this.artist = anotherSong.getArtist();
 		this.albumTitle = anotherSong.getAlbumTitle();
+		this.genre = anotherSong.getGenre();
 		rating = anotherSong.getRating();
 		isFavorite = anotherSong.isFavorite();
 		streamCount = anotherSong.getStreamCount();
@@ -48,6 +51,10 @@ public class Song {
 	
 	public String getAlbumTitle() {
 		return albumTitle;
+	}
+	
+	public String getGenre() {
+		return genre;
 	}
 	
 	public Rating getRating() {

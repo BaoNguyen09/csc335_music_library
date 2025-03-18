@@ -28,4 +28,13 @@ public class User {
 		return BCrypt.checkpw(userInputPassword, this.password);
 	}
 	
+	// Gets a copy of the userLibrary to modify
+	public LibraryModel getLibrary() {
+		return new LibraryModel(userLibrary);
+	}
+	
+	// Updates/Change the libraryModel of the user
+	public void updateLibrary(LibraryModel updatedLibrary) {
+		userLibrary = new LibraryModel(updatedLibrary);
+	}
 }

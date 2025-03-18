@@ -12,7 +12,7 @@ public class MostPlayedSongs extends Playlist{
 	@Override
 	public void addSongToPlaylist(Song song) {
 		int lowestStreamCount = 0;
-		if (songs.size() > 0) lowestStreamCount = songs.get(0).getStreamCount();
+		if (songs.size() > 0) lowestStreamCount = songs.get(0).getStreamCount(); // song with lowest stream is at the front of list
 		
 		// Check if Song instances is already added (deep check)
 		if (!songs.contains(song)) {
@@ -21,7 +21,7 @@ public class MostPlayedSongs extends Playlist{
 			else return;
 		} 
 		
-		// Sort this song list again to update the order with updated stream count
+		// Sort this song list again to update the order with new stream count
 		Collections.sort(songs, new Comparator<Song>(){
 
 			  public int compare(Song song_1, Song song_2)

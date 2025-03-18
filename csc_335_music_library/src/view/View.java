@@ -18,8 +18,7 @@ public class View {
 	public static void main(String[] args) {
 		LibraryModel library = new LibraryModel();
 		MusicStore musicStore = new MusicStore();
-		MostPlayedSongs mostPlayedSongs = new MostPlayedSongs();
-		RecentSongs recentSongs = new RecentSongs();
+		
 		showCommandMenu();
 		int command = 0;
 		
@@ -47,7 +46,7 @@ public class View {
 						showCommandMenu();
 					}
 					if (command == 4) {
-						showItemsInLibrary(console, library, mostPlayedSongs, recentSongs);
+						showItemsInLibrary(console, library);
 						showCommandMenu();
 						
 					}
@@ -198,6 +197,7 @@ public class View {
             System.out.println("No songs found for title: " + searchTerm);
         } else {
             if (searchTerm.contains("stream count")) System.out.println("Most played songs:");
+            else if (searchTerm.contains("recently played")) System.out.println("Recent songs (most recent -> least recent):");
             else System.out.println("Found songs: ");
             int index = 1;
             for (Song s : foundSongs) {
@@ -385,8 +385,7 @@ public class View {
 	
 	// COMMAND FOUR menu options - Used the same code structure as above but
 	// changed to show items in library
-	private static void showItemsInLibrary(Scanner console, LibraryModel library, 
-			MostPlayedSongs mostPlayedSongs, RecentSongs recentSongs) {
+	private static void showItemsInLibrary(Scanner console, LibraryModel library) {
 		int searchChoice = 0;
 	    
 	    // Keep showing the sub-menu until the user chooses to exit
@@ -463,7 +462,7 @@ public class View {
 	                		}
 	                	}
 	                	Song chosenSong = foundSongs.get(songChoice);
-		                playSong(chosenSong, mostPlayedSongs, recentSongs);
+		                playSong(chosenSong, library);
 	                
 	                } else {
 	                	System.out.println(String.format("The song %s is not found anywhere in the library", title));
@@ -472,12 +471,13 @@ public class View {
 	                
 	            }
 	            case 8 -> {
-	            	String[] recentSongList= recentSongs.getPlaylistSongs();
-	                printItems(recentSongList, "recently played songs (most recent -> least recent)");
+	            	List<Song> recentSongList= library.getRecentSongs();
+	            	Collections.reverse(recentSongList);
+	                printSong(recentSongList, "recently played songs (most recent -> least recent)");
 
 	            }
 	            case 9 -> {
-	            	List<Song> mostPlayedSongList= mostPlayedSongs.getSongArray();
+	            	List<Song> mostPlayedSongList= library.getMostPlayedSongs();
 	            	Collections.reverse(mostPlayedSongList);
 	                printSong(mostPlayedSongList, "most played songs (with stream count): ");
 
@@ -500,7 +500,7 @@ public class View {
         } else {
             System.out.println(String.format("Found %s:", searchTerm));
             int index = 1;
-            for (int i=foundItems.length-1; i>=0; i--) {
+            for (int i=0; i<foundItems.length; i++) {
                 System.out.println(index + ". " + foundItems[i]);
                 index ++;
             }
@@ -508,15 +508,14 @@ public class View {
 	}
 	
 	// Helper method to display song play and update stream count
-	private static void playSong(Song song, MostPlayedSongs mostPlayedSongs, RecentSongs recentSongs) {
+	private static void playSong(Song song, LibraryModel library) {
 		// Display song play
 		System.out.println(String.format("\nListening to %s by %s", song.getSongTitle(), song.getArtist()));
 		System.out.println("\n🎶♫ lılılı.ılılı.lılılı.ıllı ♪♬");
 		System.out.println("↻      ◁     ||     ▷       ↺");
 		// update mostPlayedSongs and recentSongs lists
-		song.updateStreamCount();
-		recentSongs.addSongToPlaylist(song);
-		mostPlayedSongs.addSongToPlaylist(song);
+		library.updateStreamCount(song);
+		library.playSong(song);
 	}
 	
 

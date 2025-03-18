@@ -144,6 +144,7 @@ public class View {
                 System.out.println("Account created successfully!");
             } else {
                 System.out.println("User with that username already exists. Please try logging in.");
+                return null;
             }
             return storage.loadUser(username, password);
         }

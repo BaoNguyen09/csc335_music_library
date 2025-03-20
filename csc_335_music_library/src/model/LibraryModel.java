@@ -231,6 +231,39 @@ public class LibraryModel {
 	}
 	
 	/*
+	 * When removing an album from the library we must remove from:
+	 *  - the album inside album hashmaps
+	 */
+	public boolean removeAlbum(String albumTitle, String artist) {
+		
+		List<Album> listOfAlbums = albumByTitle.get(albumTitle.toUpperCase());
+		for (Album album: listOfAlbums) {
+			if (album.getArtist().toLowerCase() == artist.toLowerCase()) {
+				listOfAlbums.remove(album);
+				
+				if (listOfAlbums.size() == 0) {
+					albumByTitle.remove(albumTitle.toUpperCase());
+					
+				}
+			}
+		}
+		
+		listOfAlbums = albumByArtist.get(artist.toUpperCase());
+		for (Album album: listOfAlbums) {
+			if (album.getAlbumTitle().toLowerCase() == albumTitle.toLowerCase()) {
+				listOfAlbums.remove(album);
+				
+				if (listOfAlbums.size() == 0) {
+					albumByArtist.remove(artist.toUpperCase());
+					
+				}
+			}
+		}
+		return true;
+		
+	}
+	
+	/*
 	 * Helper method to removeSong to remove songs from all song hashmaps
 	 */
 	public void removeSongFromHashmap (Map<String, List<Song>> map, String key, Song song) {
@@ -239,6 +272,13 @@ public class LibraryModel {
 			for (Song songInList: listOfSongs) {
 				if (songInList.equals(song)) {
 					listOfSongs.remove(song);
+					
+					// Removes the entire (key, value) pair if value is no longer any
+					// song with the title, artist, genre, etc
+					if (listOfSongs.size() == 0) {
+						map.remove(key);
+						
+					}
 				}
 			}
 		}

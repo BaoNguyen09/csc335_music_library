@@ -186,7 +186,7 @@ public class View {
 								h. get most played songs
 								i. all song ratings (any order)
 							5. Create a playlist
-							6. Add/remove a song from playlist
+							6. Add/remove/get a song from playlist
 							7. Mark a song as "favorite"
 							8. Rate a song
 							9. Save and Log Out
@@ -226,14 +226,14 @@ public class View {
 	                System.out.print("Enter the song title: ");
 	                String title = console.nextLine();
 	                List<Song> foundSongs = musicStore.searchSongByTitle(title);
-	                printSong(foundSongs, title);
+	                printSongs(foundSongs, title);
 	                
 	            }
 	            case 2 -> {
 	                System.out.print("Enter the artist name: ");
 	                String artist = console.nextLine();
 	                List<Song> foundSongs = musicStore.searchSongByArtist(artist);
-	                printSong(foundSongs, artist);
+	                printSongs(foundSongs, artist);
 
 	            }
 	            case 3 -> {
@@ -261,7 +261,7 @@ public class View {
 	
 	// Helper method to print song details:
 	// 	print the song title, the artist, and the album it’s on
-	public static void printSong(List<Song> foundSongs, String searchTerm) {
+	public static void printSongs(List<Song> foundSongs, String searchTerm) {
 		if (foundSongs.isEmpty()) {
             System.out.println("No songs found for title: " + searchTerm);
         } else {
@@ -276,7 +276,21 @@ public class View {
             }
         }
 	}
-		
+
+	// Helper method to print a single song:
+	// 	print the song title, the artist, and the album it’s on
+	private static void printSingleSong(Song song, String searchTerm) {
+		if (song == null) {
+            System.out.println("No songs found for title: " + searchTerm);
+        } else {
+        	System.out.println(searchTerm);
+	        System.out.println(String.format("%s by %s (%d streams)", song.getSongTitle(), song.getArtist(), song.getStreamCount()));
+	        System.out.println("	Album: " + song.getAlbumTitle() + "\n");
+                
+            
+        }
+	}
+	
 	// Helper method to print album details:
 	// 	print the album information and a list of the songs in the appropriate order
 	public static void printAlbum(List<Album> foundAlbums, String searchTerm) {
@@ -331,21 +345,21 @@ public class View {
 	                System.out.print("Enter the song title: ");
 	                String title = console.nextLine();
 	                List<Song> foundSongs = library.searchSongByTitle(title);
-	                printSong(foundSongs, title);
+	                printSongs(foundSongs, title);
 	                
 	            }
 	            case 2 -> {
 	                System.out.print("Enter the artist name: ");
 	                String artist = console.nextLine();
 	                List<Song> foundSongs = library.searchSongByArtist(artist);
-	                printSong(foundSongs, artist);
+	                printSongs(foundSongs, artist);
 
 	            }
 	            case 3 -> {
 	                System.out.print("Enter the genre title: ");
 	                String genre = console.nextLine();
 	                List<Song> foundSongs = library.searchSongByGenre(genre);
-	                printSong(foundSongs, genre);
+	                printSongs(foundSongs, genre);
 	            }
 	            case 4 -> {
 	                System.out.print("Enter the album title: ");
@@ -528,7 +542,7 @@ public class View {
 	                
 	                if (foundSongs.size() > 0) {
 	                	if (foundSongs.size() > 1) {
-	                		printSong(foundSongs, title);
+	                		printSongs(foundSongs, title);
 	                		System.out.println("Which song you want to play (enter the index)?");
 		                	songChoice = console.nextInt() - 1;
 		                	// keep asking if the input is invalid
@@ -549,13 +563,13 @@ public class View {
 	            case 8 -> {
 	            	List<Song> recentSongList= library.getRecentSongs();
 	            	Collections.reverse(recentSongList);
-	                printSong(recentSongList, "recently played songs (most recent -> least recent)");
+	                printSongs(recentSongList, "recently played songs (most recent -> least recent)");
 
 	            }
 	            case 9 -> {
 	            	List<Song> mostPlayedSongList= library.getMostPlayedSongs();
 	            	Collections.reverse(mostPlayedSongList);
-	                printSong(mostPlayedSongList, "most played songs (with stream count): ");
+	                printSongs(mostPlayedSongList, "most played songs (with stream count): ");
 
 	            }
 	            case 10 -> {
@@ -654,14 +668,15 @@ public class View {
 	            Operations for Playlist:
 	            1. Add a song to a playlist
 	            2. Remove a song from a playlist
-	            3. Return to Main Menu
+	            3. Get a random song from playlist
+	            4. Return to Main Menu
 	            """);
 
 	        System.out.print("Enter your choice: ");
 	        try {
 	            choice = Integer.parseInt(console.nextLine().trim());
 	        } catch (NumberFormatException e) {
-	            System.out.println("Invalid input. Please enter a number 1-3.");
+	            System.out.println("Invalid input. Please enter a number 1-4.");
 	            continue; // re-display the sub-menu
 	        }
 
@@ -684,6 +699,7 @@ public class View {
 	                    System.out.println("Fail: Song isn't in the store or playlist doesn't exist");
 	                }
 	            }
+	            
 	            case 2 -> {
 	            	// This part of the code to print out all songs in the playlist was
 	            	// generated using ChatGPT.
@@ -723,8 +739,32 @@ public class View {
 	                    System.out.println("Fail: index isn't valid or playlist doesn't exist.");
 	                }
 	            }
-
+	            
 	            case 3 -> {
+	            	
+	            	System.out.print("Enter the playlist name: ");
+	                String playlistName = console.nextLine().trim();
+
+	                Optional<Playlist> maybePlaylist = library.searchPlaylistByTitle(playlistName);
+	                if (maybePlaylist.isEmpty()) {
+	                    System.out.println("No playlist with that title. Returning to main menu...");
+	                    break; // or return to the sub-menu
+	                }
+
+	                // Get the actual playlist
+	                Playlist playlist = maybePlaylist.get();
+	                List<Song> songs = playlist.getSongArray();
+	                if (songs.isEmpty()) {
+	                    System.out.println("This playlist has no songs.");
+	                    break; // or return to the sub-menu
+	                }
+	                
+	                System.out.println("Getting you a random song from this playlist...");
+	                Song song = library.getRandomSongFromPlaylist(playlist);
+	                printSingleSong(song, "This is a random song in playlist:");
+	            }
+
+	            case 4 -> {
 	                System.out.println("Returning to Main Menu...");
 	            }
 	            default -> {

@@ -10,12 +10,6 @@ import model.RecentSongs;
 import model.Song;
 
 class RecentSongsTests {
-
-	@Test
-	void testGetPlaylistTitle() {
-		RecentSongs playlist = new RecentSongs();
-		assertEquals("Most Recently Played Songs", playlist.getPlaylistTitle(), "Playlist Title should be: Most Recently Played Songs");
-	}
 	
 	@Test
 	void testGetSongsAndAddSong() {
@@ -148,12 +142,6 @@ class RecentSongsTests {
 		expectedSongList.add(song3);
 		
 		assertEquals(expectedSongList.toString(), playlist.getSongArray().toString(), "getSongArray should return a list of Song objects");		
-	}
-	
-	@Test
-	void testToString() {
-		RecentSongs playlist = new RecentSongs();
-		assertEquals("Most Recently Played Songs", playlist.toString(), "Playlist info should be the playlist title");
 	}
 
 }

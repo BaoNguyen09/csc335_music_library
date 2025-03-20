@@ -4,15 +4,14 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
 
-public class RecentSongs extends Playlist {
+public class RecentSongs{
 	private Queue<Song> songs;
 	
 	public RecentSongs() {
-		super("Most Recently Played Songs");
 		songs = new LinkedList<Song>();
 	}
 	
-	@Override
+	
 	public void addSongToPlaylist(Song song) {
 		// Check if Song instances is already added (deep check)
 		if (!songs.contains(song)) {
@@ -29,14 +28,6 @@ public class RecentSongs extends Playlist {
 		songs.add(new Song(song));
 	}
 	
-	/* Disable this method because this playlist is maintained automatically */
-	@Override
-	public boolean removeSong(int index) {
-		return false;
-	}
-	
-	/* Override this method to use songs variable created in this class */
-	@Override
 	public String[] getPlaylistSongs() {
 		int songListLength = songs.size();
 		String[] songList = new String[songListLength];
@@ -48,8 +39,6 @@ public class RecentSongs extends Playlist {
 		return songList;
 	}
 	
-	/* Override this method to use songs variable created in this class */
-	@Override
 	public ArrayList<Song> getSongArray() {
 		ArrayList<Song> songArray = new ArrayList<Song>();
 		for (Song song: songs) {

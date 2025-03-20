@@ -1,6 +1,7 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -43,6 +44,7 @@ public class LibraryModel {
 		favoriteSongs = otherLibrary.favoriteSongs;
 		songByTitle = otherLibrary.songByTitle;
 		songByArtist =  otherLibrary.songByArtist;
+		songByGenre = otherLibrary.songByGenre;
 		albumByTitle = otherLibrary.albumByTitle;
 		albumByArtist = otherLibrary.albumByArtist;
 		playlistByTitle = otherLibrary.playlistByTitle;
@@ -244,6 +246,16 @@ public class LibraryModel {
 		playlistByTitle.put(playlistTitle, newPlaylist);
 		return true;
 		
+	}
+	
+	/* Shuffle the song list in playlist and return a random song
+	 * 
+	 * @pre playlist instanceof Playlist
+	 */
+	public Song getRandomSongFromPlaylist(Playlist playlist) {
+		ArrayList<Song> shuffledList = playlist.getSongArray();
+		Collections.shuffle(shuffledList);
+		return shuffledList.get(0);
 	}
 	
 	

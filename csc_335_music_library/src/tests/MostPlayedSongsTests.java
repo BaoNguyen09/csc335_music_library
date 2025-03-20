@@ -20,27 +20,27 @@ public class MostPlayedSongsTests {
         mostPlayedSongs = new MostPlayedSongs();
         
         // Create songs with stream counts for testing
-        song1 = new Song("Song 1", "Artist 1", "Album 1");
+        song1 = new Song("Song 1", "Artist 1", "Album 1", "Pop");
         song1.updateStreamCount(); // stream count = 1
-        song2 = new Song("Song 2", "Artist 2", "Album 2");
+        song2 = new Song("Song 2", "Artist 2", "Album 2", "Pop");
         song2.updateStreamCount(); // stream count = 1
-        song3 = new Song("Song 3", "Artist 3", "Album 3");
+        song3 = new Song("Song 3", "Artist 3", "Album 3", "Pop");
         song3.updateStreamCount(); // stream count = 1
-        song4 = new Song("Song 4", "Artist 4", "Album 4");
+        song4 = new Song("Song 4", "Artist 4", "Album 4", "Pop");
         song4.updateStreamCount(); // stream count = 1
-        song5 = new Song("Song 5", "Artist 5", "Album 5");
+        song5 = new Song("Song 5", "Artist 5", "Album 5", "Pop");
         song5.updateStreamCount(); // stream count = 1
-        song6 = new Song("Song 6", "Artist 6", "Album 6");
+        song6 = new Song("Song 6", "Artist 6", "Album 6", "Pop");
         song6.updateStreamCount(); // stream count = 1
-        song7 = new Song("Song 7", "Artist 7", "Album 7");
+        song7 = new Song("Song 7", "Artist 7", "Album 7", "Pop");
         song7.updateStreamCount(); // stream count = 1
-        song8 = new Song("Song 8", "Artist 8", "Album 8");
+        song8 = new Song("Song 8", "Artist 8", "Album 8", "Pop");
         song8.updateStreamCount(); // stream count = 1
-        song9 = new Song("Song 9", "Artist 9", "Album 9");
+        song9 = new Song("Song 9", "Artist 9", "Album 9", "Pop");
         song9.updateStreamCount(); // stream count = 1
-        song10 = new Song("Song 10", "Artist 10", "Album 10");
+        song10 = new Song("Song 10", "Artist 10", "Album 10", "Pop");
         song10.updateStreamCount(); // stream count = 1
-        song11 = new Song("Song 11", "Artist 11", "Album 11");
+        song11 = new Song("Song 11", "Artist 11", "Album 11", "Pop");
         song11.updateStreamCount(); // stream count = 1
     }
     

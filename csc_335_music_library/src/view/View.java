@@ -154,7 +154,7 @@ public class View {
     }
 
 	
-	public static void showCommandMenu() {
+	private static void showCommandMenu() {
 		System.out.println( """
 				
 							Welcome to Music Library App!
@@ -261,7 +261,7 @@ public class View {
 	
 	// Helper method to print song details:
 	// 	print the song title, the artist, and the album it’s on
-	public static void printSongs(List<Song> foundSongs, String searchTerm) {
+	private static void printSongs(List<Song> foundSongs, String searchTerm) {
 		if (foundSongs.isEmpty()) {
             System.out.println("No songs found for title: " + searchTerm);
         } else {
@@ -293,7 +293,7 @@ public class View {
 	
 	// Helper method to print album details:
 	// 	print the album information and a list of the songs in the appropriate order
-	public static void printAlbum(List<Album> foundAlbums, String searchTerm) {
+	private static void printAlbum(List<Album> foundAlbums, String searchTerm) {
 		if (foundAlbums.isEmpty()) {
             System.out.println("No albums found for search query: " + searchTerm);
         } else {

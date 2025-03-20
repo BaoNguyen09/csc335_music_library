@@ -181,6 +181,69 @@ public class LibraryModel {
 		return false;
 		
 	}
+	/*
+	 * When removing a song from the library we must remove from:
+	 * 	- songs list
+	 * 	- all created playlists with the song
+	 *  - favorite songs list
+	 *  - all songs hashmaps
+	 *  - the album list inside album hashmaps
+	 * 
+	 */
+	public boolean removeSong(int index) {
+		if (index >= 0 && index < songs.size()) {
+			// Remove from songs list
+			Song song = songs.remove(index);
+			
+			// Remove from all playlist with the song
+			for (Playlist playlist: playlists) {
+				playlist.removeSong(song);
+				
+			}
+			
+			// Remove from favorite songs list
+	        favoriteSongs.removeIf(favSong -> favSong.equals(song));
+	        
+			
+			// Remove from all songs hashmaps
+			removeSongFromHashmap(songByTitle, song.getSongTitle(), song);
+			removeSongFromHashmap(songByArtist, song.getArtist(), song);
+			removeSongFromHashmap(songByGenre, song.getGenre(), song);
+			
+			// Remove from the albums hashmap songs list
+			List<Album> listOfAlbums = albumByTitle.get(song.getAlbumTitle().toUpperCase());
+			if (listOfAlbums != null) {
+				for (Album album: listOfAlbums) {
+					album.removeSong(song);
+				}
+			}
+			if (listOfAlbums != null) {
+				listOfAlbums = albumByArtist.get(song.getArtist().toUpperCase());
+					for (Album album: listOfAlbums) {
+						album.removeSong(song);
+					}
+			}
+			
+			return true;
+			
+		}
+		return false;
+	}
+	
+	/*
+	 * Helper method to removeSong to remove songs from all song hashmaps
+	 */
+	public void removeSongFromHashmap (Map<String, List<Song>> map, String key, Song song) {
+		List<Song> listOfSongs = songByTitle.get(key.toUpperCase());
+		if (listOfSongs != null) {
+			for (Song songInList: listOfSongs) {
+				if (songInList.equals(song)) {
+					listOfSongs.remove(song);
+				}
+			}
+		}
+
+	}
 	
 	/* Adds an album and all its songs to the library.
 	 * 

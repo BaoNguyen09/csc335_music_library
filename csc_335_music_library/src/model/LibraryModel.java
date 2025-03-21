@@ -201,6 +201,8 @@ public class LibraryModel {
 				
 			}
 			
+			// To Do: REMOVE from mostRecent and recentSongs
+			
 			// Remove from favorite songs list
 	        favoriteSongs.removeIf(favSong -> favSong.equals(song));
 	        
@@ -231,59 +233,95 @@ public class LibraryModel {
 	}
 	
 	/*
-	 * When removing an album from the library we must remove from:
+	 * Helper method to removeSong to remove songs from all song hashmaps
+	 */
+	public void removeSongFromHashmap (Map<String, List<Song>> map, String key, Song song) {
+
+		List<Song> listOfSongs = map.get(key.toUpperCase());
+		if (listOfSongs != null) {
+	        listOfSongs.removeIf(s -> s.equals(song));
+
+				// Removes the entire (key, value) pair if there are no longer any
+				// song with the title, artist, genre, etc
+				if (listOfSongs.size() == 0) {
+					map.remove(key.toUpperCase());
+					
+				}
+			}
+		}
+	
+	/*
+	 * When removing an album from the library we must remove:
 	 *  - the album inside album hashmaps
+	 *  - Call the removeSong function to remove all songs inside the album if it
+	 *  	exists
 	 */
 	public boolean removeAlbum(String albumTitle, String artist) {
 		
+		boolean foundAlbum = false;
+		
 		List<Album> listOfAlbums = albumByTitle.get(albumTitle.toUpperCase());
+		
+		if (listOfAlbums == null) {
+			return false;
+		}
+		
 		for (Album album: listOfAlbums) {
-			if (album.getArtist().toLowerCase() == artist.toLowerCase()) {
+			// If the artist of the album matches the artist stated, then
+			// that is the album and we must remove it
+
+			if (album.getArtist().toLowerCase().equals(artist.toLowerCase())) {
+				foundAlbum = true;
+				
+				// Remove songs in album
+				removeAllSongsInAlbum(album);
+				
+				// Remove album
 				listOfAlbums.remove(album);
 				
+			
+				// If no album with albumTitle exist after removal, remove the key from map
 				if (listOfAlbums.size() == 0) {
 					albumByTitle.remove(albumTitle.toUpperCase());
 					
 				}
+				break;
 			}
 		}
 		
 		listOfAlbums = albumByArtist.get(artist.toUpperCase());
 		for (Album album: listOfAlbums) {
-			if (album.getAlbumTitle().toLowerCase() == albumTitle.toLowerCase()) {
+			if (album.getAlbumTitle().toLowerCase().equals(albumTitle.toLowerCase())) {
+				foundAlbum = true;
+				// Remove songs in album
+				removeAllSongsInAlbum(album);
+		
+				// Remove album
 				listOfAlbums.remove(album);
 				
 				if (listOfAlbums.size() == 0) {
 					albumByArtist.remove(artist.toUpperCase());
 					
 				}
+				break;
 			}
 		}
-		return true;
 		
+		return foundAlbum;
+				
 	}
 	
-	/*
-	 * Helper method to removeSong to remove songs from all song hashmaps
-	 */
-	public void removeSongFromHashmap (Map<String, List<Song>> map, String key, Song song) {
-		List<Song> listOfSongs = songByTitle.get(key.toUpperCase());
-		if (listOfSongs != null) {
-			for (Song songInList: listOfSongs) {
-				if (songInList.equals(song)) {
-					listOfSongs.remove(song);
-					
-					// Removes the entire (key, value) pair if value is no longer any
-					// song with the title, artist, genre, etc
-					if (listOfSongs.size() == 0) {
-						map.remove(key);
-						
-					}
-				}
-			}
+	private void removeAllSongsInAlbum(Album album) {
+		// Removing all songs in the album from the library
+		for (Song s: album.getSongArray()) {
+			// Finding index of the song in songs list
+			int i = songs.indexOf(s);
+			
+			// Calling the removeSong function at that index
+			this.removeSong(i);
 		}
-
 	}
+	
 	
 	/* Adds an album and all its songs to the library.
 	 * 

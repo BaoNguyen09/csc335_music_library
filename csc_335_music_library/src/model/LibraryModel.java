@@ -58,7 +58,14 @@ public class LibraryModel {
 			i++;
 		}
 		return songList;
+		
 	}
+	
+	// Get all details of each song in songs list
+	public List<Song> getSongs() {
+	    return new ArrayList<>(songs);
+	}
+	
 	
 	public String[] getArtists() {
 		int artistListLength = songByArtist.size();

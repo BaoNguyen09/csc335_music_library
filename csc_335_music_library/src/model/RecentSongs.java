@@ -28,6 +28,15 @@ public class RecentSongs{
 		songs.add(new Song(song));
 	}
 	
+	/* Return boolean to check if song is successfully removed */
+	public boolean removeSong(Song song) {
+		if (songs.contains(song)) {
+			songs.remove(song);
+			return true; // return a value to check if it's removed
+		}
+		return false; // if index isn't valid
+	}
+	
 	public String[] getPlaylistSongs() {
 		int songListLength = songs.size();
 		String[] songList = new String[songListLength];

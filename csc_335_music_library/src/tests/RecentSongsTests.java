@@ -10,18 +10,12 @@ import model.RecentSongs;
 import model.Song;
 
 class RecentSongsTests {
-
-	@Test
-	void testGetPlaylistTitle() {
-		RecentSongs playlist = new RecentSongs();
-		assertEquals("Most Recently Played Songs", playlist.getPlaylistTitle(), "Playlist Title should be: Most Recently Played Songs");
-	}
 	
 	@Test
 	void testGetSongsAndAddSong() {
-		Song song1 = new Song("Daydreamer", "Adele", "19");
-		Song song2 = new Song("Best for Last", "Adele", "19");
-		Song song3 = new Song("Tired", "Adele", "19");
+		Song song1 = new Song("Daydreamer", "Adele", "19", "Pop");
+		Song song2 = new Song("Best for Last", "Adele", "19", "Pop");
+		Song song3 = new Song("Tired", "Adele", "19", "Pop");
 		RecentSongs playlist = new RecentSongs();
 		playlist.addSongToPlaylist(song1);
 		playlist.addSongToPlaylist(song2);
@@ -40,9 +34,9 @@ class RecentSongsTests {
 	
 	@Test
 	void testAddDuplicatedSong() {
-		Song song1 = new Song("Daydreamer", "Adele", "19");
-		Song song2 = new Song("Daydreamer", "Adele", "19");
-		Song song3 = new Song("Daydreamer", "Bruno Mars", "19");
+		Song song1 = new Song("Daydreamer", "Adele", "19", "Pop");
+		Song song2 = new Song("Daydreamer", "Adele", "19", "Pop");
+		Song song3 = new Song("Daydreamer", "Bruno Mars", "19", "Pop");
 		
 		RecentSongs playlist = new RecentSongs();
 		playlist.addSongToPlaylist(song1);
@@ -61,17 +55,17 @@ class RecentSongsTests {
 	
 	@Test
 	void testAddMoreThan10Songs() {
-		Song song1 = new Song("Daydreamer", "Adele", "19");
-		Song song2 = new Song("Best for Last", "Adele", "19");
-		Song song3 = new Song("Tired", "Adele", "19");
-		Song song4 = new Song("Hold On", "Alabama Shakes", "Boys & Girls");
-		Song song5 = new Song("I Found You", "Alabama Shakes", "Boys & Girls");
-		Song song6 = new Song("Hang Loose", "Alabama Shakes", "Boys & Girls");
-		Song song7 = new Song("Rise to the Sun", "Alabama Shakes", "Boys & Girls");
-		Song song8 = new Song("You Ain't Alone", "Alabama Shakes", "Boys & Girls");
-		Song song9 = new Song("Goin' to the Party", "Alabama Shakes", "Boys & Girls");
-		Song song10 = new Song("Heartbreaker", "Alabama Shakes", "Boys & Girls");
-		Song song11 = new Song("Boys & Girls", "Alabama Shakes", "Boys & Girls");
+		Song song1 = new Song("Daydreamer", "Adele", "19", "Pop");
+		Song song2 = new Song("Best for Last", "Adele", "19", "Pop");
+		Song song3 = new Song("Tired", "Adele", "19", "Pop");
+		Song song4 = new Song("Hold On", "Alabama Shakes", "Boys & Girls", "Pop");
+		Song song5 = new Song("I Found You", "Alabama Shakes", "Boys & Girls", "Pop");
+		Song song6 = new Song("Hang Loose", "Alabama Shakes", "Boys & Girls", "Pop");
+		Song song7 = new Song("Rise to the Sun", "Alabama Shakes", "Boys & Girls", "Pop");
+		Song song8 = new Song("You Ain't Alone", "Alabama Shakes", "Boys & Girls", "Pop");
+		Song song9 = new Song("Goin' to the Party", "Alabama Shakes", "Boys & Girls", "Pop");
+		Song song10 = new Song("Heartbreaker", "Alabama Shakes", "Boys & Girls", "Pop");
+		Song song11 = new Song("Boys & Girls", "Alabama Shakes", "Boys & Girls", "Pop");
 
 		RecentSongs playlist = new RecentSongs();
 		playlist.addSongToPlaylist(song1);
@@ -133,9 +127,9 @@ class RecentSongsTests {
 	
 	@Test
 	void testGetSongArray() {
-		Song song1 = new Song("Daydreamer", "Adele", "19");
-		Song song2 = new Song("Best for Last", "Adele", "19");
-		Song song3 = new Song("Tired", "Adele", "19");
+		Song song1 = new Song("Daydreamer", "Adele", "19", "Pop");
+		Song song2 = new Song("Best for Last", "Adele", "19", "Pop");
+		Song song3 = new Song("Tired", "Adele", "19", "Pop");
 		
 		RecentSongs playlist = new RecentSongs();
 		playlist.addSongToPlaylist(song1);
@@ -149,11 +143,24 @@ class RecentSongsTests {
 		
 		assertEquals(expectedSongList.toString(), playlist.getSongArray().toString(), "getSongArray should return a list of Song objects");		
 	}
-	
-	@Test
-	void testToString() {
-		RecentSongs playlist = new RecentSongs();
-		assertEquals("Most Recently Played Songs", playlist.toString(), "Playlist info should be the playlist title");
-	}
 
+	@Test
+	void testRemoveSong() {
+		Song song1 = new Song("Daydreamer", "Adele", "19", "Pop");
+		Song song2 = new Song("Best for Last", "Adele", "19", "Pop");
+		Song song3 = new Song("Tired", "Adele", "19", "Pop");
+		RecentSongs playlist = new RecentSongs();
+		playlist.addSongToPlaylist(song1);
+		playlist.addSongToPlaylist(song2);
+		playlist.addSongToPlaylist(song3);
+		playlist.removeSong(song1);
+				
+		String expectedSong1 = "Best for Last, Adele, 19";
+		String expectedSong2 = "Tired, Adele, 19";
+		String[] expectedSongLists = new String[2];
+		expectedSongLists[0] = expectedSong1;
+		expectedSongLists[1] = expectedSong2;
+		
+		assertArrayEquals(expectedSongLists, playlist.getPlaylistSongs(), "getPlaylistSongs should return two songs only");	
+	}
 }

@@ -144,4 +144,23 @@ class RecentSongsTests {
 		assertEquals(expectedSongList.toString(), playlist.getSongArray().toString(), "getSongArray should return a list of Song objects");		
 	}
 
+	@Test
+	void testRemoveSong() {
+		Song song1 = new Song("Daydreamer", "Adele", "19", "Pop");
+		Song song2 = new Song("Best for Last", "Adele", "19", "Pop");
+		Song song3 = new Song("Tired", "Adele", "19", "Pop");
+		RecentSongs playlist = new RecentSongs();
+		playlist.addSongToPlaylist(song1);
+		playlist.addSongToPlaylist(song2);
+		playlist.addSongToPlaylist(song3);
+		playlist.removeSong(song1);
+				
+		String expectedSong1 = "Best for Last, Adele, 19";
+		String expectedSong2 = "Tired, Adele, 19";
+		String[] expectedSongLists = new String[2];
+		expectedSongLists[0] = expectedSong1;
+		expectedSongLists[1] = expectedSong2;
+		
+		assertArrayEquals(expectedSongLists, playlist.getPlaylistSongs(), "getPlaylistSongs should return two songs only");	
+	}
 }

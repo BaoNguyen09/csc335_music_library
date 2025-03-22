@@ -1,9 +1,6 @@
 package view;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
@@ -178,8 +175,8 @@ public class View {
 								a. song
 								b. album (with all the songs)
 							4. Get a list of items from library
-								a. song titles
-								b. artist (with sort option)
+								a. song titles (any order)
+								b. artist (any order)
 								c. albums (any order)
 								d. playlist (any order)
 								e. favorite songs (any order)
@@ -484,7 +481,7 @@ public class View {
 	        System.out.println("""
 	        		
 				        		Add To Library:
-				        		    1.  Get list of songs (with sort option)
+				        		    1.  Get list of songs
 				        		    2.  Get all artist names
 				        		    3.  Get all album titles
 				        		    4.  Get all playlist titles

@@ -381,8 +381,12 @@ public class View {
 	                }
 	            }
 	            case 7 -> {
-	            	library.shuffleLibrarySongs();
+	            	System.out.println(String.format("This is the current order of songs in library: "));
 	            	List<Song> songs = library.getSongs();
+	            	printSongs(songs, "Current library: ");
+	            	// Shuffle
+	            	library.shuffleLibrarySongs();
+	            	songs = library.getSongs();
 	                System.out.println(String.format("This is the new order of songs in library:"));
 	                printSongs(songs, "Shuffled library: ");
 	            	
@@ -747,6 +751,8 @@ public class View {
 		                    System.out.println("This playlist has no songs.");
 		                    break; // or return to the sub-menu
 		                }
+		                System.out.println(String.format("This is the current order of songs in playlist: %s", playlist.getPlaylistTitle()));
+		                printSongs(songs, "Current playlist: ");
 		                
 		                // after the playlist is shuffled, we need to get the updated playlist
 		                playlist = library.shufflePlaylist(playlistName);

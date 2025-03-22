@@ -62,6 +62,11 @@ public class LibraryModel {
 		return songList;
 	}
 	
+	// Get all details of each song in songs list
+	public List<Song> getSongs() {
+	    return new ArrayList<>(songs);
+	}
+	
 	public String[] getArtists() {
 		int artistListLength = songByArtist.size();
 		String[] artistList = new String[artistListLength];
@@ -163,7 +168,7 @@ public class LibraryModel {
 		return false;
 		
 	}
-	
+
 	
 	/* Helper method to detect if the song already exist in the library.
 	 * 
@@ -229,6 +234,10 @@ public class LibraryModel {
 		}
 		return false;
 		
+	}
+	
+	public void shuffleLibrarySongs() {
+		Collections.shuffle(songs);
 	}
 	
 	/* Adds a playlist to the library. Title must match exactly and is case sensitive.

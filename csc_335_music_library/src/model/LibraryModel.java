@@ -248,14 +248,17 @@ public class LibraryModel {
 		
 	}
 	
-	/* Shuffle the song list in playlist and return a random song
+	/* Shuffle the song list in playlist
 	 * 
-	 * @pre playlist instanceof Playlist
+	 * @pre playlistName != null
 	 */
-	public Song getRandomSongFromPlaylist(Playlist playlist) {
-		ArrayList<Song> shuffledList = playlist.getSongArray();
-		Collections.shuffle(shuffledList);
-		return shuffledList.get(0);
+	public Playlist shufflePlaylist(String playlistTitle) {
+		Playlist playlist = playlistByTitle.get(playlistTitle);
+		if (playlistByTitle.get(playlistTitle) == null) {
+			return null;
+		}
+		playlist.shuffleSongs();
+		return new Playlist(playlist);
 	}
 	
 	

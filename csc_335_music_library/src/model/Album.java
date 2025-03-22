@@ -65,6 +65,16 @@ public class Album {
 		songs.add(new Song(song));
 	}
 	
+	public boolean removeSong(Song songToRemove) {
+		for (Song song: songs) {
+			if (song.equals(songToRemove)) {
+				songs.remove(song);
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	@Override
 	public String toString() {
 		return String.format("%s, %s, %s, %s", albumTitle, artist, genre, year);

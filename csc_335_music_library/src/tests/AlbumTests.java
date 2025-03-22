@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import org.junit.jupiter.api.Test;
 
 import model.Album;
+import model.Playlist;
 import model.Song;
 
 class AlbumTests {
@@ -94,5 +95,37 @@ class AlbumTests {
 	void testToStringMethod() {
 		Album album = new Album("19", "Adele", "Pop", "2008");
 		assertEquals("19, Adele, Pop, 2008", album.toString(), "Album info should be: 19, Adele, Pop, 2008");
+	}
+	
+	@Test
+	void testRemoveSongTrue() {
+		Album album = new Album("19", "Adele", "Pop", "2008");
+		Song song1 = new Song("Daydreamer", "Adele", "19", "Pop");
+		Song song2 = new Song("Best for Last", "Adele", "19", "Pop");
+		Song songToRemove = new Song("Daydreamer", "Adele", "19", "Pop");
+
+		album.addSong(song1);
+		album.addSong(song2);
+		assertTrue(album.removeSong(songToRemove));
+		ArrayList<Song> songsInAlbum = album.getSongArray();
+		assertEquals("[Best for Last, Adele, 19]", songsInAlbum.toString());
+		
+
+	}
+	
+	@Test
+	void testRemoveSongFalse() {
+		Album album = new Album("19", "Adele", "Pop", "2008");
+		Song song1 = new Song("Daydreamer", "Adele", "19", "Pop");
+		Song song2 = new Song("Best for Last", "Adele", "19", "Pop");
+		Song songToRemove = new Song("NotInAlbum", "Adele", "19", "Pop");
+
+		album.addSong(song1);
+		album.addSong(song2);
+		assertFalse(album.removeSong(songToRemove));
+		ArrayList<Song> songsInAlbum = album.getSongArray();
+		assertEquals("[Daydreamer, Adele, 19, Best for Last, Adele, 19]", songsInAlbum.toString());
+		
+
 	}
 }

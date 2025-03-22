@@ -57,6 +57,17 @@ public class Playlist {
 		return false; // if index isn't valid
 	}
 	
+	/* Another removeSong method for playlist to remove a song object */
+	public boolean removeSong(Song songToRemove) {
+		for (Song song: songs) {
+			if (song.equals(songToRemove)) {
+				songs.remove(song);
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	@Override
 	public String toString() {
 		return playlistTitle;

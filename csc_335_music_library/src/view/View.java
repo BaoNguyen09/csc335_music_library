@@ -1,5 +1,6 @@
 package view;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -172,6 +173,7 @@ public class View {
 								d. for an album by title
 								e. for an album by artist
 								f. for a playlist by title
+								g. for a song (Title, Artist, and Album)
 							3. Add to library
 								a. song
 								b. album (with all the songs)
@@ -315,14 +317,15 @@ public class View {
 	            4. Search Album By Title
 	            5. Search Album By Artist
 	            6. Search Playlist by Title
-	            7. Return to Main Menu
+	            7. Search for Specific Song
+	            8. Return to Main Menu
 	            """);
 
 	        System.out.print("Enter your search choice: ");
 	        try {
 	            searchChoice = Integer.parseInt(console.nextLine().trim());
 	        } catch (NumberFormatException e) {
-	            System.out.println("Invalid input. Please enter a number 1-7.");
+	            System.out.println("Invalid input. Please enter a number 1-8.");
 	            continue;  // re-display the sub-menu
 	        }
 
@@ -383,6 +386,45 @@ public class View {
 	                }
 	            }
 	            case 7 -> {
+	            	System.out.println("Enter song title: ");
+	                String songTitle = console.nextLine().trim();
+
+	                System.out.println("Enter artist: ");
+	                String artist = console.nextLine().trim();
+
+	                System.out.println("Enter album title: ");
+	                String albumTitle = console.nextLine().trim();
+	                
+	                Song song = library.searchSong(songTitle, artist, albumTitle);
+	                
+		             // Display the result
+		                if (song != null) {
+		                    System.out.println("\nSong found:");
+		                    System.out.println(song);
+	
+		                    // Ask if the user wants to view the album
+		                    System.out.print("\nDo you want to view the album? (yes/no): ");
+		                    String response = console.nextLine().trim().toLowerCase();
+	
+		                    if (response.equals("yes")) {
+		                        System.out.println("\nAlbum details:");
+		                        
+		                        Album foundAlbum = library.searchAlbum(albumTitle, artist);
+		                        if (foundAlbum != null) {
+		                        	List<Album> albumToPrint = new ArrayList<Album>();
+		                        	albumToPrint.add(foundAlbum);
+		                        	printAlbum(albumToPrint, "");
+		                        	
+		                        }; 
+		                    } else {
+		                        System.out.println("Exiting...");
+		                    }
+		                } else {
+		                    System.out.println("\nSong not found.");
+		                }       
+	            	
+	            }
+	            case 8 -> {
 	                System.out.println("Returning to Main Menu...");
 	                // The while loop will end because searchChoice == 7
 	            }

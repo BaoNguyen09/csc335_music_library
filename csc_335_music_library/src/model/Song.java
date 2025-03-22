@@ -1,5 +1,6 @@
 package model;
 
+import java.util.Comparator;
 import java.util.Objects;
 
 public class Song {
@@ -82,6 +83,45 @@ public class Song {
 	
 	public void updateStreamCount() {
 		streamCount ++;
+	}
+	
+	/* This function is for function that need to have Comparator to sort by title */
+	public static Comparator<Song> titleFirstComparator() {
+		return new Comparator<Song>(){
+    		public int compare(Song song1, Song song2)
+    		{
+    			int comp = song1.getSongTitle().compareTo(song2.getSongTitle());
+    			if (comp == 0) 
+    				comp = song1.getArtist().compareTo(song2.getArtist());
+    			return comp;
+    		}
+    	};
+	}
+	
+	/* This function is for function that need to have Comparator to sort by artist */
+	public static Comparator<Song> artistFirstComparator() {
+		return new Comparator<Song>(){
+    		public int compare(Song song1, Song song2)
+    		{
+    			int comp = song1.getArtist().compareTo(song2.getArtist());
+    			if (comp == 0)
+    				comp = song1.getSongTitle().compareTo(song2.getSongTitle());
+    			return comp;
+    		}
+    	};
+	}
+	
+	/* This function is for function that need to have Comparator to sort by rating */
+	public static Comparator<Song> ratingFirstComparator() {
+		return new Comparator<Song>(){
+    		public int compare(Song song1, Song song2)
+    		{
+    			int comp = song1.getRating().compareTo(song2.getRating());
+    			if (comp == 0) 
+    				comp = song1.getSongTitle().compareTo(song2.getSongTitle());
+    			return comp;
+    		}
+    	};
 	}
 	
 	@Override

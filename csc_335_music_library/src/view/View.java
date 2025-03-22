@@ -165,13 +165,14 @@ public class View {
 								b. for a song by artist
 								c. for an album by title
 								d. for an album by artist
-							2. Search in Library
+							2. Search/Shuffle in Library
 								a. for a song by title
 								b. for a song by artist
 								c. for a song by genre
 								d. for an album by title
 								e. for an album by artist
 								f. for a playlist by title
+								g. shuffle songs in library
 							3. Add to library
 								a. song
 								b. album (with all the songs)
@@ -303,7 +304,7 @@ public class View {
 	    int searchChoice = 0;
 	    
 	    // Keep showing the sub-menu until the user chooses to exit
-	    while (searchChoice != 7) {
+	    while (searchChoice != 8) {
 	        System.out.println("""
 	        		
 	            Search in Music Library:
@@ -313,14 +314,15 @@ public class View {
 	            4. Search Album By Title
 	            5. Search Album By Artist
 	            6. Search Playlist by Title
-	            7. Return to Main Menu
+	            7. Shuffle songs in library
+	            8. Return to Main Menu
 	            """);
 
 	        System.out.print("Enter your search choice: ");
 	        try {
 	            searchChoice = Integer.parseInt(console.nextLine().trim());
 	        } catch (NumberFormatException e) {
-	            System.out.println("Invalid input. Please enter a number 1-7.");
+	            System.out.println("Invalid input. Please enter a number 1-8.");
 	            continue;  // re-display the sub-menu
 	        }
 
@@ -381,6 +383,13 @@ public class View {
 	                }
 	            }
 	            case 7 -> {
+	            	library.shuffleLibrarySongs();
+	            	List<Song> songs = library.getSongs();
+	                System.out.println(String.format("This is the new order of songs in library:"));
+	                printSongs(songs, "Shuffled library: ");
+	            	
+	            }
+	            case 8 -> {
 	                System.out.println("Returning to Main Menu...");
 	                // The while loop will end because searchChoice == 7
 	            }

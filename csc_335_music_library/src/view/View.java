@@ -1,6 +1,9 @@
 package view;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
@@ -175,15 +178,16 @@ public class View {
 								a. song
 								b. album (with all the songs)
 							4. Get a list of items from library
-								a. song titles (any order)
-								b. artist (any order)
+								a. song titles
+								b. artist (with sort option)
 								c. albums (any order)
 								d. playlist (any order)
 								e. favorite songs (any order)
+								i. all song ratings (with sort option)
 								f. play a song in library
-								g. get recently played songs
-								h. get most played songs
-								i. all song ratings (any order)
+								g. recently played songs
+								h. most played songs
+								i. songs with sort options (title, artist, rating)
 							5. Create a playlist
 							6. Add/remove/shuffle songs from playlist
 							7. Mark a song as "favorite"
@@ -267,7 +271,9 @@ public class View {
             System.out.println(searchTerm);
             int index = 1;
             for (Song s : foundSongs) {
-                System.out.println(String.format("%d. %s by %s (%d streams)", index, s.getSongTitle(), s.getArtist(), s.getStreamCount()));
+                System.out.println(String.format("%d. %s by %s (%d streams, %s)", index, s.getSongTitle(), 
+                		s.getArtist(), s.getStreamCount(), s.getRating().toString()));
+                
                 System.out.println("	Album: " + s.getAlbumTitle() + "\n");
                 index ++;
             }
@@ -474,20 +480,21 @@ public class View {
 		int searchChoice = 0;
 	    
 	    // Keep showing the sub-menu until the user chooses to exit
-	    while (searchChoice != 10) {
+	    while (searchChoice != 11) {
 	        System.out.println("""
 	        		
 				        		Add To Library:
-				        		    1. Get all song titles
-				        		    2. Get all artist names
-				        		    3. Get all album titles
-				        		    4. Get all playlist titles
-				        		    5. Get all favorite song titles
-				        		    6. Get all song ratings
-				        		    7. Play a song in library
-				        		    8. Get recently played songs
-				        		    9. Get most played songs
-				        		    10. Return to Main Menu
+				        		    1.  Get list of songs (with sort option)
+				        		    2.  Get all artist names
+				        		    3.  Get all album titles
+				        		    4.  Get all playlist titles
+				        		    5.  Get all favorite song titles
+				        		    6.  Get all song ratings
+				        		    7.  Play a song in library
+				        		    8.  Recently played songs
+				        		    9.  Most played songs
+				        		    10. Songs with sort options (title, artist, rating)
+				        		    11. Return to Main Menu
 	        		    		""");
 	       
 
@@ -495,7 +502,7 @@ public class View {
 	        try {
 	            searchChoice = Integer.parseInt(console.nextLine().trim());
 	        } catch (NumberFormatException e) {
-	            System.out.println("Invalid input. Please enter a number 1-10.");
+	            System.out.println("Invalid input. Please enter a number 1-11.");
 	            continue;  // re-display the sub-menu
 	        }
 
@@ -568,6 +575,32 @@ public class View {
 
 	            }
 	            case 10 -> {
+	            	int sortChoice = 0;
+	            	while (sortChoice != 4) {
+	            		System.out.println("Get a list of songs in the library sorted (in ascending order) by: ");
+		            	System.out.println("1. Song title");
+		            	System.out.println("2. Artist");
+		            	System.out.println("3. Rating");
+		            	System.out.println("4. Quit");
+	            		System.out.println("What's your choice?");
+		                sortChoice = Integer.parseInt(console.nextLine().trim());
+		                switch (sortChoice) {
+			                case 1 -> {
+			                	printSongs(library.getSongListByTitle(), "List of songs sorted by title:");
+			                }
+			                case 2 -> {
+			                	printSongs(library.getSongListByArtist(), "List of songs sorted by artist:");
+			                }
+			                case 3 -> {
+			                	printSongs(library.getSongListByRating(), "List of songs sorted by rating:");
+			                }
+			                default -> {
+			                	System.out.println("Invalid choice. Please try again.");
+			                }
+		                }
+	            	}
+	            }
+	            case 11 -> {
 	                System.out.println("Returning to Main Menu...");
 	                // The while loop will end because searchChoice == 5
 	            }

@@ -186,7 +186,7 @@ public class View {
 								h. get most played songs
 								i. all song ratings (any order)
 							5. Create a playlist
-							6. Add/remove/get a song from playlist
+							6. Add/remove/shuffle songs from playlist
 							7. Mark a song as "favorite"
 							8. Rate a song
 							9. Save and Log Out
@@ -267,6 +267,7 @@ public class View {
         } else {
             if (searchTerm.contains("stream count")) System.out.println("Most played songs:");
             else if (searchTerm.contains("recently played")) System.out.println("Recent songs (most recent -> least recent):");
+            else if (searchTerm.contains("shuffled")) System.out.println("Shuffled playlist: ");
             else System.out.println("Found songs: ");
             int index = 1;
             for (Song s : foundSongs) {
@@ -274,20 +275,6 @@ public class View {
                 System.out.println("	Album: " + s.getAlbumTitle() + "\n");
                 index ++;
             }
-        }
-	}
-
-	// Helper method to print a single song:
-	// 	print the song title, the artist, and the album it’s on
-	private static void printSingleSong(Song song, String searchTerm) {
-		if (song == null) {
-            System.out.println("No songs found for title: " + searchTerm);
-        } else {
-        	System.out.println(searchTerm);
-	        System.out.println(String.format("%s by %s (%d streams)", song.getSongTitle(), song.getArtist(), song.getStreamCount()));
-	        System.out.println("	Album: " + song.getAlbumTitle() + "\n");
-                
-            
         }
 	}
 	
@@ -662,13 +649,13 @@ public class View {
 	private static void addOrRemoveSongFromPlaylist(Scanner console, LibraryModel library) {
 	    int choice = 0;
 
-	    while (choice != 3) {
+	    while (choice != 4) {
 	        System.out.println("""
 	        		
 	            Operations for Playlist:
 	            1. Add a song to a playlist
 	            2. Remove a song from a playlist
-	            3. Get a random song from playlist
+	            3. Shuffle the playlist
 	            4. Return to Main Menu
 	            """);
 
@@ -747,21 +734,24 @@ public class View {
 
 	                Optional<Playlist> maybePlaylist = library.searchPlaylistByTitle(playlistName);
 	                if (maybePlaylist.isEmpty()) {
-	                    System.out.println("No playlist with that title. Returning to main menu...");
-	                    break; // or return to the sub-menu
+	                    System.out.println("No playlist with that title.");
+	                } else {
+	                	// Get the actual playlist
+		                Playlist playlist = maybePlaylist.get();
+		                List<Song> songs = playlist.getSongArray();
+		                if (songs.isEmpty()) {
+		                    System.out.println("This playlist has no songs.");
+		                    break; // or return to the sub-menu
+		                }
+		                
+		                // after the playlist is shuffled, we need to get the updated playlist
+		                playlist = library.shufflePlaylist(playlistName);
+		                songs = playlist.getSongArray();
+		                System.out.println(String.format("This is the new order of songs in playlist: %s", playlist.getPlaylistTitle()));
+		                printSongs(songs, "Shuffled playlist: ");
 	                }
 
-	                // Get the actual playlist
-	                Playlist playlist = maybePlaylist.get();
-	                List<Song> songs = playlist.getSongArray();
-	                if (songs.isEmpty()) {
-	                    System.out.println("This playlist has no songs.");
-	                    break; // or return to the sub-menu
-	                }
 	                
-	                System.out.println("Getting you a random song from this playlist...");
-	                Song song = library.getRandomSongFromPlaylist(playlist);
-	                printSingleSong(song, "This is a random song in playlist:");
 	            }
 
 	            case 4 -> {

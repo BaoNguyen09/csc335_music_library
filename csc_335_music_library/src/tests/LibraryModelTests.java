@@ -359,4 +359,34 @@ class LibraryModelTests {
 		assertEquals(expectedSong.toString(), library.searchSongByGenre("traditional country").get(0).toString());
 		assertEquals(expectedSong2.toString(), library.searchSongByGenre("pop").get(0).toString());
 	}
+	
+	@Test
+	void testSearchSong() {
+		// store, songTitle, artist, and album
+		assertTrue(library.addSong(store, "If I Lose My Mind" , "Dolly Parton", "Coat of Many Colors"));
+		assertTrue(library.addSong(store, "daydreamer" , "Adele", "19")); 
+		
+		Song expectedSong = new Song("If I Lose My Mind" , "Dolly Parton", "Coat of Many Colors", "Traditional Country");
+		assertEquals(expectedSong, library.searchSong("if I lose my mind", "dolly parton", "coat of Many Colors"));
+
+	}
+	@Test
+	void testSearchSongDuplicate() {
+		// store, songTitle, artist, and album
+		assertTrue(library.addSong(store, "lullaby" , "Leonard Cohen", "old ideas"));
+		assertTrue(library.addSong(store, "lullaby" , "OneRepublic", "waking up"));
+		
+		Song expectedSong = new Song("Lullaby" , "OneRepublic", "Waking Up", "Rock");
+		assertEquals(expectedSong, library.searchSong("Lullaby" , "OneRepublic", "Waking Up"));
+
+	}
+	@Test
+	void testSearchAlbum() {
+		// store, songTitle, artist, and album
+		assertTrue(library.addAlbum(store, "Coat of Many Colors", "Dolly Parton"));
+		
+		Album foundAlbum =  library.searchAlbum("coat of Many Colors", "dolly parton");
+		assertEquals("Coat of Many Colors", foundAlbum.getAlbumTitle());
+		assertEquals("Dolly Parton", foundAlbum.getArtist());
+	}
 }

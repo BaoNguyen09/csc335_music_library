@@ -226,14 +226,14 @@ public class View {
 	                System.out.print("Enter the song title: ");
 	                String title = console.nextLine();
 	                List<Song> foundSongs = musicStore.searchSongByTitle(title);
-	                printSongs(foundSongs, title);
+	                printSongs(foundSongs, String.format("Found these songs with title %s:", title));
 	                
 	            }
 	            case 2 -> {
 	                System.out.print("Enter the artist name: ");
 	                String artist = console.nextLine();
 	                List<Song> foundSongs = musicStore.searchSongByArtist(artist);
-	                printSongs(foundSongs, artist);
+	                printSongs(foundSongs, String.format("Found these songs by %s:", artist));
 
 	            }
 	            case 3 -> {
@@ -265,10 +265,7 @@ public class View {
 		if (foundSongs.isEmpty()) {
             System.out.println("No songs found for title: " + searchTerm);
         } else {
-            if (searchTerm.contains("stream count")) System.out.println("Most played songs:");
-            else if (searchTerm.contains("recently played")) System.out.println("Recent songs (most recent -> least recent):");
-            else if (searchTerm.contains("shuffled")) System.out.println("Shuffled playlist: ");
-            else System.out.println("Found songs: ");
+            System.out.println(searchTerm);
             int index = 1;
             for (Song s : foundSongs) {
                 System.out.println(String.format("%d. %s by %s (%d streams)", index, s.getSongTitle(), s.getArtist(), s.getStreamCount()));
@@ -332,21 +329,21 @@ public class View {
 	                System.out.print("Enter the song title: ");
 	                String title = console.nextLine();
 	                List<Song> foundSongs = library.searchSongByTitle(title);
-	                printSongs(foundSongs, title);
+	                printSongs(foundSongs, String.format("Found these songs with title %s:", title));
 	                
 	            }
 	            case 2 -> {
 	                System.out.print("Enter the artist name: ");
 	                String artist = console.nextLine();
 	                List<Song> foundSongs = library.searchSongByArtist(artist);
-	                printSongs(foundSongs, artist);
+	                printSongs(foundSongs, String.format("Found these songs by %s:", artist));
 
 	            }
 	            case 3 -> {
 	                System.out.print("Enter the genre title: ");
 	                String genre = console.nextLine();
 	                List<Song> foundSongs = library.searchSongByGenre(genre);
-	                printSongs(foundSongs, genre);
+	                printSongs(foundSongs, String.format("Found these songs in genre %s:", genre));
 	            }
 	            case 4 -> {
 	                System.out.print("Enter the album title: ");
@@ -529,7 +526,7 @@ public class View {
 	                
 	                if (foundSongs.size() > 0) {
 	                	if (foundSongs.size() > 1) {
-	                		printSongs(foundSongs, title);
+	                		printSongs(foundSongs, String.format("Found these songs with title %s:", title));
 	                		System.out.println("Which song you want to play (enter the index)?");
 		                	songChoice = console.nextInt() - 1;
 		                	// keep asking if the input is invalid
@@ -550,13 +547,13 @@ public class View {
 	            case 8 -> {
 	            	List<Song> recentSongList= library.getRecentSongs();
 	            	Collections.reverse(recentSongList);
-	                printSongs(recentSongList, "recently played songs (most recent -> least recent)");
+	                printSongs(recentSongList, "Recently played songs (most recent -> least recent)");
 
 	            }
 	            case 9 -> {
 	            	List<Song> mostPlayedSongList= library.getMostPlayedSongs();
 	            	Collections.reverse(mostPlayedSongList);
-	                printSongs(mostPlayedSongList, "most played songs (with stream count): ");
+	                printSongs(mostPlayedSongList, "Most played songs (with stream count): ");
 
 	            }
 	            case 10 -> {

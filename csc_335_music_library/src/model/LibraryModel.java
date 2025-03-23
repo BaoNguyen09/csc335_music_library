@@ -162,13 +162,79 @@ public class LibraryModel {
 				addToMapList(songByArtist, artist.toUpperCase(), new Song(song));
 				addToMapList(songByGenre, song.getGenre().toUpperCase(), new Song(song));
 				songs.add(song); // add to all song list to keep track
+				
+				// Adding the associated album
+				addAssociatedAlbum(store, song);
+								
 				return true;
 			}			
 		}
 		return false;
 		
 	}
+	/* Adding the associated album with the song to the library:
+	 * 	- If album not in library (check using helper method searchAlbum), then
+	 * 		create the album object, add this song into it, and add
+	 * 		it to the library using addAlbum.
+	 * 
+	 * 	- If the album already in library, then check if it contains
+	 * 		the song, if not, then add the song to the album
+	 */
+	private void addAssociatedAlbum (MusicStore store, Song song) {		
+		// CASE 1: Album not already in library
+		String albumTitle = song.getAlbumTitle();	
+		String artist = song.getArtist();
+		Album albumInLibrary = searchAlbum(albumTitle, artist);
+	
+		if (albumInLibrary == null) {
+			Album albumDetails = store.searchAlbum(albumTitle, artist);
+			// Making the album with only one song added to it
+			Album newAlbum = new Album(albumDetails.getAlbumTitle(),
+					albumDetails.getArtist(), albumDetails.getGenre(), 
+					albumDetails.getYear());
+			
+			newAlbum.addSong(song);
+			// add album to album hashmaps
+			addToMapList(albumByTitle, albumTitle.toUpperCase(), newAlbum);
+			addToMapList(albumByArtist, artist.toUpperCase(), newAlbum);
+		}
+		
+		// CASE 2: Album already in library
+		else {
+			if (!albumInLibrary.containsSong(song)) {
+				albumInLibrary.addSong(song);				
+			}
+			
+		}
+		
+	}
+	
+	
+	/* Helper method to search for a specific album in the library. This is used
+	 * in the addSong function to determine if an album is in the library or not.
+	 * Note: this access directly the internal data of Library model and returns
+	 * internal data too, so must be private.
+	 * 
+	 * @pre albumTitle != null, artist != null
+	 */
+	
+	private Album searchAlbum(String albumTitle, String artist){
+		List<Album> potentialAlbums = albumByTitle.get(albumTitle.toUpperCase());
 
+		// If no songs with that title
+		if (potentialAlbums == null) {
+			return null;
+		}
+
+		for (Album album: potentialAlbums) {
+			if (album.getArtist().toUpperCase().equals(artist.toUpperCase())){ 
+						return album;
+				}
+
+		}
+		return null;
+
+	}
 	
 	/* Helper method to detect if the song already exist in the library.
 	 * 
@@ -194,9 +260,22 @@ public class LibraryModel {
 	 * @pre songTitle != null, artist != null, album != null
 	 */
 	public boolean addAlbum(MusicStore store, String albumTitle, String artist) {
-		// prevents same album from being added twice
+		// If album already in the store, then only add the missing songs
 		if (this.containsAlbum(albumTitle, artist)) {
-			return false;
+			Album albumInLibrary = searchAlbum(albumTitle, artist);
+			System.out.println(albumInLibrary);
+			
+			Album albumInMusicStore = store.searchAlbum(albumTitle, artist);
+			for (Song songInStore: albumInMusicStore.getSongArray()) {
+				// IF the library does not have the song yet, then add it
+				if (!songs.contains(songInStore)) {
+					System.out.println(songInStore);
+					addSong(store, songInStore.getSongTitle(), songInStore.getArtist(), songInStore.getAlbumTitle());
+				}
+				
+			}
+			return true;
+			
 		}
 		
 		List<Album> albumWithTitle = store.searchAlbumByTitle(albumTitle.toUpperCase());

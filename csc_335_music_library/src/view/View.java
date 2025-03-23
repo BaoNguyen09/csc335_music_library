@@ -465,7 +465,6 @@ public class View {
 	            }
 	            case 3 -> {
 	                System.out.println("Returning to Main Menu...");
-	                // The while loop will end because searchChoice == 5
 	            }
 	            default -> {
 	                System.out.println("Invalid choice. Please try again.");
@@ -476,59 +475,69 @@ public class View {
 	
 	/* The removeSongFromLibrary method was written with the help of ChatGPT.
 	 */
-	public static void removeSongFromLibrary(Scanner scanner, LibraryModel library, MusicStore musicStore) {
-	    System.out.println("Remove from library:");
-	    System.out.println("1. Song");
-	    System.out.println("2. Album");
-	    System.out.print("Enter choice: ");
+	public static void removeSongFromLibrary(Scanner console, LibraryModel library, MusicStore store) {
+		int searchChoice = 0;
+
+		while (searchChoice != 3) {
+			System.out.println("\nRemove from library:");
+		    System.out.println("1. Song");
+		    System.out.println("2. Album");
+		    System.out.println("3. Return to Main Menu");
+
+		    System.out.print("Enter choice: ");
 	    
-	    int choice = scanner.nextInt();
-	    scanner.nextLine();  // Consume newline
+	        try {
+	            searchChoice = Integer.parseInt(console.nextLine().trim());
+	        } catch (NumberFormatException e) {
+	            System.out.println("Invalid input. Please enter a number 1-3.");
+	            continue;  // re-display the sub-menu
+	        }
 
-	    switch (choice) {
-	        case 1:  // Remove a single song
-	            List<Song> songs = library.getSongs();
-	            
-	            if (songs.isEmpty()) {
-	                System.out.println("No songs available to remove.");
-	                return;
+		    switch (searchChoice) {
+		        case 1 -> {  // Remove a single song
+		            List<Song> songs = library.getSongs();
+		            
+		            if (songs.isEmpty()) {
+		                System.out.println("No songs available to remove.");
+		                return;
+		            }
+	
+		            System.out.println("Songs in library:");
+		            for (int i = 0; i < songs.size(); i++) {
+		                Song song = songs.get(i);
+		                System.out.printf("%d. %s by %s (Album: %s)%n", i + 1, song.getSongTitle(), song.getArtist(), song.getAlbumTitle());
+		            }
+	
+		            System.out.print("Enter the index of the song to remove: ");
+		            int index = console.nextInt() - 1;
+		            console.nextLine();  // Consume the leftover newline
+		            if (library.removeSong(index)) {
+			            System.out.println("Successfully removed song.");
+	                } else {
+	                	 System.out.println("Invalid index.");
+	                }
+		        }
+		        case 2-> { // Remove an album (and all its songs)
+		            System.out.print("Enter album title: ");
+		            String albumTitle = console.nextLine();
+	
+		            System.out.print("Enter artist name: ");
+		            String artistName = console.nextLine();
+		            
+		            if (library.removeAlbum(albumTitle, artistName)) {
+		                System.out.println("Removed album: " + albumTitle + " by " + artistName);
+		            } else {
+		                System.out.println("No matching album found.");
+		            }
+		        }
+		        case 3 -> {
+	                System.out.println("Returning to Main Menu...");
 	            }
-
-	            System.out.println("Songs in library:");
-	            for (int i = 0; i < songs.size(); i++) {
-	                Song song = songs.get(i);
-	                System.out.printf("%d. %s by %s (Album: %s)%n", i + 1, song.getSongTitle(), song.getArtist(), song.getAlbumTitle());
+		        default -> {
+	                System.out.println("Invalid choice. Please try again.");
 	            }
-
-	            System.out.print("Enter the index of the song to remove: ");
-	            int index = scanner.nextInt() - 1;
-	            if (library.removeSong(index)) {
-		            System.out.println("Successfully removed song.");
-                } else {
-                	 System.out.println("Invalid index.");
-                }
-                break;
-	            
-
-	        case 2:  // Remove an album (and all its songs)
-	            System.out.print("Enter album title: ");
-	            String albumTitle = scanner.nextLine();
-
-	            System.out.print("Enter artist name: ");
-	            String artistName = scanner.nextLine();
-
-	            boolean albumFound = false;
-	            
-	            if (library.removeAlbum(albumTitle, artistName)) {
-	                System.out.println("Removed album: " + albumTitle + " by " + artistName);
-	            } else {
-	                System.out.println("No matching album found.");
-	            }
-	            break;
-
-	        default:
-	            System.out.println("Invalid choice.");
-	    }
+	    	}
+		}
 	}
 	
 	// COMMAND FOUR menu options - Used the same code structure as above but

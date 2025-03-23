@@ -397,15 +397,6 @@ class LibraryModelTests {
 		assertEquals(expectedSong, library.searchSong("Lullaby" , "OneRepublic", "Waking Up"));
 
 	}
-	@Test
-	void testSearchAlbum() {
-		// store, songTitle, artist, and album
-		assertTrue(library.addAlbum(store, "Coat of Many Colors", "Dolly Parton"));
-		
-		Album foundAlbum =  library.searchAlbum("coat of Many Colors", "dolly parton");
-		assertEquals("Coat of Many Colors", foundAlbum.getAlbumTitle());
-		assertEquals("Dolly Parton", foundAlbum.getArtist());
-
 
 	@Test
 	void testShuffleLibrarySongs() {

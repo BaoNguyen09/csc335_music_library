@@ -375,28 +375,6 @@ public class LibraryModel {
 		
 	}
 	
-	/*
-	 * Function to search for a specific album inside the library list and return it if found.
-	 * @pre songTitle != null, artist != null, albumTitle != null
-	 *
-	 */
-	public Album searchAlbum(String albumTitle, String artist){
-		List<Album> potentialAlbums = this.searchAlbumByTitle(albumTitle.toUpperCase());
-		
-		// If no songs with that title
-		if (potentialAlbums == null) {
-			return null;
-		}
-		
-		for (Album album: potentialAlbums) {
-			if (album.getArtist().toUpperCase().equals(artist.toUpperCase())){ 
-						return new Album(album);
-				}
-			
-		}
-		return null;
-		
-	}
 	
 
 	private List<Song> copySongsList(List<Song> songsList){

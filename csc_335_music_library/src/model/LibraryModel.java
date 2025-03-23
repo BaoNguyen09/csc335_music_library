@@ -263,13 +263,11 @@ public class LibraryModel {
 		// If album already in the store, then only add the missing songs
 		if (this.containsAlbum(albumTitle, artist)) {
 			Album albumInLibrary = searchAlbum(albumTitle, artist);
-			System.out.println(albumInLibrary);
 			
 			Album albumInMusicStore = store.searchAlbum(albumTitle, artist);
 			for (Song songInStore: albumInMusicStore.getSongArray()) {
 				// IF the library does not have the song yet, then add it
 				if (!songs.contains(songInStore)) {
-					System.out.println(songInStore);
 					addSong(store, songInStore.getSongTitle(), songInStore.getArtist(), songInStore.getAlbumTitle());
 				}
 				

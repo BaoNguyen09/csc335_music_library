@@ -209,7 +209,8 @@ public class LibraryModel {
 				
 			}
 			
-			// To Do: REMOVE from mostRecent and recentSongs
+			mostPlayedSongs.removeSong(song);
+			recentSongs.removeSong(song);
 			
 			// Remove from favorite songs list
 	        favoriteSongs.removeIf(favSong -> favSong.equals(song));

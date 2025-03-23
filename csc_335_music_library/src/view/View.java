@@ -48,7 +48,7 @@ public class View {
 	                    showCommandMenu();
 	                }
 	                if (command == 2) {
-	                    searchLibrary(scanner, library);
+	                    searchLibrary(scanner, library, musicStore);
 	                    showCommandMenu();
 	                }
 	                if (command == 3) {
@@ -173,7 +173,6 @@ public class View {
 								f. for a playlist by title
 								g. for a song (Title, Artist, and Album)
 								h. shuffle songs in library
-
 							3. Add to library
 								a. song
 								b. album (with all the songs)
@@ -301,7 +300,7 @@ public class View {
 	
 	// COMMAND TWO menu options - Used the same code structure as above but
 	// changed to reflect searching the Library instead of the MusicStore.
-	private static void searchLibrary(Scanner console, LibraryModel library) {
+	private static void searchLibrary(Scanner console, LibraryModel library, MusicStore store) {
 	    int searchChoice = 0;
 	    
 	    // Keep showing the sub-menu until the user chooses to exit
@@ -402,19 +401,25 @@ public class View {
 		                    System.out.println(song);
 	
 		                    // Ask if the user wants to view the album
+		                   
 		                    System.out.print("\nDo you want to view the album? (yes/no): ");
 		                    String response = console.nextLine().trim().toLowerCase();
 	
 		                    if (response.equals("yes")) {
 		                        System.out.println("\nAlbum details:");
 		                        
-		                        Album foundAlbum = library.searchAlbum(albumTitle, artist);
+		                        Album foundAlbum = store.searchAlbum(albumTitle, artist);
 		                        if (foundAlbum != null) {
 		                        	List<Album> albumToPrint = new ArrayList<Album>();
 		                        	albumToPrint.add(foundAlbum);
 		                        	printAlbum(albumToPrint, "");
 		                        	
-		                        }; 
+		                        } else {
+		                        	// Should technically never happen
+			                        System.out.println("Not Found!");
+		                        }
+		                        
+ 
 		                    } else {
 		                        System.out.println("Exiting...");
 		                    }

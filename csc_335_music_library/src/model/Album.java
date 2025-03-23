@@ -65,6 +65,17 @@ public class Album {
 		songs.add(new Song(song));
 	}
 	
+	// Helper method used in addAssociatedAlbum to determine if album contains a certain song
+	public boolean containsSong(Song song) {
+		for (Song songInAlbum: songs) {
+			if (songInAlbum.equals(song)) {
+				return true;
+			}
+		}
+		return false;
+		
+	}
+	
 	@Override
 	public String toString() {
 		return String.format("%s, %s, %s, %s", albumTitle, artist, genre, year);

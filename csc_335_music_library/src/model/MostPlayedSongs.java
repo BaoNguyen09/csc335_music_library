@@ -42,4 +42,15 @@ public class MostPlayedSongs extends Playlist{
 	public boolean removeSong(int index) {
 		return false;
 	}
+	
+	/* Method overloading: used when remove a song from library
+	 * return boolean to check if song is successfully removed 
+	 */
+	public boolean removeSong(Song song) {
+		if (songs.contains(song)) {
+			songs.remove(song);
+			return true; // return a value to check if it's removed
+		}
+		return false; // if index isn't valid
+	}
 }

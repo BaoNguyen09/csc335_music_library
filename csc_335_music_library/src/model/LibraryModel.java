@@ -1,6 +1,7 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -43,6 +44,7 @@ public class LibraryModel {
 		favoriteSongs = otherLibrary.favoriteSongs;
 		songByTitle = otherLibrary.songByTitle;
 		songByArtist =  otherLibrary.songByArtist;
+		songByGenre = otherLibrary.songByGenre;
 		albumByTitle = otherLibrary.albumByTitle;
 		albumByArtist = otherLibrary.albumByArtist;
 		playlistByTitle = otherLibrary.playlistByTitle;
@@ -58,6 +60,11 @@ public class LibraryModel {
 			i++;
 		}
 		return songList;
+	}
+	
+	// Get all details of each song in songs list
+	public List<Song> getSongs() {
+	    return new ArrayList<>(songs);
 	}
 	
 	public String[] getArtists() {
@@ -161,7 +168,7 @@ public class LibraryModel {
 		return false;
 		
 	}
-	
+
 	
 	/* Helper method to detect if the song already exist in the library.
 	 * 
@@ -229,6 +236,10 @@ public class LibraryModel {
 		
 	}
 	
+	public void shuffleLibrarySongs() {
+		Collections.shuffle(songs);
+	}
+	
 	/* Adds a playlist to the library. Title must match exactly and is case sensitive.
 	 * 
 	 * @pre playlistTitle != null
@@ -244,6 +255,19 @@ public class LibraryModel {
 		playlistByTitle.put(playlistTitle, newPlaylist);
 		return true;
 		
+	}
+	
+	/* Shuffle the song list in playlist
+	 * 
+	 * @pre playlistName != null
+	 */
+	public Playlist shufflePlaylist(String playlistTitle) {
+		Playlist playlist = playlistByTitle.get(playlistTitle);
+		if (playlistByTitle.get(playlistTitle) == null) {
+			return null;
+		}
+		playlist.shuffleSongs();
+		return new Playlist(playlist);
 	}
 	
 	

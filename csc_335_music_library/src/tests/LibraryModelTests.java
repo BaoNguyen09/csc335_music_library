@@ -67,6 +67,24 @@ class LibraryModelTests {
 		return false;
 	}
 	
+	@Test
+	void testGetSongs() {
+		// store, songTitle, artist, and album
+		assertTrue(library.addSong(store, "If I Lose My Mind" , "Dolly Parton", "Coat of Many Colors"));
+		assertTrue(library.addSong(store, "My Blue Tears" , "Dolly Parton", "Coat of Many Colors"));
+		assertTrue(library.addSong(store, "Traveling Man" , "Dolly Parton", "Coat of Many Colors"));
+		
+		Song expectedSong1 = new Song("If I Lose My Mind" , "Dolly Parton", "Coat of Many Colors", "Pop");
+		Song expectedSong2 = new Song("My Blue Tears" , "Dolly Parton", "Coat of Many Colors", "Pop");
+		Song expectedSong3 = new Song("Traveling Man" , "Dolly Parton", "Coat of Many Colors", "Pop");
+		ArrayList<Song> expectedSongs = new ArrayList<Song>();
+		expectedSongs.add(expectedSong1);
+		expectedSongs.add(expectedSong2);
+		expectedSongs.add(expectedSong3);
+		
+		assertTrue(library.getSongs().equals(expectedSongs), "the playlist should have new order");
+	}
+	
 	// TESTING ADD SONG
 	@Test
 	void testAddSongSuccess() {
@@ -348,7 +366,6 @@ class LibraryModelTests {
 		assertEquals(false, containsItem(library.getFavoriteSongs(), "Behind Me Now"), "This song isn't favorite");
 	}
   
-
 	@Test
 	void testSearchSongByGenre() {
 		// store, songTitle, artist, and album
@@ -478,6 +495,30 @@ class LibraryModelTests {
 		// Expected list of songs to be empty
 		assertArrayEquals(expected, library.getSongTitles());
 
+	}
+
+
+	@Test
+	void testShuffleLibrarySongs() {
+		// store, songTitle, artist, and album
+		assertTrue(library.addSong(store, "If I Lose My Mind" , "Dolly Parton", "Coat of Many Colors"));
+		assertTrue(library.addSong(store, "My Blue Tears" , "Dolly Parton", "Coat of Many Colors"));
+		assertTrue(library.addSong(store, "Traveling Man" , "Dolly Parton", "Coat of Many Colors"));
+		
+		Song expectedSong1 = new Song("If I Lose My Mind" , "Dolly Parton", "Coat of Many Colors", "Pop");
+		Song expectedSong2 = new Song("My Blue Tears" , "Dolly Parton", "Coat of Many Colors", "Pop");
+		Song expectedSong3 = new Song("Traveling Man" , "Dolly Parton", "Coat of Many Colors", "Pop");
+		ArrayList<Song> expectedSongs = new ArrayList<Song>();
+		expectedSongs.add(expectedSong1);
+		expectedSongs.add(expectedSong2);
+		expectedSongs.add(expectedSong3);
+		
+		library.shuffleLibrarySongs();
+		
+		assertTrue(library.getSongs().contains(expectedSong1), "the library should still have the same songs");
+		assertTrue(library.getSongs().contains(expectedSong2), "the library should still have the same songs");
+		assertTrue(library.getSongs().contains(expectedSong3), "the library should still have the same songs");
+		assertFalse(library.getSongs().equals(expectedSongs), "the playlist should have new order");
 	}
 
 }

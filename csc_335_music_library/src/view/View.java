@@ -9,9 +9,7 @@ import database.MusicStore;
 import database.UserStorage;
 import model.Album;
 import model.LibraryModel;
-import model.MostPlayedSongs;
 import model.Playlist;
-import model.RecentSongs;
 import model.Song;
 import model.Song.Rating;
 import model.User;
@@ -158,7 +156,7 @@ public class View {
     }
 
 	
-	public static void showCommandMenu() {
+	private static void showCommandMenu() {
 		System.out.println( """
 				
 							Welcome to Music Library App!
@@ -169,13 +167,14 @@ public class View {
 								b. for a song by artist
 								c. for an album by title
 								d. for an album by artist
-							2. Search in Library
+							2. Search/Shuffle in Library
 								a. for a song by title
 								b. for a song by artist
 								c. for a song by genre
 								d. for an album by title
 								e. for an album by artist
 								f. for a playlist by title
+								g. shuffle songs in library
 							3. Add to library
 								a. song
 								b. album (with all the songs)
@@ -193,11 +192,10 @@ public class View {
 								h. get most played songs
 								i. all song ratings (any order)
 							6. Create a playlist
-							7. Add/remove a song from playlist
+							7. Add/remove/shuffle songs from playlist
 							8. Mark a song as "favorite"
 							9. Rate a song
-							10. Save and Log Out
-							
+							10. Save and Log Out						
 							""");
 	}
 	
@@ -233,14 +231,14 @@ public class View {
 	                System.out.print("Enter the song title: ");
 	                String title = console.nextLine();
 	                List<Song> foundSongs = musicStore.searchSongByTitle(title);
-	                printSong(foundSongs, title);
+	                printSongs(foundSongs, String.format("Found these songs with title %s:", title));
 	                
 	            }
 	            case 2 -> {
 	                System.out.print("Enter the artist name: ");
 	                String artist = console.nextLine();
 	                List<Song> foundSongs = musicStore.searchSongByArtist(artist);
-	                printSong(foundSongs, artist);
+	                printSongs(foundSongs, String.format("Found these songs by %s:", artist));
 
 	            }
 	            case 3 -> {
@@ -268,13 +266,11 @@ public class View {
 	
 	// Helper method to print song details:
 	// 	print the song title, the artist, and the album it’s on
-	public static void printSong(List<Song> foundSongs, String searchTerm) {
+	private static void printSongs(List<Song> foundSongs, String searchTerm) {
 		if (foundSongs.isEmpty()) {
             System.out.println("No songs found for title: " + searchTerm);
         } else {
-            if (searchTerm.contains("stream count")) System.out.println("Most played songs:");
-            else if (searchTerm.contains("recently played")) System.out.println("Recent songs (most recent -> least recent):");
-            else System.out.println("Found songs: ");
+            System.out.println(searchTerm);
             int index = 1;
             for (Song s : foundSongs) {
                 System.out.println(String.format("%d. %s by %s (%d streams)", index, s.getSongTitle(), s.getArtist(), s.getStreamCount()));
@@ -283,10 +279,10 @@ public class View {
             }
         }
 	}
-		
+	
 	// Helper method to print album details:
 	// 	print the album information and a list of the songs in the appropriate order
-	public static void printAlbum(List<Album> foundAlbums, String searchTerm) {
+	private static void printAlbum(List<Album> foundAlbums, String searchTerm) {
 		if (foundAlbums.isEmpty()) {
             System.out.println("No albums found for search query: " + searchTerm);
         } else {
@@ -312,7 +308,7 @@ public class View {
 	    int searchChoice = 0;
 	    
 	    // Keep showing the sub-menu until the user chooses to exit
-	    while (searchChoice != 7) {
+	    while (searchChoice != 8) {
 	        System.out.println("""
 	        		
 	            Search in Music Library:
@@ -322,14 +318,15 @@ public class View {
 	            4. Search Album By Title
 	            5. Search Album By Artist
 	            6. Search Playlist by Title
-	            7. Return to Main Menu
+	            7. Shuffle songs in library
+	            8. Return to Main Menu
 	            """);
 
 	        System.out.print("Enter your search choice: ");
 	        try {
 	            searchChoice = Integer.parseInt(console.nextLine().trim());
 	        } catch (NumberFormatException e) {
-	            System.out.println("Invalid input. Please enter a number 1-7.");
+	            System.out.println("Invalid input. Please enter a number 1-8.");
 	            continue;  // re-display the sub-menu
 	        }
 
@@ -338,21 +335,21 @@ public class View {
 	                System.out.print("Enter the song title: ");
 	                String title = console.nextLine();
 	                List<Song> foundSongs = library.searchSongByTitle(title);
-	                printSong(foundSongs, title);
+	                printSongs(foundSongs, String.format("Found these songs with title %s:", title));
 	                
 	            }
 	            case 2 -> {
 	                System.out.print("Enter the artist name: ");
 	                String artist = console.nextLine();
 	                List<Song> foundSongs = library.searchSongByArtist(artist);
-	                printSong(foundSongs, artist);
+	                printSongs(foundSongs, String.format("Found these songs by %s:", artist));
 
 	            }
 	            case 3 -> {
 	                System.out.print("Enter the genre title: ");
 	                String genre = console.nextLine();
 	                List<Song> foundSongs = library.searchSongByGenre(genre);
-	                printSong(foundSongs, genre);
+	                printSongs(foundSongs, String.format("Found these songs in genre %s:", genre));
 	            }
 	            case 4 -> {
 	                System.out.print("Enter the album title: ");
@@ -390,6 +387,17 @@ public class View {
 	                }
 	            }
 	            case 7 -> {
+	            	System.out.println(String.format("This is the current order of songs in library: "));
+	            	List<Song> songs = library.getSongs();
+	            	printSongs(songs, "Current library: ");
+	            	// Shuffle
+	            	library.shuffleLibrarySongs();
+	            	songs = library.getSongs();
+	                System.out.println(String.format("This is the new order of songs in library:"));
+	                printSongs(songs, "Shuffled library: ");
+	            	
+	            }
+	            case 8 -> {
 	                System.out.println("Returning to Main Menu...");
 	                // The while loop will end because searchChoice == 7
 	            }
@@ -592,7 +600,7 @@ public class View {
 	                
 	                if (foundSongs.size() > 0) {
 	                	if (foundSongs.size() > 1) {
-	                		printSong(foundSongs, title);
+	                		printSongs(foundSongs, String.format("Found these songs with title %s:", title));
 	                		System.out.println("Which song you want to play (enter the index)?");
 		                	songChoice = console.nextInt() - 1;
 		                	// keep asking if the input is invalid
@@ -613,13 +621,13 @@ public class View {
 	            case 8 -> {
 	            	List<Song> recentSongList= library.getRecentSongs();
 	            	Collections.reverse(recentSongList);
-	                printSong(recentSongList, "recently played songs (most recent -> least recent)");
+	                printSongs(recentSongList, "Recently played songs (most recent -> least recent)");
 
 	            }
 	            case 9 -> {
 	            	List<Song> mostPlayedSongList= library.getMostPlayedSongs();
 	            	Collections.reverse(mostPlayedSongList);
-	                printSong(mostPlayedSongList, "most played songs (with stream count): ");
+	                printSongs(mostPlayedSongList, "Most played songs (with stream count): ");
 
 	            }
 	            case 10 -> {
@@ -712,20 +720,21 @@ public class View {
 	private static void addOrRemoveSongFromPlaylist(Scanner console, LibraryModel library) {
 	    int choice = 0;
 
-	    while (choice != 3) {
+	    while (choice != 4) {
 	        System.out.println("""
 	        		
 	            Operations for Playlist:
 	            1. Add a song to a playlist
 	            2. Remove a song from a playlist
-	            3. Return to Main Menu
+	            3. Shuffle the playlist
+	            4. Return to Main Menu
 	            """);
 
 	        System.out.print("Enter your choice: ");
 	        try {
 	            choice = Integer.parseInt(console.nextLine().trim());
 	        } catch (NumberFormatException e) {
-	            System.out.println("Invalid input. Please enter a number 1-3.");
+	            System.out.println("Invalid input. Please enter a number 1-4.");
 	            continue; // re-display the sub-menu
 	        }
 
@@ -748,6 +757,7 @@ public class View {
 	                    System.out.println("Fail: Song isn't in the store or playlist doesn't exist");
 	                }
 	            }
+	            
 	            case 2 -> {
 	            	// This part of the code to print out all songs in the playlist was
 	            	// generated using ChatGPT.
@@ -787,8 +797,37 @@ public class View {
 	                    System.out.println("Fail: index isn't valid or playlist doesn't exist.");
 	                }
 	            }
-
+	            
 	            case 3 -> {
+	            	
+	            	System.out.print("Enter the playlist name: ");
+	                String playlistName = console.nextLine().trim();
+
+	                Optional<Playlist> maybePlaylist = library.searchPlaylistByTitle(playlistName);
+	                if (maybePlaylist.isEmpty()) {
+	                    System.out.println("No playlist with that title.");
+	                } else {
+	                	// Get the actual playlist
+		                Playlist playlist = maybePlaylist.get();
+		                List<Song> songs = playlist.getSongArray();
+		                if (songs.isEmpty()) {
+		                    System.out.println("This playlist has no songs.");
+		                    break; // or return to the sub-menu
+		                }
+		                System.out.println(String.format("This is the current order of songs in playlist: %s", playlist.getPlaylistTitle()));
+		                printSongs(songs, "Current playlist: ");
+		                
+		                // after the playlist is shuffled, we need to get the updated playlist
+		                playlist = library.shufflePlaylist(playlistName);
+		                songs = playlist.getSongArray();
+		                System.out.println(String.format("This is the new order of songs in playlist: %s", playlist.getPlaylistTitle()));
+		                printSongs(songs, "Shuffled playlist: ");
+	                }
+
+	                
+	            }
+
+	            case 4 -> {
 	                System.out.println("Returning to Main Menu...");
 	            }
 	            default -> {

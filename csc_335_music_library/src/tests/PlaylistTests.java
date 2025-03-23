@@ -43,6 +43,7 @@ class PlaylistTests {
 		assertArrayEquals(expectedSongLists2, playlist.getPlaylistSongs(), "getPlaylistSongs should return a list of 1 song in format: title, artist, album");
 	}
 
+	@Test
 	void testGetSongsAndAddSong() {
 		Song song1 = new Song("Daydreamer", "Adele", "19", "Pop");
 		Song song2 = new Song("Best for Last", "Adele", "19", "Pop");
@@ -141,4 +142,29 @@ class PlaylistTests {
 
 	}
 
+	@Test
+	void testShuffleSongs() {
+		Song song1 = new Song("Daydreamer", "Adele", "19", "Pop");
+		Song song2 = new Song("Best for Last", "Adele", "19", "Pop");
+		Song song3 = new Song("Tired", "Adele", "19", "Pop");
+		Playlist playlist = new Playlist("My playlist");
+		playlist.addSongToPlaylist(song1);
+		playlist.addSongToPlaylist(song2);
+		playlist.addSongToPlaylist(song3);
+				
+		String expectedSong1 = "Daydreamer, Adele, 19";
+		String expectedSong2 = "Best for Last, Adele, 19";
+		String expectedSong3 = "Tired, Adele, 19";
+		String[] expectedSongLists = new String[3];
+		expectedSongLists[0] = expectedSong1;
+		expectedSongLists[1] = expectedSong2;
+		expectedSongLists[2] = expectedSong3;
+		
+		playlist.shuffleSongs();
+		
+		assertTrue(playlist.getSongArray().contains(song1), "the playlist should still have the same songs");
+		assertTrue(playlist.getSongArray().contains(song2), "the playlist should still have the same songs");
+		assertTrue(playlist.getSongArray().contains(song3), "the playlist should still have the same songs");
+		assertFalse(playlist.getPlaylistSongs().equals(expectedSongLists), "the playlist should have new order");
+	}
 }

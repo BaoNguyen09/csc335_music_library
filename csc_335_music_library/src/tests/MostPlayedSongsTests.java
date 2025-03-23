@@ -8,7 +8,7 @@ import model.Song;
 import model.MostPlayedSongs;
 import model.RecentSongs;
 
-public class MostPlayedSongsTests {
+class MostPlayedSongsTests {
 
     MostPlayedSongs mostPlayedSongs;
     
@@ -16,31 +16,31 @@ public class MostPlayedSongsTests {
     Song song1, song2, song3, song4, song5, song6, song7, song8, song9, song10, song11;
     
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         mostPlayedSongs = new MostPlayedSongs();
         
         // Create songs with stream counts for testing
-        song1 = new Song("Song 1", "Artist 1", "Album 1");
+        song1 = new Song("Song 1", "Artist 1", "Album 1", "Pop");
         song1.updateStreamCount(); // stream count = 1
-        song2 = new Song("Song 2", "Artist 2", "Album 2");
+        song2 = new Song("Song 2", "Artist 2", "Album 2", "Pop");
         song2.updateStreamCount(); // stream count = 1
-        song3 = new Song("Song 3", "Artist 3", "Album 3");
+        song3 = new Song("Song 3", "Artist 3", "Album 3", "Pop");
         song3.updateStreamCount(); // stream count = 1
-        song4 = new Song("Song 4", "Artist 4", "Album 4");
+        song4 = new Song("Song 4", "Artist 4", "Album 4", "Pop");
         song4.updateStreamCount(); // stream count = 1
-        song5 = new Song("Song 5", "Artist 5", "Album 5");
+        song5 = new Song("Song 5", "Artist 5", "Album 5", "Pop");
         song5.updateStreamCount(); // stream count = 1
-        song6 = new Song("Song 6", "Artist 6", "Album 6");
+        song6 = new Song("Song 6", "Artist 6", "Album 6", "Pop");
         song6.updateStreamCount(); // stream count = 1
-        song7 = new Song("Song 7", "Artist 7", "Album 7");
+        song7 = new Song("Song 7", "Artist 7", "Album 7", "Pop");
         song7.updateStreamCount(); // stream count = 1
-        song8 = new Song("Song 8", "Artist 8", "Album 8");
+        song8 = new Song("Song 8", "Artist 8", "Album 8", "Pop");
         song8.updateStreamCount(); // stream count = 1
-        song9 = new Song("Song 9", "Artist 9", "Album 9");
+        song9 = new Song("Song 9", "Artist 9", "Album 9", "Pop");
         song9.updateStreamCount(); // stream count = 1
-        song10 = new Song("Song 10", "Artist 10", "Album 10");
+        song10 = new Song("Song 10", "Artist 10", "Album 10", "Pop");
         song10.updateStreamCount(); // stream count = 1
-        song11 = new Song("Song 11", "Artist 11", "Album 11");
+        song11 = new Song("Song 11", "Artist 11", "Album 11", "Pop");
         song11.updateStreamCount(); // stream count = 1
     }
     
@@ -51,7 +51,7 @@ public class MostPlayedSongsTests {
 	}
     
     @Test
-    public void testAddSongToPlaylist() {
+    void testAddSongToPlaylist() {
         // Add song to playlist and check if it's added correctly
         mostPlayedSongs.addSongToPlaylist(song1);
         assertEquals(1, mostPlayedSongs.getSongArray().size());
@@ -73,7 +73,7 @@ public class MostPlayedSongsTests {
     }
 
     @Test
-    public void testPlaylistSizeLimit() {
+    void testPlaylistSizeLimit() {
         // Add 11 songs, playlist should only have 10 after this
         mostPlayedSongs.addSongToPlaylist(song1);
         mostPlayedSongs.addSongToPlaylist(song2);
@@ -98,7 +98,7 @@ public class MostPlayedSongsTests {
     }
 
     @Test
-    public void testSongOrderAfterAdd() {
+    void testSongOrderAfterAdd() {
         // Add songs with varying stream counts
         song1.updateStreamCount(); // stream count = 2
         song2.updateStreamCount();
@@ -117,7 +117,7 @@ public class MostPlayedSongsTests {
     }
 
     @Test
-    public void testSortOrderWithTiedStreamCounts() {
+    void testSortOrderWithTiedStreamCounts() {
         // Add multiple songs with the same stream count
         mostPlayedSongs.addSongToPlaylist(song1);
         mostPlayedSongs.addSongToPlaylist(song2);
@@ -131,7 +131,7 @@ public class MostPlayedSongsTests {
     }
 
     @Test
-    public void testRemoveSongIfPlaylistExceedsLimit() {
+    void testRemoveSongIfPlaylistExceedsLimit() {
         // Add 11 songs
     	song1.updateStreamCount(); // stream count = 2
         mostPlayedSongs.addSongToPlaylist(song1);
@@ -148,11 +148,11 @@ public class MostPlayedSongsTests {
         
         // Playlist should have 10 songs, and the song with the lowest stream count (song2) should be removed
         assertEquals(10, mostPlayedSongs.getSongArray().size());
-        assertFalse(mostPlayedSongs.getSongArray().contains(song2)); // song 1 should be removed
+        assertFalse(mostPlayedSongs.getSongArray().contains(song2)); // song 2 should be removed
     }
 
     @Test
-    public void testSongEquality() {
+    void testSongEquality() {
         // Create a copy of song1 and add it to playlist
         Song song1Copy = new Song(song1);
         mostPlayedSongs.addSongToPlaylist(song1Copy);
@@ -164,12 +164,21 @@ public class MostPlayedSongsTests {
     }
 
     @Test
-    public void testAddDuplicateSong() {
+    void testAddDuplicateSong() {
         // Add the same song twice (same title, artist, album)
         mostPlayedSongs.addSongToPlaylist(song1);
         mostPlayedSongs.addSongToPlaylist(song1);
         
         // The playlist size should remain 1 (no duplicates allowed)
         assertEquals(1, mostPlayedSongs.getSongArray().size());
+    }
+
+    @Test
+    void testRemoveSong() {
+    	mostPlayedSongs.addSongToPlaylist(song1);
+    	mostPlayedSongs.addSongToPlaylist(song2);
+    	mostPlayedSongs.addSongToPlaylist(song3);
+    	mostPlayedSongs.removeSong(song1);
+    	assertFalse(mostPlayedSongs.getSongArray().contains(song1)); // song 1 should be removed)
     }
 }

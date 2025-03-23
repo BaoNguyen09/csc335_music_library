@@ -95,4 +95,21 @@ class AlbumTests {
 		Album album = new Album("19", "Adele", "Pop", "2008");
 		assertEquals("19, Adele, Pop, 2008", album.toString(), "Album info should be: 19, Adele, Pop, 2008");
 	}
+	
+	@Test
+	void testContainsSongTrue() {
+		Album album = new Album("19", "Adele", "Pop", "2008");
+		Song song1 = new Song("Daydreamer", "Adele", "19", "Pop");
+		album.addSong(song1);
+		assertTrue(album.containsSong(song1));
+
+	}
+	
+	@Test
+	void testContainsSongFalse() {
+		Album album = new Album("19", "Adele", "Pop", "2008");
+		Song song1 = new Song("Daydreamer", "Adele", "19", "Pop");
+		assertFalse(album.containsSong(song1));
+
+	}
 }

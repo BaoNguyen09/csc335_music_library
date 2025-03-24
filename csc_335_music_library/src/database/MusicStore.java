@@ -62,6 +62,32 @@ public class MusicStore {
 		return listCopy;
 	}
 	
+	/*
+	 * Function to search for a specific album inside the MusicStore and return
+	 * it if found. This is used to aid the process of searching for a song
+	 * and getting it's album information.
+	 * 
+	 * @pre songTitle != null, artist != null, albumTitle != null
+	 *
+	 */
+	public Album searchAlbum(String albumTitle, String artist){
+		List<Album> potentialAlbums = this.searchAlbumByTitle(albumTitle.toUpperCase());
+		
+		// If no songs with that title
+		if (potentialAlbums == null) {
+			return null;
+		}
+		
+		for (Album album: potentialAlbums) {
+			if (album.getArtist().toUpperCase().equals(artist.toUpperCase())){ 
+						return new Album(album);
+				}
+			
+		}
+		return null;
+		
+	}
+	
 	/* 
 	 * @pre albumTitle != null
 	 */

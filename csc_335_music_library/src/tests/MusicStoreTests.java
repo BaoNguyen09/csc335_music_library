@@ -170,5 +170,14 @@ class MusicStoreTests {
 		assertEquals("[19, 21]", result.toString());
 	}
 	
+	@Test
+	void testSearchAlbum() {
+		// store, songTitle, artist, and album
+		Album foundAlbum =  store.searchAlbum("coat of Many Colors", "dolly parton");
+		assertEquals("Coat of Many Colors", foundAlbum.getAlbumTitle());
+		assertEquals("Dolly Parton", foundAlbum.getArtist());
+
+	}
+	
 
 }

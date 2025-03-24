@@ -52,6 +52,8 @@ public class LibraryModel {
 		albumByArtist = otherLibrary.albumByArtist;
 		playlistByTitle = otherLibrary.playlistByTitle;
 		songs = otherLibrary.songs;
+		mostPlayedSongs = otherLibrary.mostPlayedSongs;
+		recentSongs = otherLibrary.recentSongs;
 	}
 	
 	public String[] getSongTitles() {
@@ -63,6 +65,7 @@ public class LibraryModel {
 			i++;
 		}
 		return songList;
+		
 	}
 	
 	// Get all details of each song in songs list
@@ -170,13 +173,79 @@ public class LibraryModel {
 				addToMapList(songByArtist, artist.toUpperCase(), new Song(song));
 				addToMapList(songByGenre, song.getGenre().toUpperCase(), new Song(song));
 				songs.add(song); // add to all song list to keep track
+				
+				// Adding the associated album
+				addAssociatedAlbum(store, song);
+								
 				return true;
 			}			
 		}
 		return false;
 		
 	}
+	/* Adding the associated album with the song to the library:
+	 * 	- If album not in library (check using helper method searchAlbum), then
+	 * 		create the album object, add this song into it, and add
+	 * 		it to the library using addAlbum.
+	 * 
+	 * 	- If the album already in library, then check if it contains
+	 * 		the song, if not, then add the song to the album
+	 */
+	private void addAssociatedAlbum (MusicStore store, Song song) {		
+		// CASE 1: Album not already in library
+		String albumTitle = song.getAlbumTitle();	
+		String artist = song.getArtist();
+		Album albumInLibrary = searchAlbum(albumTitle, artist);
+	
+		if (albumInLibrary == null) {
+			Album albumDetails = store.searchAlbum(albumTitle, artist);
+			// Making the album with only one song added to it
+			Album newAlbum = new Album(albumDetails.getAlbumTitle(),
+					albumDetails.getArtist(), albumDetails.getGenre(), 
+					albumDetails.getYear());
+			
+			newAlbum.addSong(song);
+			// add album to album hashmaps
+			addToMapList(albumByTitle, albumTitle.toUpperCase(), newAlbum);
+			addToMapList(albumByArtist, artist.toUpperCase(), newAlbum);
+		}
+		
+		// CASE 2: Album already in library
+		else {
+			if (!albumInLibrary.containsSong(song)) {
+				albumInLibrary.addSong(song);				
+			}
+			
+		}
+		
+	}
+	
+	
+	/* Helper method to search for a specific album in the library. This is used
+	 * in the addSong function to determine if an album is in the library or not.
+	 * Note: this access directly the internal data of Library model and returns
+	 * internal data too, so must be private.
+	 * 
+	 * @pre albumTitle != null, artist != null
+	 */
+	
+	private Album searchAlbum(String albumTitle, String artist){
+		List<Album> potentialAlbums = albumByTitle.get(albumTitle.toUpperCase());
 
+		// If no songs with that title
+		if (potentialAlbums == null) {
+			return null;
+		}
+
+		for (Album album: potentialAlbums) {
+			if (album.getArtist().toUpperCase().equals(artist.toUpperCase())){ 
+						return album;
+				}
+
+		}
+		return null;
+
+	}
 	
 	/* Helper method to detect if the song already exist in the library.
 	 * 
@@ -196,15 +265,168 @@ public class LibraryModel {
 		return false;
 		
 	}
+	/*
+	 * When removing a song from the library we must remove from:
+	 * 	- songs list
+	 * 	- all created playlists with the song
+	 *  - favorite songs list
+	 *  - all songs hashmaps
+	 *  - the album list inside album hashmaps
+	 * 
+	 */
+	public boolean removeSong(int index) {
+		if (index >= 0 && index < songs.size()) {
+			// Remove from songs list
+			Song song = songs.remove(index);
+			
+			// Remove from all playlist with the song
+			for (Playlist playlist: playlists) {
+				playlist.removeSong(song);
+				
+			}
+			
+			mostPlayedSongs.removeSong(song);
+			recentSongs.removeSong(song);
+			
+			// Remove from favorite songs list
+	        favoriteSongs.removeIf(favSong -> favSong.equals(song));
+	        
+			
+			// Remove from all songs hashmaps
+			removeSongFromHashmap(songByTitle, song.getSongTitle(), song);
+			removeSongFromHashmap(songByArtist, song.getArtist(), song);
+			removeSongFromHashmap(songByGenre, song.getGenre(), song);
+			
+			// Remove from the albums hashmap songs list
+			List<Album> listOfAlbums = albumByTitle.get(song.getAlbumTitle().toUpperCase());
+			if (listOfAlbums != null) {
+				for (Album album: listOfAlbums) {
+					album.removeSong(song);
+				}
+			}
+			if (listOfAlbums != null) {
+				listOfAlbums = albumByArtist.get(song.getArtist().toUpperCase());
+					for (Album album: listOfAlbums) {
+						album.removeSong(song);
+					}
+			}
+			
+			return true;
+			
+		}
+		return false;
+	}
+	
+	/*
+	 * Helper method to removeSong to remove songs from all song hashmaps
+	 */
+	public void removeSongFromHashmap (Map<String, List<Song>> map, String key, Song song) {
+
+		List<Song> listOfSongs = map.get(key.toUpperCase());
+		if (listOfSongs != null) {
+	        listOfSongs.removeIf(s -> s.equals(song));
+
+				// Removes the entire (key, value) pair if there are no longer any
+				// song with the title, artist, genre, etc
+				if (listOfSongs.size() == 0) {
+					map.remove(key.toUpperCase());
+					
+				}
+			}
+		}
+	
+	/*
+	 * When removing an album from the library we must remove:
+	 *  - the album inside album hashmaps
+	 *  - Call the removeSong function to remove all songs inside the album if it
+	 *  	exists
+	 */
+	public boolean removeAlbum(String albumTitle, String artist) {
+		
+		boolean foundAlbum = false;
+		
+		List<Album> listOfAlbums = albumByTitle.get(albumTitle.toUpperCase());
+		
+		if (listOfAlbums == null) {
+			return false;
+		}
+		
+		for (Album album: listOfAlbums) {
+			// If the artist of the album matches the artist stated, then
+			// that is the album and we must remove it
+
+			if (album.getArtist().toLowerCase().equals(artist.toLowerCase())) {
+				foundAlbum = true;
+				
+				// Remove songs in album
+				removeAllSongsInAlbum(album);
+				
+				// Remove album
+				listOfAlbums.remove(album);
+				
+			
+				// If no album with albumTitle exist after removal, remove the key from map
+				if (listOfAlbums.size() == 0) {
+					albumByTitle.remove(albumTitle.toUpperCase());
+					
+				}
+				break;
+			}
+		}
+		
+		listOfAlbums = albumByArtist.get(artist.toUpperCase());
+		for (Album album: listOfAlbums) {
+			if (album.getAlbumTitle().toLowerCase().equals(albumTitle.toLowerCase())) {
+				foundAlbum = true;
+				// Remove songs in album
+				removeAllSongsInAlbum(album);
+		
+				// Remove album
+				listOfAlbums.remove(album);
+				
+				if (listOfAlbums.size() == 0) {
+					albumByArtist.remove(artist.toUpperCase());
+					
+				}
+				break;
+			}
+		}
+		
+		return foundAlbum;
+				
+	}
+	
+	private void removeAllSongsInAlbum(Album album) {
+		// Removing all songs in the album from the library
+		for (Song s: album.getSongArray()) {
+			// Finding index of the song in songs list
+			int i = songs.indexOf(s);
+			
+			// Calling the removeSong function at that index
+			this.removeSong(i);
+		}
+	}
+	
 	
 	/* Adds an album and all its songs to the library.
 	 * 
 	 * @pre songTitle != null, artist != null, album != null
 	 */
 	public boolean addAlbum(MusicStore store, String albumTitle, String artist) {
-		// prevents same album from being added twice
+		// If album already in the store, then only add the missing songs
 		if (this.containsAlbum(albumTitle, artist)) {
-			return false;
+			Album albumInLibrary = searchAlbum(albumTitle, artist);
+			
+			Album albumInMusicStore = store.searchAlbum(albumTitle, artist);
+			for (Song songInStore: albumInMusicStore.getSongArray()) {
+				// IF the library does not have the song yet, then add it
+				if (!songs.contains(songInStore)) {
+					addSong(store, songInStore.getSongTitle(), songInStore.getArtist(), songInStore.getAlbumTitle());
+				}
+				
+			}
+			return true;
+			
 		}
 		
 		List<Album> albumWithTitle = store.searchAlbumByTitle(albumTitle.toUpperCase());
@@ -359,6 +581,31 @@ public class LibraryModel {
 		return copySongsList(songsWithGenre);
 	}
 	
+	/*
+	 * Function to search for a specific song inside the library list and return it if found.
+	 * @pre songTitle != null, artist != null, albumTitle != null
+	 *
+	 */
+	public Song searchSong(String songTitle, String artist, String albumTitle){
+		List<Song> potentialSongs = this.searchSongByTitle(songTitle.toUpperCase());
+		
+		// If no songs with that title
+		if (potentialSongs == null) {
+			return null;
+		}
+		
+		for (Song song: potentialSongs) {
+			if (song.getArtist().toUpperCase().equals(artist.toUpperCase()) 
+					&& song.getAlbumTitle().toUpperCase().equals(albumTitle.toUpperCase())){ 
+						return new Song(song);
+				}
+			
+		}
+		return null;
+		
+	}
+	
+	
 
 	private List<Song> copySongsList(List<Song> songsList){
 		if (songsList == null) {
@@ -480,11 +727,11 @@ public class LibraryModel {
 	}
 	
 	// This function is to update these two playlists with a recently played song in library and new stream count
-	public void playSong(Song song) {
+	public void updatePlaylists(Song song) {
 		for (Song internalSong: songs) {
 			if (internalSong.equals(song)) {
-				recentSongs.addSongToPlaylist(new Song(song));
-				mostPlayedSongs.addSongToPlaylist(new Song(song));
+				recentSongs.addSongToPlaylist(new Song(internalSong));
+				mostPlayedSongs.addSongToPlaylist(new Song(internalSong));
 				return;
 			}
 		}

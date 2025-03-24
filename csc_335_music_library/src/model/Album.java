@@ -69,6 +69,12 @@ public class Album {
 	public boolean containsSong(Song song) {
 		for (Song songInAlbum: songs) {
 			if (songInAlbum.equals(song)) {
+				return true;
+			}
+		}
+		return false;
+		
+	}
 
 	public boolean removeSong(Song songToRemove) {
 		for (Song song: songs) {

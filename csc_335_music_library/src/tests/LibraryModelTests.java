@@ -165,11 +165,18 @@ class LibraryModelTests {
 	
 	
 	@Test
-	void testAddAlbumDupFail() {
+	void testAddAlbumDup() {
+		// Should add both the song and the album (with only a single song) to the library
 		// store, album, artist
-		assertTrue(library.addAlbum(store, "Don't Mess with the dragon" , "ozomatli"));
-		assertFalse(library.addAlbum(store, "Don't Mess with the dragon" , "ozomatli"));
-		assertEquals(1, library.searchAlbumByArtist("ozomatli").size());
+		assertTrue(library.addSong(store, "If I Lose My Mind" , "Dolly Parton", "Coat of Many Colors"));
+		
+		// Checking that the album was added to the library
+		String[] expected = new String[1];
+		expected[0] = "Coat of Many Colors";
+		assertArrayEquals(expected, library.getAlbumTitles());
+		
+		assertTrue(library.addAlbum(store, "Coat of Many Colors" , "Dolly parton"));
+		assertEquals(10, library.searchSongByArtist("Dolly parton").size());
 		
 	}
 	
@@ -541,5 +548,48 @@ class LibraryModelTests {
 		assertFalse(library.getSongs().equals(expectedSongs), "the playlist should have new order");
     
 	}
-
+	
+	@Test
+	void testSongAndAssociatedAlbumNotInLibrary(){
+		// Should add both the song and the album (with only a single song) to the library
+		assertTrue(library.addSong(store, "If I Lose My Mind" , "Dolly Parton", "Coat of Many Colors"));
+		
+		// Checking that the album was added to the library
+		String[] expected = new String[1];
+		expected[0] = "Coat of Many Colors";
+		assertArrayEquals(expected, library.getAlbumTitles());
+		
+		// Checking that album only contains one song
+		List<Album> albumsWithTitle = library.searchAlbumByTitle("Coat of Many Colors");
+		Album observedAlbum = albumsWithTitle.get(0);
+		ArrayList<Song> expectedSongArray = new ArrayList<Song>();
+		Song expectedSong = new Song("If I Lose My Mind" , "Dolly Parton", "Coat of Many Colors", "Pop");
+		expectedSongArray.add(expectedSong);
+		
+		assertTrue(expectedSongArray.equals(observedAlbum.getSongArray()));
+		
+	}
+	
+	@Test
+	void testSongAndAssociatedAlbumInLibrary(){
+		// Should add both the song and the album (with only a single song) to the library
+		assertTrue(library.addSong(store, "If I Lose My Mind" , "Dolly Parton", "Coat of Many Colors"));
+		
+		// Adding another song of the Coat of Many Colors album to library
+		assertTrue(library.addSong(store, "Traveling Man" , "Dolly Parton", "Coat of Many Colors"));
+		
+		// Expect the song array to only contain both songs
+		List<Album> albumsWithTitle = library.searchAlbumByTitle("Coat of Many Colors");
+		Album observedAlbum = albumsWithTitle.get(0);
+		ArrayList<Song> expectedSongArray = new ArrayList<Song>();
+		Song expectedSong = new Song("If I Lose My Mind" , "Dolly Parton", "Coat of Many Colors", "Pop");
+		Song expectedSong2 = new Song("Traveling Man" , "Dolly Parton", "Coat of Many Colors", "Pop");
+		expectedSongArray.add(expectedSong);
+		expectedSongArray.add(expectedSong2);
+		
+//		System.out.print(observedAlbum.getSongArray().toString());
+		assertTrue(expectedSongArray.equals(observedAlbum.getSongArray()));	
+		
+	}
+	
 }

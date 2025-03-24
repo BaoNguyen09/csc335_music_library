@@ -339,7 +339,7 @@ public class LibraryModel {
 	/*
 	 * Helper method to removeSong to remove songs from all song hashmaps
 	 */
-	public void removeSongFromHashmap (Map<String, List<Song>> map, String key, Song song) {
+	private void removeSongFromHashmap (Map<String, List<Song>> map, String key, Song song) {
 
 		List<Song> listOfSongs = map.get(key.toUpperCase());
 		if (listOfSongs != null) {

@@ -14,6 +14,7 @@ public class LibraryModel {
   
 	private List<Playlist> playlists;
 	private List<Song> favoriteSongs;
+	private List<Song> topRatedSongs;
 	private List<Song> songs;
 	private Map<String, List<Song>> songByTitle;
 	private Map<String, List<Song>> songByArtist;
@@ -27,6 +28,7 @@ public class LibraryModel {
 	public LibraryModel() {
 		playlists = new ArrayList<Playlist>();
 		favoriteSongs = new ArrayList<Song>();
+		topRatedSongs = new ArrayList<Song>();
 		songByTitle = new HashMap<String, List<Song>>();
 		songByArtist = new HashMap<String, List<Song>>();
 		songByGenre = new HashMap<String, List<Song>>();
@@ -42,6 +44,7 @@ public class LibraryModel {
 	public LibraryModel(LibraryModel otherLibrary) {
 		playlists = otherLibrary.playlists;
 		favoriteSongs = otherLibrary.favoriteSongs;
+		topRatedSongs = otherLibrary.topRatedSongs;
 		songByTitle = otherLibrary.songByTitle;
 		songByArtist =  otherLibrary.songByArtist;
 		songByGenre = otherLibrary.songByGenre;
@@ -142,6 +145,11 @@ public class LibraryModel {
 			songList[i] = song.getSongTitle();
 		}
 		return songList;
+	}
+	
+	/* Get all top rated songs and return as a list of songs for View */
+	public List<Song> getTopRatedSongs() {
+		return copySongsList(topRatedSongs);
 	}
 	
 	/* Adds a specific song to the library.
@@ -430,7 +438,12 @@ public class LibraryModel {
 					&& song.getSongTitle().equalsIgnoreCase(songTitle)) {
 				// set rating for song
 				song.setRating(rating);
-				if (rating == Rating.FIVE_STAR) favoriteSongs.add(song);
+				if (rating == Rating.FIVE_STAR) { 
+					favoriteSongs.add(song);
+					topRatedSongs.add(song);
+				}
+				if (rating == Rating.FOUR_STAR) 
+					topRatedSongs.add(song);
 				return true;
 			}			
 		}

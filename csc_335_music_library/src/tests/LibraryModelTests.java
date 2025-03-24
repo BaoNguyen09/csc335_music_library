@@ -386,6 +386,26 @@ class LibraryModelTests {
 	}
 	
 	@Test
+	void testSearchSong() {
+		// store, songTitle, artist, and album
+		assertTrue(library.addSong(store, "If I Lose My Mind" , "Dolly Parton", "Coat of Many Colors"));
+		assertTrue(library.addSong(store, "daydreamer" , "Adele", "19")); 
+		
+		Song expectedSong = new Song("If I Lose My Mind" , "Dolly Parton", "Coat of Many Colors", "Traditional Country");
+		assertEquals(expectedSong, library.searchSong("if I lose my mind", "dolly parton", "coat of Many Colors"));
+
+	}
+	@Test
+	void testSearchSongDuplicate() {
+		// store, songTitle, artist, and album
+		assertTrue(library.addSong(store, "lullaby" , "Leonard Cohen", "old ideas"));
+		assertTrue(library.addSong(store, "lullaby" , "OneRepublic", "waking up"));
+		
+		Song expectedSong = new Song("Lullaby" , "OneRepublic", "Waking Up", "Rock");
+		assertEquals(expectedSong, library.searchSong("Lullaby" , "OneRepublic", "Waking Up"));
+
+	}
+
 	void testRemoveSongFromSongs() {
 		// store, songTitle, artist, and album
 		assertTrue(library.addSong(store, "If I Lose My Mind" , "Dolly Parton", "Coat of Many Colors")); // genre: Traditional Country
@@ -526,6 +546,7 @@ class LibraryModelTests {
 		assertTrue(library.getSongs().contains(expectedSong2), "the library should still have the same songs");
 		assertTrue(library.getSongs().contains(expectedSong3), "the library should still have the same songs");
 		assertFalse(library.getSongs().equals(expectedSongs), "the playlist should have new order");
+    
 	}
 	
 	@Test

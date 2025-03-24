@@ -573,6 +573,31 @@ public class LibraryModel {
 		return copySongsList(songsWithGenre);
 	}
 	
+	/*
+	 * Function to search for a specific song inside the library list and return it if found.
+	 * @pre songTitle != null, artist != null, albumTitle != null
+	 *
+	 */
+	public Song searchSong(String songTitle, String artist, String albumTitle){
+		List<Song> potentialSongs = this.searchSongByTitle(songTitle.toUpperCase());
+		
+		// If no songs with that title
+		if (potentialSongs == null) {
+			return null;
+		}
+		
+		for (Song song: potentialSongs) {
+			if (song.getArtist().toUpperCase().equals(artist.toUpperCase()) 
+					&& song.getAlbumTitle().toUpperCase().equals(albumTitle.toUpperCase())){ 
+						return new Song(song);
+				}
+			
+		}
+		return null;
+		
+	}
+	
+	
 
 	private List<Song> copySongsList(List<Song> songsList){
 		if (songsList == null) {

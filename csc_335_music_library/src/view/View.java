@@ -1,5 +1,6 @@
 package view;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -47,7 +48,7 @@ public class View {
 	                    showCommandMenu();
 	                }
 	                if (command == 2) {
-	                    searchLibrary(scanner, library);
+	                    searchLibrary(scanner, library, musicStore);
 	                    showCommandMenu();
 	                }
 	                if (command == 3) {
@@ -174,7 +175,8 @@ public class View {
 								d. for an album by title
 								e. for an album by artist
 								f. for a playlist by title
-								g. shuffle songs in library
+								g. for a song (Title, Artist, and Album)
+								h. shuffle songs in library
 							3. Add to library
 								a. song
 								b. album (with all the songs)
@@ -304,11 +306,11 @@ public class View {
 	
 	// COMMAND TWO menu options - Used the same code structure as above but
 	// changed to reflect searching the Library instead of the MusicStore.
-	private static void searchLibrary(Scanner console, LibraryModel library) {
+	private static void searchLibrary(Scanner console, LibraryModel library, MusicStore store) {
 	    int searchChoice = 0;
 	    
 	    // Keep showing the sub-menu until the user chooses to exit
-	    while (searchChoice != 8) {
+	    while (searchChoice != 9) {
 	        System.out.println("""
 	        		
 	            Search in Music Library:
@@ -318,8 +320,9 @@ public class View {
 	            4. Search Album By Title
 	            5. Search Album By Artist
 	            6. Search Playlist by Title
-	            7. Shuffle songs in library
-	            8. Return to Main Menu
+	            7. Search for Specific Song
+	            8. Shuffle songs in library
+	            9. Return to Main Menu
 	            """);
 
 	        System.out.print("Enter your search choice: ");
@@ -387,19 +390,63 @@ public class View {
 	                }
 	            }
 	            case 7 -> {
-	            	System.out.println(String.format("This is the current order of songs in library: "));
-	            	List<Song> songs = library.getSongs();
-	            	printSongs(songs, "Current library: ");
-	            	// Shuffle
-	            	library.shuffleLibrarySongs();
-	            	songs = library.getSongs();
-	                System.out.println(String.format("This is the new order of songs in library:"));
-	                printSongs(songs, "Shuffled library: ");
+	            	System.out.println("Enter song title: ");
+	                String songTitle = console.nextLine().trim();
+
+	                System.out.println("Enter artist: ");
+	                String artist = console.nextLine().trim();
+
+	                System.out.println("Enter album title: ");
+	                String albumTitle = console.nextLine().trim();
+	                
+	                Song song = library.searchSong(songTitle, artist, albumTitle);
+	                
+		             // Display the result
+		                if (song != null) {
+		                    System.out.println("\nSong found:");
+		                    System.out.println(song);
+	
+		                    // Ask if the user wants to view the album
+		                   
+		                    System.out.print("\nDo you want to view the album? (yes/no): ");
+		                    String response = console.nextLine().trim().toLowerCase();
+	
+		                    if (response.equals("yes")) {
+		                        System.out.println("\nAlbum details:");
+		                        
+		                        Album foundAlbum = store.searchAlbum(albumTitle, artist);
+		                        if (foundAlbum != null) {
+		                        	List<Album> albumToPrint = new ArrayList<Album>();
+		                        	albumToPrint.add(foundAlbum);
+		                        	printAlbum(albumToPrint, "");
+		                        	
+		                        } else {
+		                        	// Should technically never happen
+			                        System.out.println("Not Found!");
+		                        }
+		                        
+ 
+		                    } else {
+		                        System.out.println("Exiting...");
+		                    }
+		                } else {
+		                    System.out.println("\nSong not found.");
+		                }       
 	            	
 	            }
 	            case 8 -> {
+                  System.out.println(String.format("This is the current order of songs in library: "));
+                  List<Song> songs = library.getSongs();
+                  printSongs(songs, "Current library: ");
+                  // Shuffle
+                  library.shuffleLibrarySongs();
+                  songs = library.getSongs();
+                  System.out.println(String.format("This is the new order of songs in library:"));
+                  printSongs(songs, "Shuffled library: ");
+	            }
+              case 9 -> {
 	                System.out.println("Returning to Main Menu...");
-	                // The while loop will end because searchChoice == 7
+	                // The while loop will end because searchChoice == 9
 	            }
 	            default -> {
 	                System.out.println("Invalid choice. Please try again.");

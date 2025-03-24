@@ -567,10 +567,10 @@ public class View {
 			            break;  // re-display the sub-menu
 			        }
 		            
-		            if (library.removeSong(index)) {
+		            if (library.removeSong(index-1)) {
 			            System.out.println("Successfully removed song.");
 	                } else {
-	                	 System.out.println("Invalid index.");
+	                	 System.out.println("Couldn't find the song to remove.");
 	                }
 		        }
 		        case 2-> { // Remove an album (and all its songs)

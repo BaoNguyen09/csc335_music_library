@@ -509,8 +509,14 @@ public class View {
 		            }
 	
 		            System.out.print("Enter the index of the song to remove: ");
-		            int index = console.nextInt() - 1;
-		            console.nextLine();  // Consume the leftover newline
+		            int index = 0;
+		            try {
+			            index = Integer.parseInt(console.nextLine().trim());
+			        } catch (NumberFormatException e) {
+			            System.out.println("Invalid input. Please enter a number 1-" + songs.size());
+			            break;  // re-display the sub-menu
+			        }
+		            
 		            if (library.removeSong(index)) {
 			            System.out.println("Successfully removed song.");
 	                } else {

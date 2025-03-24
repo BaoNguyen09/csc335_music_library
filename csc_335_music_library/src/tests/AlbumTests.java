@@ -98,6 +98,15 @@ class AlbumTests {
 	}
 	
 	@Test
+
+	void testContainsSongTrue() {
+		Album album = new Album("19", "Adele", "Pop", "2008");
+		Song song1 = new Song("Daydreamer", "Adele", "19", "Pop");
+		album.addSong(song1);
+		assertTrue(album.containsSong(song1));
+  }
+  
+  @Test
 	void testRemoveSongTrue() {
 		Album album = new Album("19", "Adele", "Pop", "2008");
 		Song song1 = new Song("Daydreamer", "Adele", "19", "Pop");
@@ -109,11 +118,16 @@ class AlbumTests {
 		assertTrue(album.removeSong(songToRemove));
 		ArrayList<Song> songsInAlbum = album.getSongArray();
 		assertEquals("[Best for Last, Adele, 19]", songsInAlbum.toString());
-		
 
 	}
 	
 	@Test
+	void testContainsSongFalse() {
+		Album album = new Album("19", "Adele", "Pop", "2008");
+		Song song1 = new Song("Daydreamer", "Adele", "19", "Pop");
+		assertFalse(album.containsSong(song1));
+
+  @Test
 	void testRemoveSongFalse() {
 		Album album = new Album("19", "Adele", "Pop", "2008");
 		Song song1 = new Song("Daydreamer", "Adele", "19", "Pop");
@@ -125,7 +139,5 @@ class AlbumTests {
 		assertFalse(album.removeSong(songToRemove));
 		ArrayList<Song> songsInAlbum = album.getSongArray();
 		assertEquals("[Daydreamer, Adele, 19, Best for Last, Adele, 19]", songsInAlbum.toString());
-		
-
-	}
+  }	
 }

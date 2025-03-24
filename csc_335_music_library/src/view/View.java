@@ -35,7 +35,7 @@ public class View {
 	    
 	        // MENU OPTIONS FOR USER
 	        // Use the same scanner instance for commands.
-	        while (command != 9) {
+	        while (command != 10) {
 	            try {
 	                System.out.print("Enter your command (in int): ");
 	                command = Integer.valueOf(scanner.nextLine());
@@ -55,29 +55,33 @@ public class View {
 	                    showCommandMenu();
 	                }
 	                if (command == 4) {
-	                    showItemsInLibrary(scanner, library);
+	                    removeSongFromLibrary(scanner, library, musicStore);
 	                    showCommandMenu();
 	                }
 	                if (command == 5) {
-	                    createPlayList(scanner, library);
+	                    showItemsInLibrary(scanner, library);
 	                    showCommandMenu();
 	                }
 	                if (command == 6) {
-	                    addOrRemoveSongFromPlaylist(scanner, library);
+	                    createPlayList(scanner, library);
 	                    showCommandMenu();
 	                }
 	                if (command == 7) {
-	                    markSongAsFavorite(scanner, library);
+	                    addOrRemoveSongFromPlaylist(scanner, library);
 	                    showCommandMenu();
 	                }
 	                if (command == 8) {
+	                    markSongAsFavorite(scanner, library);
+	                    showCommandMenu();
+	                }
+	                if (command == 9) {
 	                    rateSong(scanner, library);
 	                    showCommandMenu();
 	                }
-	                if (command > 9 || command < 0) {
+	                if (command > 10 || command < 0) {
 	                    System.out.println("Please enter valid command");
 	                }
-	                if (command == 9) {
+	                if (command == 10) {
 	                    // Updating the user music library and saving the updated user data to database
 	                    currentUser.updateLibrary(library);
 	                    storage.saveUser(currentUser);
@@ -174,7 +178,10 @@ public class View {
 							3. Add to library
 								a. song
 								b. album (with all the songs)
-							4. Get a list of items from library
+							4. Remove from library
+								a. song
+								b. album (with all the songs removed)
+							5. Get a list of items from library
 								a. song titles (any order)
 								b. artist (any order)
 								c. albums (any order)
@@ -184,12 +191,11 @@ public class View {
 								g. get recently played songs
 								h. get most played songs
 								i. all song ratings (any order)
-							5. Create a playlist
-							6. Add/remove/shuffle songs from playlist
-							7. Mark a song as "favorite"
-							8. Rate a song
-							9. Save and Log Out
-							
+							6. Create a playlist
+							7. Add/remove/shuffle songs from playlist
+							8. Mark a song as "favorite"
+							9. Rate a song
+							10. Save and Log Out						
 							""");
 	}
 	
@@ -459,13 +465,85 @@ public class View {
 	            }
 	            case 3 -> {
 	                System.out.println("Returning to Main Menu...");
-	                // The while loop will end because searchChoice == 5
 	            }
 	            default -> {
 	                System.out.println("Invalid choice. Please try again.");
 	            }
 	        }
 	    }
+	}
+	
+	/* The removeSongFromLibrary method was written with the help of ChatGPT.
+	 */
+	public static void removeSongFromLibrary(Scanner console, LibraryModel library, MusicStore store) {
+		int searchChoice = 0;
+
+		while (searchChoice != 3) {
+			System.out.println("\nRemove from library:");
+		    System.out.println("1. Song");
+		    System.out.println("2. Album");
+		    System.out.println("3. Return to Main Menu");
+
+		    System.out.print("Enter choice: ");
+	    
+	        try {
+	            searchChoice = Integer.parseInt(console.nextLine().trim());
+	        } catch (NumberFormatException e) {
+	            System.out.println("Invalid input. Please enter a number 1-3.");
+	            continue;  // re-display the sub-menu
+	        }
+
+		    switch (searchChoice) {
+		        case 1 -> {  // Remove a single song
+		            List<Song> songs = library.getSongs();
+		            
+		            if (songs.isEmpty()) {
+		                System.out.println("No songs available to remove.");
+		                return;
+		            }
+	
+		            System.out.println("Songs in library:");
+		            for (int i = 0; i < songs.size(); i++) {
+		                Song song = songs.get(i);
+		                System.out.printf("%d. %s by %s (Album: %s)%n", i + 1, song.getSongTitle(), song.getArtist(), song.getAlbumTitle());
+		            }
+	
+		            System.out.print("Enter the index of the song to remove: ");
+		            int index = 0;
+		            try {
+			            index = Integer.parseInt(console.nextLine().trim());
+			        } catch (NumberFormatException e) {
+			            System.out.println("Invalid input. Please enter a number 1-" + songs.size());
+			            break;  // re-display the sub-menu
+			        }
+		            
+		            if (library.removeSong(index)) {
+			            System.out.println("Successfully removed song.");
+	                } else {
+	                	 System.out.println("Invalid index.");
+	                }
+		        }
+		        case 2-> { // Remove an album (and all its songs)
+		            System.out.print("Enter album title: ");
+		            String albumTitle = console.nextLine();
+	
+		            System.out.print("Enter artist name: ");
+		            String artistName = console.nextLine();
+		            
+		            if (library.removeAlbum(albumTitle, artistName)) {
+		                System.out.println("Removed album: " + albumTitle + " by " + artistName);
+		            } else {
+		                System.out.println("No matching album found.");
+		            }
+		        }
+		        case 3 -> {
+	                System.out.println("Returning to Main Menu...");
+	            }
+		        default -> {
+	                System.out.println("Invalid choice. Please try again.");
+	            }
+	    	}
+		}
 	}
 	
 	// COMMAND FOUR menu options - Used the same code structure as above but

@@ -49,6 +49,8 @@ public class LibraryModel {
 		albumByArtist = otherLibrary.albumByArtist;
 		playlistByTitle = otherLibrary.playlistByTitle;
 		songs = otherLibrary.songs;
+		mostPlayedSongs = otherLibrary.mostPlayedSongs;
+		recentSongs = otherLibrary.recentSongs;
 	}
 	
 	public String[] getSongTitles() {
@@ -60,6 +62,7 @@ public class LibraryModel {
 			i++;
 		}
 		return songList;
+		
 	}
 	
 	// Get all details of each song in songs list
@@ -188,6 +191,148 @@ public class LibraryModel {
 		return false;
 		
 	}
+	/*
+	 * When removing a song from the library we must remove from:
+	 * 	- songs list
+	 * 	- all created playlists with the song
+	 *  - favorite songs list
+	 *  - all songs hashmaps
+	 *  - the album list inside album hashmaps
+	 * 
+	 */
+	public boolean removeSong(int index) {
+		if (index >= 0 && index < songs.size()) {
+			// Remove from songs list
+			Song song = songs.remove(index);
+			
+			// Remove from all playlist with the song
+			for (Playlist playlist: playlists) {
+				playlist.removeSong(song);
+				
+			}
+			
+			mostPlayedSongs.removeSong(song);
+			recentSongs.removeSong(song);
+			
+			// Remove from favorite songs list
+	        favoriteSongs.removeIf(favSong -> favSong.equals(song));
+	        
+			
+			// Remove from all songs hashmaps
+			removeSongFromHashmap(songByTitle, song.getSongTitle(), song);
+			removeSongFromHashmap(songByArtist, song.getArtist(), song);
+			removeSongFromHashmap(songByGenre, song.getGenre(), song);
+			
+			// Remove from the albums hashmap songs list
+			List<Album> listOfAlbums = albumByTitle.get(song.getAlbumTitle().toUpperCase());
+			if (listOfAlbums != null) {
+				for (Album album: listOfAlbums) {
+					album.removeSong(song);
+				}
+			}
+			if (listOfAlbums != null) {
+				listOfAlbums = albumByArtist.get(song.getArtist().toUpperCase());
+					for (Album album: listOfAlbums) {
+						album.removeSong(song);
+					}
+			}
+			
+			return true;
+			
+		}
+		return false;
+	}
+	
+	/*
+	 * Helper method to removeSong to remove songs from all song hashmaps
+	 */
+	public void removeSongFromHashmap (Map<String, List<Song>> map, String key, Song song) {
+
+		List<Song> listOfSongs = map.get(key.toUpperCase());
+		if (listOfSongs != null) {
+	        listOfSongs.removeIf(s -> s.equals(song));
+
+				// Removes the entire (key, value) pair if there are no longer any
+				// song with the title, artist, genre, etc
+				if (listOfSongs.size() == 0) {
+					map.remove(key.toUpperCase());
+					
+				}
+			}
+		}
+	
+	/*
+	 * When removing an album from the library we must remove:
+	 *  - the album inside album hashmaps
+	 *  - Call the removeSong function to remove all songs inside the album if it
+	 *  	exists
+	 */
+	public boolean removeAlbum(String albumTitle, String artist) {
+		
+		boolean foundAlbum = false;
+		
+		List<Album> listOfAlbums = albumByTitle.get(albumTitle.toUpperCase());
+		
+		if (listOfAlbums == null) {
+			return false;
+		}
+		
+		for (Album album: listOfAlbums) {
+			// If the artist of the album matches the artist stated, then
+			// that is the album and we must remove it
+
+			if (album.getArtist().toLowerCase().equals(artist.toLowerCase())) {
+				foundAlbum = true;
+				
+				// Remove songs in album
+				removeAllSongsInAlbum(album);
+				
+				// Remove album
+				listOfAlbums.remove(album);
+				
+			
+				// If no album with albumTitle exist after removal, remove the key from map
+				if (listOfAlbums.size() == 0) {
+					albumByTitle.remove(albumTitle.toUpperCase());
+					
+				}
+				break;
+			}
+		}
+		
+		listOfAlbums = albumByArtist.get(artist.toUpperCase());
+		for (Album album: listOfAlbums) {
+			if (album.getAlbumTitle().toLowerCase().equals(albumTitle.toLowerCase())) {
+				foundAlbum = true;
+				// Remove songs in album
+				removeAllSongsInAlbum(album);
+		
+				// Remove album
+				listOfAlbums.remove(album);
+				
+				if (listOfAlbums.size() == 0) {
+					albumByArtist.remove(artist.toUpperCase());
+					
+				}
+				break;
+			}
+		}
+		
+		return foundAlbum;
+				
+	}
+	
+	private void removeAllSongsInAlbum(Album album) {
+		// Removing all songs in the album from the library
+		for (Song s: album.getSongArray()) {
+			// Finding index of the song in songs list
+			int i = songs.indexOf(s);
+			
+			// Calling the removeSong function at that index
+			this.removeSong(i);
+		}
+	}
+	
 	
 	/* Adds an album and all its songs to the library.
 	 * 
@@ -492,11 +637,11 @@ public class LibraryModel {
 	}
 	
 	// This function is to update these two playlists with a recently played song in library and new stream count
-	public void playSong(Song song) {
+	public void updatePlaylists(Song song) {
 		for (Song internalSong: songs) {
 			if (internalSong.equals(song)) {
-				recentSongs.addSongToPlaylist(new Song(song));
-				mostPlayedSongs.addSongToPlaylist(new Song(song));
+				recentSongs.addSongToPlaylist(new Song(internalSong));
+				mostPlayedSongs.addSongToPlaylist(new Song(internalSong));
 				return;
 			}
 		}

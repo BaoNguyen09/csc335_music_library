@@ -109,6 +109,38 @@ class PlaylistTests {
 		Playlist playlist = new Playlist("My playlist");
 		assertEquals("My playlist", playlist.toString(), "Playlist info should be the playlist title");
 	}
+	
+	@Test
+	void testRemoveSong2MethodTrue() {
+		Playlist playlist = new Playlist("My playlist");
+		Song song1 = new Song("Daydreamer", "Adele", "19", "Pop");
+		Song song2 = new Song("Best for Last", "Adele", "19", "Pop");
+		Song songToRemove = new Song("Daydreamer", "Adele", "19", "Pop");
+
+		playlist.addSongToPlaylist(song1);
+		playlist.addSongToPlaylist(song2);
+		assertTrue(playlist.removeSong(songToRemove));
+		ArrayList<Song> songsInPlaylist = playlist.getSongArray();
+		assertEquals("[Best for Last, Adele, 19]", songsInPlaylist.toString());
+		
+
+	}
+	
+	@Test
+	void testRemoveSong2MethodFalse() {
+		Playlist playlist = new Playlist("My playlist");
+		Song song1 = new Song("Daydreamer", "Adele", "19", "Pop");
+		Song song2 = new Song("Best for Last", "Adele", "19", "Pop");
+		Song songToRemove = new Song("NotInPlaylist", "Adele", "19", "Pop");
+
+		playlist.addSongToPlaylist(song1);
+		playlist.addSongToPlaylist(song2);
+		assertFalse(playlist.removeSong(songToRemove));
+		ArrayList<Song> songsInPlaylist = playlist.getSongArray();
+		assertEquals("[Daydreamer, Adele, 19, Best for Last, Adele, 19]", songsInPlaylist.toString());
+		
+
+	}
 
 	@Test
 	void testShuffleSongs() {

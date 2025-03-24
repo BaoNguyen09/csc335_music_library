@@ -69,11 +69,16 @@ public class Album {
 	public boolean containsSong(Song song) {
 		for (Song songInAlbum: songs) {
 			if (songInAlbum.equals(song)) {
+
+	public boolean removeSong(Song songToRemove) {
+		for (Song song: songs) {
+			if (song.equals(songToRemove)) {
+				songs.remove(song);
 				return true;
 			}
 		}
 		return false;
-		
+
 	}
 	
 	@Override

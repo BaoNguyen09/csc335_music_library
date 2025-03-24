@@ -32,6 +32,24 @@ public class MusicStore {
 		}
 	}
 	
+	public Album searchAlbum(String albumTitle, String artist){
+		List<Album> potentialAlbums = this.searchAlbumByTitle(albumTitle.toUpperCase());
+
+		// If no songs with that title
+		if (potentialAlbums == null) {
+			return null;
+		}
+
+		for (Album album: potentialAlbums) {
+			if (album.getArtist().toUpperCase().equals(artist.toUpperCase())){ 
+						return new Album(album);
+				}
+
+		}
+		return null;
+
+	}
+	
 	/* 
 	 * @pre songTitle != null
 	 */

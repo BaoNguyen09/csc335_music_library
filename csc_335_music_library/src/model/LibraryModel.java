@@ -49,6 +49,8 @@ public class LibraryModel {
 		albumByArtist = otherLibrary.albumByArtist;
 		playlistByTitle = otherLibrary.playlistByTitle;
 		songs = otherLibrary.songs;
+		mostPlayedSongs = otherLibrary.mostPlayedSongs;
+		recentSongs = otherLibrary.recentSongs;
 	}
 	
 	public String[] getSongTitles() {
@@ -467,11 +469,11 @@ public class LibraryModel {
 	}
 	
 	// This function is to update these two playlists with a recently played song in library and new stream count
-	public void playSong(Song song) {
+	public void updatePlaylists(Song song) {
 		for (Song internalSong: songs) {
 			if (internalSong.equals(song)) {
-				recentSongs.addSongToPlaylist(new Song(song));
-				mostPlayedSongs.addSongToPlaylist(new Song(song));
+				recentSongs.addSongToPlaylist(new Song(internalSong));
+				mostPlayedSongs.addSongToPlaylist(new Song(internalSong));
 				return;
 			}
 		}

@@ -672,7 +672,7 @@ public class View {
 		System.out.println("↻      ◁     ||     ▷       ↺");
 		// update mostPlayedSongs and recentSongs lists
 		library.updateStreamCount(song);
-		library.playSong(song);
+		library.updatePlaylists(song);
 	}
 	
 

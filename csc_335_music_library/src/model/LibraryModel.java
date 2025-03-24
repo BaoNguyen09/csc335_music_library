@@ -288,8 +288,9 @@ public class LibraryModel {
 			mostPlayedSongs.removeSong(song);
 			recentSongs.removeSong(song);
 			
-			// Remove from favorite songs list
+			// Remove from automatic song lists
 	        favoriteSongs.removeIf(favSong -> favSong.equals(song));
+	        topRatedSongs.removeIf(topRatedSong-> topRatedSong.equals(song));
 	        
 			
 			// Remove from all songs hashmaps

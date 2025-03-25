@@ -710,6 +710,7 @@ public class View {
 	            	int index = 1;
 	            	for (String key: genrePlaylists.keySet()) {
 	            		System.out.println(String.format("%d. %s", index, key));
+	            		index ++;
 	            	}
 	            	System.out.println("Enter the name of any genre playlists in here to see the songs:");
 	            	String choice = console.nextLine().trim().toLowerCase();

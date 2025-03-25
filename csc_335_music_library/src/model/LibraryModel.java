@@ -102,6 +102,33 @@ public class LibraryModel {
 		return songList;
 	}
 	
+	/* This function is used to get a list of songs sorted by title
+	 * using static method titleFirstComparator from Song class
+	 */
+	public ArrayList<Song> getSongListByTitle() {
+		ArrayList<Song> copySongs = new ArrayList<Song>(songs);
+		Collections.sort(copySongs, Song.titleFirstComparator());
+		return copySongs;
+	}
+	
+	/* This function is used to get a list of songs sorted by artist
+	 * using static method artistFirstComparator from Song class
+	 */
+	public ArrayList<Song> getSongListByArtist() {
+		ArrayList<Song> copySongs = new ArrayList<Song>(songs);
+		Collections.sort(copySongs, Song.artistFirstComparator());
+		return copySongs;
+	}
+	
+	/* This function is used to get a list of songs sorted by rating
+	 * using static method ratingFirstComparator from Song class
+	 */
+	public ArrayList<Song> getSongListByRating() {
+		ArrayList<Song> copySongs = new ArrayList<Song>(songs);
+		Collections.sort(copySongs, Song.ratingFirstComparator());
+		return copySongs;
+	}
+	
 	/* This helper method capitalize first letter of each word used for all-lowercase artist name */
 	private String capitalizeFirstLetter(String word) {
 		if (word == null || word.isEmpty()) {
@@ -326,7 +353,7 @@ public class LibraryModel {
 	/*
 	 * Helper method to removeSong to remove songs from all song hashmaps
 	 */
-	public void removeSongFromHashmap (Map<String, List<Song>> map, String key, Song song) {
+	private void removeSongFromHashmap (Map<String, List<Song>> map, String key, Song song) {
 
 		List<Song> listOfSongs = map.get(key.toUpperCase());
 		if (listOfSongs != null) {

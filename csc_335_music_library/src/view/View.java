@@ -569,7 +569,7 @@ public class View {
 			            break;  // re-display the sub-menu
 			        }
 		            
-		            if (library.removeSong(index-1)) {
+		            if (library.removeSong(index - 1)) {
 			            System.out.println("Successfully removed song.");
 	                } else {
 	                	 System.out.println("Couldn't find the song to remove.");

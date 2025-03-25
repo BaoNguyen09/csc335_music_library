@@ -73,7 +73,6 @@ public class Album {
 			}
 		}
 		return false;
-	
 	}
 
 	public boolean removeSong(Song songToRemove) {

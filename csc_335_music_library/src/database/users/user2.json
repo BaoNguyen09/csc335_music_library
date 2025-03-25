@@ -1,0 +1,28 @@
+{
+  "username": "user2",
+  "password": "$2a$10$R2mDEHGdauKVzD66HsSJHO/Bdcfc8LDaLlIhKPgBKfK8Lk4Hid7Ru",
+  "userLibrary": {
+    "playlists": [],
+    "favoriteSongs": [],
+    "topRatedSongs": [],
+    "songs": [],
+    "songByTitle": {},
+    "songByArtist": {},
+    "songByGenre": {},
+    "albumByTitle": {},
+    "albumByArtist": {},
+    "playlistByTitle": {},
+    "mostPlayedSongs": {
+      "playlistTitle": "Most Played Songs Playlist",
+      "songs": []
+    },
+    "recentSongs": {
+      "songs": []
+    },
+    "genrePlaylists": {
+      "songs": [],
+      "genrePlaylists": {},
+      "genreList": []
+    }
+  }
+}

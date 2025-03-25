@@ -3,6 +3,7 @@ package view;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.Scanner;
 
@@ -188,17 +189,19 @@ public class View {
 								b. artist (any order)
 								c. albums (any order)
 								d. playlist (any order)
-								e. favorite songs (any order)
-								i. all song ratings (with sort option)
-								f. play a song in library
-								g. get recently played songs
-								h. get most played songs
-								i. all song ratings (any order)
+								e. favorite songs (any order) 
+								f. top rated songs (any order)
+								g. play a song in library
+								h. get recently played songs
+								i. get most played songs
+								j. get genre-based playlists
+								k. all song ratings (any order)
 							6. Create a playlist
 							7. Add/remove/shuffle songs from playlist
 							8. Mark a song as "favorite"
 							9. Rate a song
-							10. Save and Log Out						
+							10. Save and Log Out
+							
 							""");
 	}
 	
@@ -276,9 +279,8 @@ public class View {
             System.out.println(searchTerm);
             int index = 1;
             for (Song s : foundSongs) {
-                System.out.println(String.format("%d. %s by %s (%d streams, %s)", index, s.getSongTitle(), 
-                		s.getArtist(), s.getStreamCount(), s.getRating().toString()));
-                
+                System.out.println(String.format("%d. %s by %s (%d streams) - %s", index, 
+                		s.getSongTitle(), s.getArtist(), s.getStreamCount(), s.getRating().toString()));
                 System.out.println("	Album: " + s.getAlbumTitle() + "\n");
                 index ++;
             }
@@ -570,7 +572,7 @@ public class View {
 		            if (library.removeSong(index - 1)) {
 			            System.out.println("Successfully removed song.");
 	                } else {
-	                	 System.out.println("Invalid index.");
+	                	 System.out.println("Couldn't find the song to remove.");
 	                }
 		        }
 		        case 2-> { // Remove an album (and all its songs)
@@ -602,21 +604,22 @@ public class View {
 		int searchChoice = 0;
 	    
 	    // Keep showing the sub-menu until the user chooses to exit
-	    while (searchChoice != 11) {
+	    while (searchChoice != 12) {
 	        System.out.println("""
 	        		
 				        		Add To Library:
-				        		    1.  Get list of songs
-				        		    2.  Get all artist names
-				        		    3.  Get all album titles
-				        		    4.  Get all playlist titles
-				        		    5.  Get all favorite song titles
-				        		    6.  Get all song ratings
-				        		    7.  Play a song in library
-				        		    8.  Recently played songs
-				        		    9.  Most played songs
-				        		    10. Songs with sort options (title, artist, rating)
-				        		    11. Return to Main Menu
+				        		    1. Get all song titles
+				        		    2. Get all artist names
+				        		    3. Get all album titles
+				        		    4. Get all playlist titles
+				        		    5. Get all favorite songs 
+				        		    6. Get all top rated songs
+				        		    7. Get all song ratings
+				        		    8. Play a song in library
+				        		    9. Get recently played songs
+				        		    10. Get most played songs
+				        		    11. Get genre-based playlists
+				        		    12. Return to Main Menu
 	        		    		""");
 	       
 
@@ -624,7 +627,7 @@ public class View {
 	        try {
 	            searchChoice = Integer.parseInt(console.nextLine().trim());
 	        } catch (NumberFormatException e) {
-	            System.out.println("Invalid input. Please enter a number 1-11.");
+	            System.out.println("Invalid input. Please enter a number 1-12.");
 	            continue;  // re-display the sub-menu
 	        }
 
@@ -649,16 +652,21 @@ public class View {
 
 	            }
 	            case 5 -> {
-	            	String[] favoriteSongs= library.getFavoriteSongs();
+	            	String[] favoriteSongs = library.getFavoriteSongs();
 	                printItems(favoriteSongs, "favorite songs");
 
 	            }
 	            case 6 -> {
+	            	List<Song> topRatedSongs = library.getTopRatedSongs();
+	                printSongs(topRatedSongs, "These are top rated songs:");
+
+	            }
+	            case 7 -> {
 	            	String[] songRatings= library.getSongRatings();
 	                printItems(songRatings, "song ratings");
 
 	            }
-	            case 7 -> {
+	            case 8 -> {
 	            	System.out.print("Enter the song title: ");
 	                String title = console.nextLine();
 	                List<Song> foundSongs = library.searchSongByTitle(title);
@@ -684,45 +692,35 @@ public class View {
 	                
 	                
 	            }
-	            case 8 -> {
+	            case 9 -> {
 	            	List<Song> recentSongList= library.getRecentSongs();
 	            	Collections.reverse(recentSongList);
 	                printSongs(recentSongList, "Recently played songs (most recent -> least recent)");
 
 	            }
-	            case 9 -> {
+	            case 10 -> {
 	            	List<Song> mostPlayedSongList= library.getMostPlayedSongs();
 	            	Collections.reverse(mostPlayedSongList);
 	                printSongs(mostPlayedSongList, "Most played songs (with stream count): ");
 
 	            }
-	            case 10 -> {
-	            	int sortChoice = 0;
-	            	while (sortChoice != 4) {
-	            		System.out.println("Get a list of songs in the library sorted (in ascending order) by: ");
-		            	System.out.println("1. Song title");
-		            	System.out.println("2. Artist");
-		            	System.out.println("3. Rating");
-		            	System.out.println("4. Quit");
-	            		System.out.println("What's your choice?");
-		                sortChoice = Integer.parseInt(console.nextLine().trim());
-		                switch (sortChoice) {
-			                case 1 -> {
-			                	printSongs(library.getSongListByTitle(), "List of songs sorted by title:");
-			                }
-			                case 2 -> {
-			                	printSongs(library.getSongListByArtist(), "List of songs sorted by artist:");
-			                }
-			                case 3 -> {
-			                	printSongs(library.getSongListByRating(), "List of songs sorted by rating:");
-			                }
-			                default -> {
-			                	System.out.println("Invalid choice. Please try again.");
-			                }
-		                }
-	            	}
-	            }
 	            case 11 -> {
+	            	Map<String, List<Song>> genrePlaylists = library.getGenrePlaylists();
+	            	System.out.println("Here's are all genre-based playlists:");
+	            	int index = 1;
+	            	for (String key: genrePlaylists.keySet()) {
+	            		System.out.println(String.format("%d. %s", index, key));
+	            		index ++;
+	            	}
+	            	System.out.println("Enter the name of any genre playlists in here to see the songs:");
+	            	String choice = console.nextLine().trim().toLowerCase();
+	            	if (genrePlaylists.keySet().contains(choice)) {
+	            		List<Song> genrePlaylist = genrePlaylists.get(choice);
+	            		printSongs(genrePlaylist, String.format("Songs of genre %s:", choice));
+	            	} 
+	            	System.out.println("Going back to sub-menu");
+	            }
+	            case 12 -> {
 	                System.out.println("Returning to Main Menu...");
 	                // The while loop will end because searchChoice == 5
 	            }

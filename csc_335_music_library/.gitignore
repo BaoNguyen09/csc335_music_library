@@ -36,3 +36,5 @@ local.properties
 
 # JSON files
 /src/database/users/*.json
+!/src/database/users/user1.json
+!/src/database/users/user2.json

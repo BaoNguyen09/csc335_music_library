@@ -1,0 +1,1777 @@
+{
+  "username": "user1",
+  "password": "$2a$10$pk/WfJV9xiXiLDryZPKEl.kMlh9O3ZPIfMaY9KNWLhsv7gBlT/eA6",
+  "userLibrary": {
+    "playlists": [
+      {
+        "playlistTitle": "playlist1",
+        "songs": []
+      }
+    ],
+    "favoriteSongs": [
+      {
+        "songTitle": "Daydreamer",
+        "artist": "Adele",
+        "albumTitle": "19",
+        "genre": "Pop",
+        "rating": "UNRATED",
+        "isFavorite": true,
+        "streamCount": 1
+      }
+    ],
+    "topRatedSongs": [],
+    "songs": [
+      {
+        "songTitle": "Daydreamer",
+        "artist": "Adele",
+        "albumTitle": "19",
+        "genre": "Pop",
+        "rating": "UNRATED",
+        "isFavorite": true,
+        "streamCount": 1
+      },
+      {
+        "songTitle": "Best for Last",
+        "artist": "Adele",
+        "albumTitle": "19",
+        "genre": "Pop",
+        "rating": "UNRATED",
+        "isFavorite": false,
+        "streamCount": 0
+      },
+      {
+        "songTitle": "Chasing Pavements",
+        "artist": "Adele",
+        "albumTitle": "19",
+        "genre": "Pop",
+        "rating": "UNRATED",
+        "isFavorite": false,
+        "streamCount": 0
+      },
+      {
+        "songTitle": "Cold Shoulder",
+        "artist": "Adele",
+        "albumTitle": "19",
+        "genre": "Pop",
+        "rating": "UNRATED",
+        "isFavorite": false,
+        "streamCount": 0
+      },
+      {
+        "songTitle": "Crazy for You",
+        "artist": "Adele",
+        "albumTitle": "19",
+        "genre": "Pop",
+        "rating": "UNRATED",
+        "isFavorite": false,
+        "streamCount": 0
+      },
+      {
+        "songTitle": "Melt My Heart to Stone",
+        "artist": "Adele",
+        "albumTitle": "19",
+        "genre": "Pop",
+        "rating": "UNRATED",
+        "isFavorite": false,
+        "streamCount": 0
+      },
+      {
+        "songTitle": "First Love",
+        "artist": "Adele",
+        "albumTitle": "19",
+        "genre": "Pop",
+        "rating": "UNRATED",
+        "isFavorite": false,
+        "streamCount": 0
+      },
+      {
+        "songTitle": "Right as Rain",
+        "artist": "Adele",
+        "albumTitle": "19",
+        "genre": "Pop",
+        "rating": "UNRATED",
+        "isFavorite": false,
+        "streamCount": 0
+      },
+      {
+        "songTitle": "Make You Feel My Love",
+        "artist": "Adele",
+        "albumTitle": "19",
+        "genre": "Pop",
+        "rating": "UNRATED",
+        "isFavorite": false,
+        "streamCount": 0
+      },
+      {
+        "songTitle": "My Same",
+        "artist": "Adele",
+        "albumTitle": "19",
+        "genre": "Pop",
+        "rating": "UNRATED",
+        "isFavorite": false,
+        "streamCount": 0
+      },
+      {
+        "songTitle": "Tired",
+        "artist": "Adele",
+        "albumTitle": "19",
+        "genre": "Pop",
+        "rating": "UNRATED",
+        "isFavorite": false,
+        "streamCount": 1
+      },
+      {
+        "songTitle": "Hometown Glory",
+        "artist": "Adele",
+        "albumTitle": "19",
+        "genre": "Pop",
+        "rating": "UNRATED",
+        "isFavorite": false,
+        "streamCount": 0
+      },
+      {
+        "songTitle": "Coat of Many Colors",
+        "artist": "Dolly Parton",
+        "albumTitle": "Coat of Many Colors",
+        "genre": "Traditional Country",
+        "rating": "UNRATED",
+        "isFavorite": false,
+        "streamCount": 0
+      },
+      {
+        "songTitle": "Traveling Man",
+        "artist": "Dolly Parton",
+        "albumTitle": "Coat of Many Colors",
+        "genre": "Traditional Country",
+        "rating": "THREE_STAR",
+        "isFavorite": false,
+        "streamCount": 0
+      },
+      {
+        "songTitle": "My Blue Tears",
+        "artist": "Dolly Parton",
+        "albumTitle": "Coat of Many Colors",
+        "genre": "Traditional Country",
+        "rating": "UNRATED",
+        "isFavorite": false,
+        "streamCount": 0
+      },
+      {
+        "songTitle": "If I Lose My Mind",
+        "artist": "Dolly Parton",
+        "albumTitle": "Coat of Many Colors",
+        "genre": "Traditional Country",
+        "rating": "UNRATED",
+        "isFavorite": false,
+        "streamCount": 0
+      },
+      {
+        "songTitle": "The Mystery of the Mystery",
+        "artist": "Dolly Parton",
+        "albumTitle": "Coat of Many Colors",
+        "genre": "Traditional Country",
+        "rating": "UNRATED",
+        "isFavorite": false,
+        "streamCount": 0
+      },
+      {
+        "songTitle": "She Never Met a Man (She Didn\u0027t Like)",
+        "artist": "Dolly Parton",
+        "albumTitle": "Coat of Many Colors",
+        "genre": "Traditional Country",
+        "rating": "UNRATED",
+        "isFavorite": false,
+        "streamCount": 0
+      },
+      {
+        "songTitle": "Early Morning Breeze",
+        "artist": "Dolly Parton",
+        "albumTitle": "Coat of Many Colors",
+        "genre": "Traditional Country",
+        "rating": "UNRATED",
+        "isFavorite": false,
+        "streamCount": 0
+      },
+      {
+        "songTitle": "The Way I See You",
+        "artist": "Dolly Parton",
+        "albumTitle": "Coat of Many Colors",
+        "genre": "Traditional Country",
+        "rating": "UNRATED",
+        "isFavorite": false,
+        "streamCount": 0
+      },
+      {
+        "songTitle": "Here I Am",
+        "artist": "Dolly Parton",
+        "albumTitle": "Coat of Many Colors",
+        "genre": "Traditional Country",
+        "rating": "UNRATED",
+        "isFavorite": false,
+        "streamCount": 0
+      },
+      {
+        "songTitle": "A Better Place to Live",
+        "artist": "Dolly Parton",
+        "albumTitle": "Coat of Many Colors",
+        "genre": "Traditional Country",
+        "rating": "UNRATED",
+        "isFavorite": false,
+        "streamCount": 0
+      }
+    ],
+    "songByTitle": {
+      "DAYDREAMER": [
+        {
+          "songTitle": "Daydreamer",
+          "artist": "Adele",
+          "albumTitle": "19",
+          "genre": "Pop",
+          "rating": "UNRATED",
+          "isFavorite": false,
+          "streamCount": 0
+        }
+      ],
+      "BEST FOR LAST": [
+        {
+          "songTitle": "Best for Last",
+          "artist": "Adele",
+          "albumTitle": "19",
+          "genre": "Pop",
+          "rating": "UNRATED",
+          "isFavorite": false,
+          "streamCount": 0
+        }
+      ],
+      "CHASING PAVEMENTS": [
+        {
+          "songTitle": "Chasing Pavements",
+          "artist": "Adele",
+          "albumTitle": "19",
+          "genre": "Pop",
+          "rating": "UNRATED",
+          "isFavorite": false,
+          "streamCount": 0
+        }
+      ],
+      "COLD SHOULDER": [
+        {
+          "songTitle": "Cold Shoulder",
+          "artist": "Adele",
+          "albumTitle": "19",
+          "genre": "Pop",
+          "rating": "UNRATED",
+          "isFavorite": false,
+          "streamCount": 0
+        }
+      ],
+      "CRAZY FOR YOU": [
+        {
+          "songTitle": "Crazy for You",
+          "artist": "Adele",
+          "albumTitle": "19",
+          "genre": "Pop",
+          "rating": "UNRATED",
+          "isFavorite": false,
+          "streamCount": 0
+        }
+      ],
+      "MELT MY HEART TO STONE": [
+        {
+          "songTitle": "Melt My Heart to Stone",
+          "artist": "Adele",
+          "albumTitle": "19",
+          "genre": "Pop",
+          "rating": "UNRATED",
+          "isFavorite": false,
+          "streamCount": 0
+        }
+      ],
+      "FIRST LOVE": [
+        {
+          "songTitle": "First Love",
+          "artist": "Adele",
+          "albumTitle": "19",
+          "genre": "Pop",
+          "rating": "UNRATED",
+          "isFavorite": false,
+          "streamCount": 0
+        }
+      ],
+      "RIGHT AS RAIN": [
+        {
+          "songTitle": "Right as Rain",
+          "artist": "Adele",
+          "albumTitle": "19",
+          "genre": "Pop",
+          "rating": "UNRATED",
+          "isFavorite": false,
+          "streamCount": 0
+        }
+      ],
+      "MAKE YOU FEEL MY LOVE": [
+        {
+          "songTitle": "Make You Feel My Love",
+          "artist": "Adele",
+          "albumTitle": "19",
+          "genre": "Pop",
+          "rating": "UNRATED",
+          "isFavorite": false,
+          "streamCount": 0
+        }
+      ],
+      "MY SAME": [
+        {
+          "songTitle": "My Same",
+          "artist": "Adele",
+          "albumTitle": "19",
+          "genre": "Pop",
+          "rating": "UNRATED",
+          "isFavorite": false,
+          "streamCount": 0
+        }
+      ],
+      "TIRED": [
+        {
+          "songTitle": "Tired",
+          "artist": "Adele",
+          "albumTitle": "19",
+          "genre": "Pop",
+          "rating": "UNRATED",
+          "isFavorite": false,
+          "streamCount": 0
+        }
+      ],
+      "HOMETOWN GLORY": [
+        {
+          "songTitle": "Hometown Glory",
+          "artist": "Adele",
+          "albumTitle": "19",
+          "genre": "Pop",
+          "rating": "UNRATED",
+          "isFavorite": false,
+          "streamCount": 0
+        }
+      ],
+      "COAT OF MANY COLORS": [
+        {
+          "songTitle": "Coat of Many Colors",
+          "artist": "Dolly Parton",
+          "albumTitle": "Coat of Many Colors",
+          "genre": "Traditional Country",
+          "rating": "UNRATED",
+          "isFavorite": false,
+          "streamCount": 0
+        }
+      ],
+      "TRAVELING MAN": [
+        {
+          "songTitle": "Traveling Man",
+          "artist": "Dolly Parton",
+          "albumTitle": "Coat of Many Colors",
+          "genre": "Traditional Country",
+          "rating": "UNRATED",
+          "isFavorite": false,
+          "streamCount": 0
+        }
+      ],
+      "MY BLUE TEARS": [
+        {
+          "songTitle": "My Blue Tears",
+          "artist": "Dolly Parton",
+          "albumTitle": "Coat of Many Colors",
+          "genre": "Traditional Country",
+          "rating": "UNRATED",
+          "isFavorite": false,
+          "streamCount": 0
+        }
+      ],
+      "IF I LOSE MY MIND": [
+        {
+          "songTitle": "If I Lose My Mind",
+          "artist": "Dolly Parton",
+          "albumTitle": "Coat of Many Colors",
+          "genre": "Traditional Country",
+          "rating": "UNRATED",
+          "isFavorite": false,
+          "streamCount": 0
+        }
+      ],
+      "THE MYSTERY OF THE MYSTERY": [
+        {
+          "songTitle": "The Mystery of the Mystery",
+          "artist": "Dolly Parton",
+          "albumTitle": "Coat of Many Colors",
+          "genre": "Traditional Country",
+          "rating": "UNRATED",
+          "isFavorite": false,
+          "streamCount": 0
+        }
+      ],
+      "SHE NEVER MET A MAN (SHE DIDN\u0027T LIKE)": [
+        {
+          "songTitle": "She Never Met a Man (She Didn\u0027t Like)",
+          "artist": "Dolly Parton",
+          "albumTitle": "Coat of Many Colors",
+          "genre": "Traditional Country",
+          "rating": "UNRATED",
+          "isFavorite": false,
+          "streamCount": 0
+        }
+      ],
+      "EARLY MORNING BREEZE": [
+        {
+          "songTitle": "Early Morning Breeze",
+          "artist": "Dolly Parton",
+          "albumTitle": "Coat of Many Colors",
+          "genre": "Traditional Country",
+          "rating": "UNRATED",
+          "isFavorite": false,
+          "streamCount": 0
+        }
+      ],
+      "THE WAY I SEE YOU": [
+        {
+          "songTitle": "The Way I See You",
+          "artist": "Dolly Parton",
+          "albumTitle": "Coat of Many Colors",
+          "genre": "Traditional Country",
+          "rating": "UNRATED",
+          "isFavorite": false,
+          "streamCount": 0
+        }
+      ],
+      "HERE I AM": [
+        {
+          "songTitle": "Here I Am",
+          "artist": "Dolly Parton",
+          "albumTitle": "Coat of Many Colors",
+          "genre": "Traditional Country",
+          "rating": "UNRATED",
+          "isFavorite": false,
+          "streamCount": 0
+        }
+      ],
+      "A BETTER PLACE TO LIVE": [
+        {
+          "songTitle": "A Better Place to Live",
+          "artist": "Dolly Parton",
+          "albumTitle": "Coat of Many Colors",
+          "genre": "Traditional Country",
+          "rating": "UNRATED",
+          "isFavorite": false,
+          "streamCount": 0
+        }
+      ]
+    },
+    "songByArtist": {
+      "ADELE": [
+        {
+          "songTitle": "Daydreamer",
+          "artist": "Adele",
+          "albumTitle": "19",
+          "genre": "Pop",
+          "rating": "UNRATED",
+          "isFavorite": false,
+          "streamCount": 0
+        },
+        {
+          "songTitle": "Best for Last",
+          "artist": "Adele",
+          "albumTitle": "19",
+          "genre": "Pop",
+          "rating": "UNRATED",
+          "isFavorite": false,
+          "streamCount": 0
+        },
+        {
+          "songTitle": "Chasing Pavements",
+          "artist": "Adele",
+          "albumTitle": "19",
+          "genre": "Pop",
+          "rating": "UNRATED",
+          "isFavorite": false,
+          "streamCount": 0
+        },
+        {
+          "songTitle": "Cold Shoulder",
+          "artist": "Adele",
+          "albumTitle": "19",
+          "genre": "Pop",
+          "rating": "UNRATED",
+          "isFavorite": false,
+          "streamCount": 0
+        },
+        {
+          "songTitle": "Crazy for You",
+          "artist": "Adele",
+          "albumTitle": "19",
+          "genre": "Pop",
+          "rating": "UNRATED",
+          "isFavorite": false,
+          "streamCount": 0
+        },
+        {
+          "songTitle": "Melt My Heart to Stone",
+          "artist": "Adele",
+          "albumTitle": "19",
+          "genre": "Pop",
+          "rating": "UNRATED",
+          "isFavorite": false,
+          "streamCount": 0
+        },
+        {
+          "songTitle": "First Love",
+          "artist": "Adele",
+          "albumTitle": "19",
+          "genre": "Pop",
+          "rating": "UNRATED",
+          "isFavorite": false,
+          "streamCount": 0
+        },
+        {
+          "songTitle": "Right as Rain",
+          "artist": "Adele",
+          "albumTitle": "19",
+          "genre": "Pop",
+          "rating": "UNRATED",
+          "isFavorite": false,
+          "streamCount": 0
+        },
+        {
+          "songTitle": "Make You Feel My Love",
+          "artist": "Adele",
+          "albumTitle": "19",
+          "genre": "Pop",
+          "rating": "UNRATED",
+          "isFavorite": false,
+          "streamCount": 0
+        },
+        {
+          "songTitle": "My Same",
+          "artist": "Adele",
+          "albumTitle": "19",
+          "genre": "Pop",
+          "rating": "UNRATED",
+          "isFavorite": false,
+          "streamCount": 0
+        },
+        {
+          "songTitle": "Tired",
+          "artist": "Adele",
+          "albumTitle": "19",
+          "genre": "Pop",
+          "rating": "UNRATED",
+          "isFavorite": false,
+          "streamCount": 0
+        },
+        {
+          "songTitle": "Hometown Glory",
+          "artist": "Adele",
+          "albumTitle": "19",
+          "genre": "Pop",
+          "rating": "UNRATED",
+          "isFavorite": false,
+          "streamCount": 0
+        }
+      ],
+      "DOLLY PARTON": [
+        {
+          "songTitle": "Coat of Many Colors",
+          "artist": "Dolly Parton",
+          "albumTitle": "Coat of Many Colors",
+          "genre": "Traditional Country",
+          "rating": "UNRATED",
+          "isFavorite": false,
+          "streamCount": 0
+        },
+        {
+          "songTitle": "Traveling Man",
+          "artist": "Dolly Parton",
+          "albumTitle": "Coat of Many Colors",
+          "genre": "Traditional Country",
+          "rating": "UNRATED",
+          "isFavorite": false,
+          "streamCount": 0
+        },
+        {
+          "songTitle": "My Blue Tears",
+          "artist": "Dolly Parton",
+          "albumTitle": "Coat of Many Colors",
+          "genre": "Traditional Country",
+          "rating": "UNRATED",
+          "isFavorite": false,
+          "streamCount": 0
+        },
+        {
+          "songTitle": "If I Lose My Mind",
+          "artist": "Dolly Parton",
+          "albumTitle": "Coat of Many Colors",
+          "genre": "Traditional Country",
+          "rating": "UNRATED",
+          "isFavorite": false,
+          "streamCount": 0
+        },
+        {
+          "songTitle": "The Mystery of the Mystery",
+          "artist": "Dolly Parton",
+          "albumTitle": "Coat of Many Colors",
+          "genre": "Traditional Country",
+          "rating": "UNRATED",
+          "isFavorite": false,
+          "streamCount": 0
+        },
+        {
+          "songTitle": "She Never Met a Man (She Didn\u0027t Like)",
+          "artist": "Dolly Parton",
+          "albumTitle": "Coat of Many Colors",
+          "genre": "Traditional Country",
+          "rating": "UNRATED",
+          "isFavorite": false,
+          "streamCount": 0
+        },
+        {
+          "songTitle": "Early Morning Breeze",
+          "artist": "Dolly Parton",
+          "albumTitle": "Coat of Many Colors",
+          "genre": "Traditional Country",
+          "rating": "UNRATED",
+          "isFavorite": false,
+          "streamCount": 0
+        },
+        {
+          "songTitle": "The Way I See You",
+          "artist": "Dolly Parton",
+          "albumTitle": "Coat of Many Colors",
+          "genre": "Traditional Country",
+          "rating": "UNRATED",
+          "isFavorite": false,
+          "streamCount": 0
+        },
+        {
+          "songTitle": "Here I Am",
+          "artist": "Dolly Parton",
+          "albumTitle": "Coat of Many Colors",
+          "genre": "Traditional Country",
+          "rating": "UNRATED",
+          "isFavorite": false,
+          "streamCount": 0
+        },
+        {
+          "songTitle": "A Better Place to Live",
+          "artist": "Dolly Parton",
+          "albumTitle": "Coat of Many Colors",
+          "genre": "Traditional Country",
+          "rating": "UNRATED",
+          "isFavorite": false,
+          "streamCount": 0
+        }
+      ]
+    },
+    "songByGenre": {
+      "POP": [
+        {
+          "songTitle": "Daydreamer",
+          "artist": "Adele",
+          "albumTitle": "19",
+          "genre": "Pop",
+          "rating": "UNRATED",
+          "isFavorite": false,
+          "streamCount": 0
+        },
+        {
+          "songTitle": "Best for Last",
+          "artist": "Adele",
+          "albumTitle": "19",
+          "genre": "Pop",
+          "rating": "UNRATED",
+          "isFavorite": false,
+          "streamCount": 0
+        },
+        {
+          "songTitle": "Chasing Pavements",
+          "artist": "Adele",
+          "albumTitle": "19",
+          "genre": "Pop",
+          "rating": "UNRATED",
+          "isFavorite": false,
+          "streamCount": 0
+        },
+        {
+          "songTitle": "Cold Shoulder",
+          "artist": "Adele",
+          "albumTitle": "19",
+          "genre": "Pop",
+          "rating": "UNRATED",
+          "isFavorite": false,
+          "streamCount": 0
+        },
+        {
+          "songTitle": "Crazy for You",
+          "artist": "Adele",
+          "albumTitle": "19",
+          "genre": "Pop",
+          "rating": "UNRATED",
+          "isFavorite": false,
+          "streamCount": 0
+        },
+        {
+          "songTitle": "Melt My Heart to Stone",
+          "artist": "Adele",
+          "albumTitle": "19",
+          "genre": "Pop",
+          "rating": "UNRATED",
+          "isFavorite": false,
+          "streamCount": 0
+        },
+        {
+          "songTitle": "First Love",
+          "artist": "Adele",
+          "albumTitle": "19",
+          "genre": "Pop",
+          "rating": "UNRATED",
+          "isFavorite": false,
+          "streamCount": 0
+        },
+        {
+          "songTitle": "Right as Rain",
+          "artist": "Adele",
+          "albumTitle": "19",
+          "genre": "Pop",
+          "rating": "UNRATED",
+          "isFavorite": false,
+          "streamCount": 0
+        },
+        {
+          "songTitle": "Make You Feel My Love",
+          "artist": "Adele",
+          "albumTitle": "19",
+          "genre": "Pop",
+          "rating": "UNRATED",
+          "isFavorite": false,
+          "streamCount": 0
+        },
+        {
+          "songTitle": "My Same",
+          "artist": "Adele",
+          "albumTitle": "19",
+          "genre": "Pop",
+          "rating": "UNRATED",
+          "isFavorite": false,
+          "streamCount": 0
+        },
+        {
+          "songTitle": "Tired",
+          "artist": "Adele",
+          "albumTitle": "19",
+          "genre": "Pop",
+          "rating": "UNRATED",
+          "isFavorite": false,
+          "streamCount": 0
+        },
+        {
+          "songTitle": "Hometown Glory",
+          "artist": "Adele",
+          "albumTitle": "19",
+          "genre": "Pop",
+          "rating": "UNRATED",
+          "isFavorite": false,
+          "streamCount": 0
+        }
+      ],
+      "TRADITIONAL COUNTRY": [
+        {
+          "songTitle": "Coat of Many Colors",
+          "artist": "Dolly Parton",
+          "albumTitle": "Coat of Many Colors",
+          "genre": "Traditional Country",
+          "rating": "UNRATED",
+          "isFavorite": false,
+          "streamCount": 0
+        },
+        {
+          "songTitle": "Traveling Man",
+          "artist": "Dolly Parton",
+          "albumTitle": "Coat of Many Colors",
+          "genre": "Traditional Country",
+          "rating": "UNRATED",
+          "isFavorite": false,
+          "streamCount": 0
+        },
+        {
+          "songTitle": "My Blue Tears",
+          "artist": "Dolly Parton",
+          "albumTitle": "Coat of Many Colors",
+          "genre": "Traditional Country",
+          "rating": "UNRATED",
+          "isFavorite": false,
+          "streamCount": 0
+        },
+        {
+          "songTitle": "If I Lose My Mind",
+          "artist": "Dolly Parton",
+          "albumTitle": "Coat of Many Colors",
+          "genre": "Traditional Country",
+          "rating": "UNRATED",
+          "isFavorite": false,
+          "streamCount": 0
+        },
+        {
+          "songTitle": "The Mystery of the Mystery",
+          "artist": "Dolly Parton",
+          "albumTitle": "Coat of Many Colors",
+          "genre": "Traditional Country",
+          "rating": "UNRATED",
+          "isFavorite": false,
+          "streamCount": 0
+        },
+        {
+          "songTitle": "She Never Met a Man (She Didn\u0027t Like)",
+          "artist": "Dolly Parton",
+          "albumTitle": "Coat of Many Colors",
+          "genre": "Traditional Country",
+          "rating": "UNRATED",
+          "isFavorite": false,
+          "streamCount": 0
+        },
+        {
+          "songTitle": "Early Morning Breeze",
+          "artist": "Dolly Parton",
+          "albumTitle": "Coat of Many Colors",
+          "genre": "Traditional Country",
+          "rating": "UNRATED",
+          "isFavorite": false,
+          "streamCount": 0
+        },
+        {
+          "songTitle": "The Way I See You",
+          "artist": "Dolly Parton",
+          "albumTitle": "Coat of Many Colors",
+          "genre": "Traditional Country",
+          "rating": "UNRATED",
+          "isFavorite": false,
+          "streamCount": 0
+        },
+        {
+          "songTitle": "Here I Am",
+          "artist": "Dolly Parton",
+          "albumTitle": "Coat of Many Colors",
+          "genre": "Traditional Country",
+          "rating": "UNRATED",
+          "isFavorite": false,
+          "streamCount": 0
+        },
+        {
+          "songTitle": "A Better Place to Live",
+          "artist": "Dolly Parton",
+          "albumTitle": "Coat of Many Colors",
+          "genre": "Traditional Country",
+          "rating": "UNRATED",
+          "isFavorite": false,
+          "streamCount": 0
+        }
+      ]
+    },
+    "albumByTitle": {
+      "19": [
+        {
+          "albumTitle": "19",
+          "artist": "Adele",
+          "songs": [
+            {
+              "songTitle": "Daydreamer",
+              "artist": "Adele",
+              "albumTitle": "19",
+              "genre": "Pop",
+              "rating": "UNRATED",
+              "isFavorite": false,
+              "streamCount": 0
+            },
+            {
+              "songTitle": "Best for Last",
+              "artist": "Adele",
+              "albumTitle": "19",
+              "genre": "Pop",
+              "rating": "UNRATED",
+              "isFavorite": false,
+              "streamCount": 0
+            },
+            {
+              "songTitle": "Chasing Pavements",
+              "artist": "Adele",
+              "albumTitle": "19",
+              "genre": "Pop",
+              "rating": "UNRATED",
+              "isFavorite": false,
+              "streamCount": 0
+            },
+            {
+              "songTitle": "Cold Shoulder",
+              "artist": "Adele",
+              "albumTitle": "19",
+              "genre": "Pop",
+              "rating": "UNRATED",
+              "isFavorite": false,
+              "streamCount": 0
+            },
+            {
+              "songTitle": "Crazy for You",
+              "artist": "Adele",
+              "albumTitle": "19",
+              "genre": "Pop",
+              "rating": "UNRATED",
+              "isFavorite": false,
+              "streamCount": 0
+            },
+            {
+              "songTitle": "Melt My Heart to Stone",
+              "artist": "Adele",
+              "albumTitle": "19",
+              "genre": "Pop",
+              "rating": "UNRATED",
+              "isFavorite": false,
+              "streamCount": 0
+            },
+            {
+              "songTitle": "First Love",
+              "artist": "Adele",
+              "albumTitle": "19",
+              "genre": "Pop",
+              "rating": "UNRATED",
+              "isFavorite": false,
+              "streamCount": 0
+            },
+            {
+              "songTitle": "Right as Rain",
+              "artist": "Adele",
+              "albumTitle": "19",
+              "genre": "Pop",
+              "rating": "UNRATED",
+              "isFavorite": false,
+              "streamCount": 0
+            },
+            {
+              "songTitle": "Make You Feel My Love",
+              "artist": "Adele",
+              "albumTitle": "19",
+              "genre": "Pop",
+              "rating": "UNRATED",
+              "isFavorite": false,
+              "streamCount": 0
+            },
+            {
+              "songTitle": "My Same",
+              "artist": "Adele",
+              "albumTitle": "19",
+              "genre": "Pop",
+              "rating": "UNRATED",
+              "isFavorite": false,
+              "streamCount": 0
+            },
+            {
+              "songTitle": "Tired",
+              "artist": "Adele",
+              "albumTitle": "19",
+              "genre": "Pop",
+              "rating": "UNRATED",
+              "isFavorite": false,
+              "streamCount": 0
+            },
+            {
+              "songTitle": "Hometown Glory",
+              "artist": "Adele",
+              "albumTitle": "19",
+              "genre": "Pop",
+              "rating": "UNRATED",
+              "isFavorite": false,
+              "streamCount": 0
+            }
+          ],
+          "genre": "Pop",
+          "year": "2008"
+        }
+      ],
+      "COAT OF MANY COLORS": [
+        {
+          "albumTitle": "Coat of Many Colors",
+          "artist": "Dolly Parton",
+          "songs": [
+            {
+              "songTitle": "Coat of Many Colors",
+              "artist": "Dolly Parton",
+              "albumTitle": "Coat of Many Colors",
+              "genre": "Traditional Country",
+              "rating": "UNRATED",
+              "isFavorite": false,
+              "streamCount": 0
+            },
+            {
+              "songTitle": "Traveling Man",
+              "artist": "Dolly Parton",
+              "albumTitle": "Coat of Many Colors",
+              "genre": "Traditional Country",
+              "rating": "UNRATED",
+              "isFavorite": false,
+              "streamCount": 0
+            },
+            {
+              "songTitle": "My Blue Tears",
+              "artist": "Dolly Parton",
+              "albumTitle": "Coat of Many Colors",
+              "genre": "Traditional Country",
+              "rating": "UNRATED",
+              "isFavorite": false,
+              "streamCount": 0
+            },
+            {
+              "songTitle": "If I Lose My Mind",
+              "artist": "Dolly Parton",
+              "albumTitle": "Coat of Many Colors",
+              "genre": "Traditional Country",
+              "rating": "UNRATED",
+              "isFavorite": false,
+              "streamCount": 0
+            },
+            {
+              "songTitle": "The Mystery of the Mystery",
+              "artist": "Dolly Parton",
+              "albumTitle": "Coat of Many Colors",
+              "genre": "Traditional Country",
+              "rating": "UNRATED",
+              "isFavorite": false,
+              "streamCount": 0
+            },
+            {
+              "songTitle": "She Never Met a Man (She Didn\u0027t Like)",
+              "artist": "Dolly Parton",
+              "albumTitle": "Coat of Many Colors",
+              "genre": "Traditional Country",
+              "rating": "UNRATED",
+              "isFavorite": false,
+              "streamCount": 0
+            },
+            {
+              "songTitle": "Early Morning Breeze",
+              "artist": "Dolly Parton",
+              "albumTitle": "Coat of Many Colors",
+              "genre": "Traditional Country",
+              "rating": "UNRATED",
+              "isFavorite": false,
+              "streamCount": 0
+            },
+            {
+              "songTitle": "The Way I See You",
+              "artist": "Dolly Parton",
+              "albumTitle": "Coat of Many Colors",
+              "genre": "Traditional Country",
+              "rating": "UNRATED",
+              "isFavorite": false,
+              "streamCount": 0
+            },
+            {
+              "songTitle": "Here I Am",
+              "artist": "Dolly Parton",
+              "albumTitle": "Coat of Many Colors",
+              "genre": "Traditional Country",
+              "rating": "UNRATED",
+              "isFavorite": false,
+              "streamCount": 0
+            },
+            {
+              "songTitle": "A Better Place to Live",
+              "artist": "Dolly Parton",
+              "albumTitle": "Coat of Many Colors",
+              "genre": "Traditional Country",
+              "rating": "UNRATED",
+              "isFavorite": false,
+              "streamCount": 0
+            }
+          ],
+          "genre": "Traditional Country",
+          "year": "1971"
+        }
+      ]
+    },
+    "albumByArtist": {
+      "ADELE": [
+        {
+          "albumTitle": "19",
+          "artist": "Adele",
+          "songs": [
+            {
+              "songTitle": "Daydreamer",
+              "artist": "Adele",
+              "albumTitle": "19",
+              "genre": "Pop",
+              "rating": "UNRATED",
+              "isFavorite": false,
+              "streamCount": 0
+            },
+            {
+              "songTitle": "Best for Last",
+              "artist": "Adele",
+              "albumTitle": "19",
+              "genre": "Pop",
+              "rating": "UNRATED",
+              "isFavorite": false,
+              "streamCount": 0
+            },
+            {
+              "songTitle": "Chasing Pavements",
+              "artist": "Adele",
+              "albumTitle": "19",
+              "genre": "Pop",
+              "rating": "UNRATED",
+              "isFavorite": false,
+              "streamCount": 0
+            },
+            {
+              "songTitle": "Cold Shoulder",
+              "artist": "Adele",
+              "albumTitle": "19",
+              "genre": "Pop",
+              "rating": "UNRATED",
+              "isFavorite": false,
+              "streamCount": 0
+            },
+            {
+              "songTitle": "Crazy for You",
+              "artist": "Adele",
+              "albumTitle": "19",
+              "genre": "Pop",
+              "rating": "UNRATED",
+              "isFavorite": false,
+              "streamCount": 0
+            },
+            {
+              "songTitle": "Melt My Heart to Stone",
+              "artist": "Adele",
+              "albumTitle": "19",
+              "genre": "Pop",
+              "rating": "UNRATED",
+              "isFavorite": false,
+              "streamCount": 0
+            },
+            {
+              "songTitle": "First Love",
+              "artist": "Adele",
+              "albumTitle": "19",
+              "genre": "Pop",
+              "rating": "UNRATED",
+              "isFavorite": false,
+              "streamCount": 0
+            },
+            {
+              "songTitle": "Right as Rain",
+              "artist": "Adele",
+              "albumTitle": "19",
+              "genre": "Pop",
+              "rating": "UNRATED",
+              "isFavorite": false,
+              "streamCount": 0
+            },
+            {
+              "songTitle": "Make You Feel My Love",
+              "artist": "Adele",
+              "albumTitle": "19",
+              "genre": "Pop",
+              "rating": "UNRATED",
+              "isFavorite": false,
+              "streamCount": 0
+            },
+            {
+              "songTitle": "My Same",
+              "artist": "Adele",
+              "albumTitle": "19",
+              "genre": "Pop",
+              "rating": "UNRATED",
+              "isFavorite": false,
+              "streamCount": 0
+            },
+            {
+              "songTitle": "Tired",
+              "artist": "Adele",
+              "albumTitle": "19",
+              "genre": "Pop",
+              "rating": "UNRATED",
+              "isFavorite": false,
+              "streamCount": 0
+            },
+            {
+              "songTitle": "Hometown Glory",
+              "artist": "Adele",
+              "albumTitle": "19",
+              "genre": "Pop",
+              "rating": "UNRATED",
+              "isFavorite": false,
+              "streamCount": 0
+            }
+          ],
+          "genre": "Pop",
+          "year": "2008"
+        }
+      ],
+      "DOLLY PARTON": [
+        {
+          "albumTitle": "Coat of Many Colors",
+          "artist": "Dolly Parton",
+          "songs": [
+            {
+              "songTitle": "Coat of Many Colors",
+              "artist": "Dolly Parton",
+              "albumTitle": "Coat of Many Colors",
+              "genre": "Traditional Country",
+              "rating": "UNRATED",
+              "isFavorite": false,
+              "streamCount": 0
+            },
+            {
+              "songTitle": "Traveling Man",
+              "artist": "Dolly Parton",
+              "albumTitle": "Coat of Many Colors",
+              "genre": "Traditional Country",
+              "rating": "UNRATED",
+              "isFavorite": false,
+              "streamCount": 0
+            },
+            {
+              "songTitle": "My Blue Tears",
+              "artist": "Dolly Parton",
+              "albumTitle": "Coat of Many Colors",
+              "genre": "Traditional Country",
+              "rating": "UNRATED",
+              "isFavorite": false,
+              "streamCount": 0
+            },
+            {
+              "songTitle": "If I Lose My Mind",
+              "artist": "Dolly Parton",
+              "albumTitle": "Coat of Many Colors",
+              "genre": "Traditional Country",
+              "rating": "UNRATED",
+              "isFavorite": false,
+              "streamCount": 0
+            },
+            {
+              "songTitle": "The Mystery of the Mystery",
+              "artist": "Dolly Parton",
+              "albumTitle": "Coat of Many Colors",
+              "genre": "Traditional Country",
+              "rating": "UNRATED",
+              "isFavorite": false,
+              "streamCount": 0
+            },
+            {
+              "songTitle": "She Never Met a Man (She Didn\u0027t Like)",
+              "artist": "Dolly Parton",
+              "albumTitle": "Coat of Many Colors",
+              "genre": "Traditional Country",
+              "rating": "UNRATED",
+              "isFavorite": false,
+              "streamCount": 0
+            },
+            {
+              "songTitle": "Early Morning Breeze",
+              "artist": "Dolly Parton",
+              "albumTitle": "Coat of Many Colors",
+              "genre": "Traditional Country",
+              "rating": "UNRATED",
+              "isFavorite": false,
+              "streamCount": 0
+            },
+            {
+              "songTitle": "The Way I See You",
+              "artist": "Dolly Parton",
+              "albumTitle": "Coat of Many Colors",
+              "genre": "Traditional Country",
+              "rating": "UNRATED",
+              "isFavorite": false,
+              "streamCount": 0
+            },
+            {
+              "songTitle": "Here I Am",
+              "artist": "Dolly Parton",
+              "albumTitle": "Coat of Many Colors",
+              "genre": "Traditional Country",
+              "rating": "UNRATED",
+              "isFavorite": false,
+              "streamCount": 0
+            },
+            {
+              "songTitle": "A Better Place to Live",
+              "artist": "Dolly Parton",
+              "albumTitle": "Coat of Many Colors",
+              "genre": "Traditional Country",
+              "rating": "UNRATED",
+              "isFavorite": false,
+              "streamCount": 0
+            }
+          ],
+          "genre": "Traditional Country",
+          "year": "1971"
+        }
+      ]
+    },
+    "playlistByTitle": {
+      "playlist1": {
+        "playlistTitle": "playlist1",
+        "songs": []
+      }
+    },
+    "mostPlayedSongs": {
+      "playlistTitle": "Most Played Songs Playlist",
+      "songs": [
+        {
+          "songTitle": "Tired",
+          "artist": "Adele",
+          "albumTitle": "19",
+          "genre": "Pop",
+          "rating": "UNRATED",
+          "isFavorite": false,
+          "streamCount": 1
+        },
+        {
+          "songTitle": "Daydreamer",
+          "artist": "Adele",
+          "albumTitle": "19",
+          "genre": "Pop",
+          "rating": "UNRATED",
+          "isFavorite": true,
+          "streamCount": 1
+        }
+      ]
+    },
+    "recentSongs": {
+      "songs": [
+        {
+          "songTitle": "Tired",
+          "artist": "Adele",
+          "albumTitle": "19",
+          "genre": "Pop",
+          "rating": "UNRATED",
+          "isFavorite": false,
+          "streamCount": 1
+        },
+        {
+          "songTitle": "Daydreamer",
+          "artist": "Adele",
+          "albumTitle": "19",
+          "genre": "Pop",
+          "rating": "UNRATED",
+          "isFavorite": true,
+          "streamCount": 1
+        }
+      ]
+    },
+    "genrePlaylists": {
+      "songs": [
+        {
+          "songTitle": "Daydreamer",
+          "artist": "Adele",
+          "albumTitle": "19",
+          "genre": "Pop",
+          "rating": "UNRATED",
+          "isFavorite": true,
+          "streamCount": 1
+        },
+        {
+          "songTitle": "Best for Last",
+          "artist": "Adele",
+          "albumTitle": "19",
+          "genre": "Pop",
+          "rating": "UNRATED",
+          "isFavorite": false,
+          "streamCount": 0
+        },
+        {
+          "songTitle": "Chasing Pavements",
+          "artist": "Adele",
+          "albumTitle": "19",
+          "genre": "Pop",
+          "rating": "UNRATED",
+          "isFavorite": false,
+          "streamCount": 0
+        },
+        {
+          "songTitle": "Cold Shoulder",
+          "artist": "Adele",
+          "albumTitle": "19",
+          "genre": "Pop",
+          "rating": "UNRATED",
+          "isFavorite": false,
+          "streamCount": 0
+        },
+        {
+          "songTitle": "Crazy for You",
+          "artist": "Adele",
+          "albumTitle": "19",
+          "genre": "Pop",
+          "rating": "UNRATED",
+          "isFavorite": false,
+          "streamCount": 0
+        },
+        {
+          "songTitle": "Melt My Heart to Stone",
+          "artist": "Adele",
+          "albumTitle": "19",
+          "genre": "Pop",
+          "rating": "UNRATED",
+          "isFavorite": false,
+          "streamCount": 0
+        },
+        {
+          "songTitle": "First Love",
+          "artist": "Adele",
+          "albumTitle": "19",
+          "genre": "Pop",
+          "rating": "UNRATED",
+          "isFavorite": false,
+          "streamCount": 0
+        },
+        {
+          "songTitle": "Right as Rain",
+          "artist": "Adele",
+          "albumTitle": "19",
+          "genre": "Pop",
+          "rating": "UNRATED",
+          "isFavorite": false,
+          "streamCount": 0
+        },
+        {
+          "songTitle": "Make You Feel My Love",
+          "artist": "Adele",
+          "albumTitle": "19",
+          "genre": "Pop",
+          "rating": "UNRATED",
+          "isFavorite": false,
+          "streamCount": 0
+        },
+        {
+          "songTitle": "My Same",
+          "artist": "Adele",
+          "albumTitle": "19",
+          "genre": "Pop",
+          "rating": "UNRATED",
+          "isFavorite": false,
+          "streamCount": 0
+        },
+        {
+          "songTitle": "Tired",
+          "artist": "Adele",
+          "albumTitle": "19",
+          "genre": "Pop",
+          "rating": "UNRATED",
+          "isFavorite": false,
+          "streamCount": 1
+        },
+        {
+          "songTitle": "Hometown Glory",
+          "artist": "Adele",
+          "albumTitle": "19",
+          "genre": "Pop",
+          "rating": "UNRATED",
+          "isFavorite": false,
+          "streamCount": 0
+        },
+        {
+          "songTitle": "Coat of Many Colors",
+          "artist": "Dolly Parton",
+          "albumTitle": "Coat of Many Colors",
+          "genre": "Traditional Country",
+          "rating": "UNRATED",
+          "isFavorite": false,
+          "streamCount": 0
+        },
+        {
+          "songTitle": "Traveling Man",
+          "artist": "Dolly Parton",
+          "albumTitle": "Coat of Many Colors",
+          "genre": "Traditional Country",
+          "rating": "THREE_STAR",
+          "isFavorite": false,
+          "streamCount": 0
+        },
+        {
+          "songTitle": "My Blue Tears",
+          "artist": "Dolly Parton",
+          "albumTitle": "Coat of Many Colors",
+          "genre": "Traditional Country",
+          "rating": "UNRATED",
+          "isFavorite": false,
+          "streamCount": 0
+        },
+        {
+          "songTitle": "If I Lose My Mind",
+          "artist": "Dolly Parton",
+          "albumTitle": "Coat of Many Colors",
+          "genre": "Traditional Country",
+          "rating": "UNRATED",
+          "isFavorite": false,
+          "streamCount": 0
+        },
+        {
+          "songTitle": "The Mystery of the Mystery",
+          "artist": "Dolly Parton",
+          "albumTitle": "Coat of Many Colors",
+          "genre": "Traditional Country",
+          "rating": "UNRATED",
+          "isFavorite": false,
+          "streamCount": 0
+        },
+        {
+          "songTitle": "She Never Met a Man (She Didn\u0027t Like)",
+          "artist": "Dolly Parton",
+          "albumTitle": "Coat of Many Colors",
+          "genre": "Traditional Country",
+          "rating": "UNRATED",
+          "isFavorite": false,
+          "streamCount": 0
+        },
+        {
+          "songTitle": "Early Morning Breeze",
+          "artist": "Dolly Parton",
+          "albumTitle": "Coat of Many Colors",
+          "genre": "Traditional Country",
+          "rating": "UNRATED",
+          "isFavorite": false,
+          "streamCount": 0
+        },
+        {
+          "songTitle": "The Way I See You",
+          "artist": "Dolly Parton",
+          "albumTitle": "Coat of Many Colors",
+          "genre": "Traditional Country",
+          "rating": "UNRATED",
+          "isFavorite": false,
+          "streamCount": 0
+        },
+        {
+          "songTitle": "Here I Am",
+          "artist": "Dolly Parton",
+          "albumTitle": "Coat of Many Colors",
+          "genre": "Traditional Country",
+          "rating": "UNRATED",
+          "isFavorite": false,
+          "streamCount": 0
+        },
+        {
+          "songTitle": "A Better Place to Live",
+          "artist": "Dolly Parton",
+          "albumTitle": "Coat of Many Colors",
+          "genre": "Traditional Country",
+          "rating": "UNRATED",
+          "isFavorite": false,
+          "streamCount": 0
+        }
+      ],
+      "genrePlaylists": {
+        "pop": [
+          {
+            "songTitle": "Daydreamer",
+            "artist": "Adele",
+            "albumTitle": "19",
+            "genre": "Pop",
+            "rating": "UNRATED",
+            "isFavorite": true,
+            "streamCount": 1
+          },
+          {
+            "songTitle": "Best for Last",
+            "artist": "Adele",
+            "albumTitle": "19",
+            "genre": "Pop",
+            "rating": "UNRATED",
+            "isFavorite": false,
+            "streamCount": 0
+          },
+          {
+            "songTitle": "Chasing Pavements",
+            "artist": "Adele",
+            "albumTitle": "19",
+            "genre": "Pop",
+            "rating": "UNRATED",
+            "isFavorite": false,
+            "streamCount": 0
+          },
+          {
+            "songTitle": "Cold Shoulder",
+            "artist": "Adele",
+            "albumTitle": "19",
+            "genre": "Pop",
+            "rating": "UNRATED",
+            "isFavorite": false,
+            "streamCount": 0
+          },
+          {
+            "songTitle": "Crazy for You",
+            "artist": "Adele",
+            "albumTitle": "19",
+            "genre": "Pop",
+            "rating": "UNRATED",
+            "isFavorite": false,
+            "streamCount": 0
+          },
+          {
+            "songTitle": "Melt My Heart to Stone",
+            "artist": "Adele",
+            "albumTitle": "19",
+            "genre": "Pop",
+            "rating": "UNRATED",
+            "isFavorite": false,
+            "streamCount": 0
+          },
+          {
+            "songTitle": "First Love",
+            "artist": "Adele",
+            "albumTitle": "19",
+            "genre": "Pop",
+            "rating": "UNRATED",
+            "isFavorite": false,
+            "streamCount": 0
+          },
+          {
+            "songTitle": "Right as Rain",
+            "artist": "Adele",
+            "albumTitle": "19",
+            "genre": "Pop",
+            "rating": "UNRATED",
+            "isFavorite": false,
+            "streamCount": 0
+          },
+          {
+            "songTitle": "Make You Feel My Love",
+            "artist": "Adele",
+            "albumTitle": "19",
+            "genre": "Pop",
+            "rating": "UNRATED",
+            "isFavorite": false,
+            "streamCount": 0
+          },
+          {
+            "songTitle": "My Same",
+            "artist": "Adele",
+            "albumTitle": "19",
+            "genre": "Pop",
+            "rating": "UNRATED",
+            "isFavorite": false,
+            "streamCount": 0
+          },
+          {
+            "songTitle": "Tired",
+            "artist": "Adele",
+            "albumTitle": "19",
+            "genre": "Pop",
+            "rating": "UNRATED",
+            "isFavorite": false,
+            "streamCount": 1
+          },
+          {
+            "songTitle": "Hometown Glory",
+            "artist": "Adele",
+            "albumTitle": "19",
+            "genre": "Pop",
+            "rating": "UNRATED",
+            "isFavorite": false,
+            "streamCount": 0
+          }
+        ],
+        "traditional country": [
+          {
+            "songTitle": "Coat of Many Colors",
+            "artist": "Dolly Parton",
+            "albumTitle": "Coat of Many Colors",
+            "genre": "Traditional Country",
+            "rating": "UNRATED",
+            "isFavorite": false,
+            "streamCount": 0
+          },
+          {
+            "songTitle": "Traveling Man",
+            "artist": "Dolly Parton",
+            "albumTitle": "Coat of Many Colors",
+            "genre": "Traditional Country",
+            "rating": "THREE_STAR",
+            "isFavorite": false,
+            "streamCount": 0
+          },
+          {
+            "songTitle": "My Blue Tears",
+            "artist": "Dolly Parton",
+            "albumTitle": "Coat of Many Colors",
+            "genre": "Traditional Country",
+            "rating": "UNRATED",
+            "isFavorite": false,
+            "streamCount": 0
+          },
+          {
+            "songTitle": "If I Lose My Mind",
+            "artist": "Dolly Parton",
+            "albumTitle": "Coat of Many Colors",
+            "genre": "Traditional Country",
+            "rating": "UNRATED",
+            "isFavorite": false,
+            "streamCount": 0
+          },
+          {
+            "songTitle": "The Mystery of the Mystery",
+            "artist": "Dolly Parton",
+            "albumTitle": "Coat of Many Colors",
+            "genre": "Traditional Country",
+            "rating": "UNRATED",
+            "isFavorite": false,
+            "streamCount": 0
+          },
+          {
+            "songTitle": "She Never Met a Man (She Didn\u0027t Like)",
+            "artist": "Dolly Parton",
+            "albumTitle": "Coat of Many Colors",
+            "genre": "Traditional Country",
+            "rating": "UNRATED",
+            "isFavorite": false,
+            "streamCount": 0
+          },
+          {
+            "songTitle": "Early Morning Breeze",
+            "artist": "Dolly Parton",
+            "albumTitle": "Coat of Many Colors",
+            "genre": "Traditional Country",
+            "rating": "UNRATED",
+            "isFavorite": false,
+            "streamCount": 0
+          },
+          {
+            "songTitle": "The Way I See You",
+            "artist": "Dolly Parton",
+            "albumTitle": "Coat of Many Colors",
+            "genre": "Traditional Country",
+            "rating": "UNRATED",
+            "isFavorite": false,
+            "streamCount": 0
+          },
+          {
+            "songTitle": "Here I Am",
+            "artist": "Dolly Parton",
+            "albumTitle": "Coat of Many Colors",
+            "genre": "Traditional Country",
+            "rating": "UNRATED",
+            "isFavorite": false,
+            "streamCount": 0
+          },
+          {
+            "songTitle": "A Better Place to Live",
+            "artist": "Dolly Parton",
+            "albumTitle": "Coat of Many Colors",
+            "genre": "Traditional Country",
+            "rating": "UNRATED",
+            "isFavorite": false,
+            "streamCount": 0
+          }
+        ]
+      },
+      "genreList": [
+        "pop",
+        "traditional country"
+      ]
+    }
+  }
+}

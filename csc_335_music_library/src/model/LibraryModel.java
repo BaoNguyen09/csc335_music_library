@@ -14,6 +14,7 @@ public class LibraryModel {
   
 	private List<Playlist> playlists;
 	private List<Song> favoriteSongs;
+	private List<Song> topRatedSongs;
 	private List<Song> songs;
 	private Map<String, List<Song>> songByTitle;
 	private Map<String, List<Song>> songByArtist;
@@ -23,10 +24,12 @@ public class LibraryModel {
 	private Map<String, Playlist> playlistByTitle;
 	private MostPlayedSongs mostPlayedSongs;
 	private RecentSongs recentSongs;
+	private GenrePlaylists genrePlaylists;
 	
 	public LibraryModel() {
 		playlists = new ArrayList<Playlist>();
 		favoriteSongs = new ArrayList<Song>();
+		topRatedSongs = new ArrayList<Song>();
 		songByTitle = new HashMap<String, List<Song>>();
 		songByArtist = new HashMap<String, List<Song>>();
 		songByGenre = new HashMap<String, List<Song>>();
@@ -36,12 +39,14 @@ public class LibraryModel {
 		songs = new ArrayList<Song>();
 		mostPlayedSongs = new MostPlayedSongs();
 		recentSongs = new RecentSongs();
+		genrePlaylists = new GenrePlaylists();
 	}
 	
 	// copy constructor for the libraryModel
 	public LibraryModel(LibraryModel otherLibrary) {
 		playlists = otherLibrary.playlists;
 		favoriteSongs = otherLibrary.favoriteSongs;
+		topRatedSongs = otherLibrary.topRatedSongs;
 		songByTitle = otherLibrary.songByTitle;
 		songByArtist =  otherLibrary.songByArtist;
 		songByGenre = otherLibrary.songByGenre;
@@ -51,6 +56,7 @@ public class LibraryModel {
 		songs = otherLibrary.songs;
 		mostPlayedSongs = otherLibrary.mostPlayedSongs;
 		recentSongs = otherLibrary.recentSongs;
+		genrePlaylists = otherLibrary.genrePlaylists;
 	}
 	
 	public String[] getSongTitles() {
@@ -174,6 +180,11 @@ public class LibraryModel {
 		return songList;
 	}
 	
+	/* Get all top rated songs and return as a list of songs for View */
+	public List<Song> getTopRatedSongs() {
+		return copySongsList(topRatedSongs);
+	}
+	
 	/* Adds a specific song to the library.
 	 * 
 	 * @pre store != null, songTitle != null, artist != null, album != null
@@ -192,6 +203,7 @@ public class LibraryModel {
 				addToMapList(songByArtist, artist.toUpperCase(), new Song(song));
 				addToMapList(songByGenre, song.getGenre().toUpperCase(), new Song(song));
 				songs.add(song); // add to all song list to keep track
+				genrePlaylists.addSong(song); // add song to genre-based playlists
 				
 				// Adding the associated album
 				addAssociatedAlbum(store, song);
@@ -306,9 +318,11 @@ public class LibraryModel {
 			
 			mostPlayedSongs.removeSong(song);
 			recentSongs.removeSong(song);
+			genrePlaylists.removeSong(song);
 			
-			// Remove from favorite songs list
+			// Remove from automatic song lists
 	        favoriteSongs.removeIf(favSong -> favSong.equals(song));
+	        topRatedSongs.removeIf(topRatedSong-> topRatedSong.equals(song));
 	        
 			
 			// Remove from all songs hashmaps
@@ -704,7 +718,12 @@ public class LibraryModel {
 					&& song.getSongTitle().equalsIgnoreCase(songTitle)) {
 				// set rating for song
 				song.setRating(rating);
-				if (rating == Rating.FIVE_STAR) favoriteSongs.add(song);
+				if (rating == Rating.FIVE_STAR) { 
+					favoriteSongs.add(song);
+					topRatedSongs.add(song);
+				}
+				if (rating == Rating.FOUR_STAR) 
+					topRatedSongs.add(song);
 				return true;
 			}			
 		}
@@ -757,6 +776,10 @@ public class LibraryModel {
 	
 	public List<Song> getMostPlayedSongs() {
 		return copySongsList(mostPlayedSongs.getSongArray());
+	}
+	
+	public Map<String, List<Song>> getGenrePlaylists() {
+		return genrePlaylists.getGenrePlaylist();
 	}
   
 }

@@ -24,6 +24,7 @@ public class LibraryModel {
 	private Map<String, Playlist> playlistByTitle;
 	private MostPlayedSongs mostPlayedSongs;
 	private RecentSongs recentSongs;
+	private GenrePlaylists genrePlaylists;
 	
 	public LibraryModel() {
 		playlists = new ArrayList<Playlist>();
@@ -38,6 +39,7 @@ public class LibraryModel {
 		songs = new ArrayList<Song>();
 		mostPlayedSongs = new MostPlayedSongs();
 		recentSongs = new RecentSongs();
+		genrePlaylists = new GenrePlaylists();
 	}
 	
 	// copy constructor for the libraryModel
@@ -54,6 +56,7 @@ public class LibraryModel {
 		songs = otherLibrary.songs;
 		mostPlayedSongs = otherLibrary.mostPlayedSongs;
 		recentSongs = otherLibrary.recentSongs;
+		genrePlaylists = otherLibrary.genrePlaylists;
 	}
 	
 	public String[] getSongTitles() {
@@ -173,6 +176,7 @@ public class LibraryModel {
 				addToMapList(songByArtist, artist.toUpperCase(), new Song(song));
 				addToMapList(songByGenre, song.getGenre().toUpperCase(), new Song(song));
 				songs.add(song); // add to all song list to keep track
+				genrePlaylists.addSong(song); // add song to genre-based playlists
 				
 				// Adding the associated album
 				addAssociatedAlbum(store, song);
@@ -287,6 +291,7 @@ public class LibraryModel {
 			
 			mostPlayedSongs.removeSong(song);
 			recentSongs.removeSong(song);
+			genrePlaylists.removeSong(song);
 			
 			// Remove from automatic song lists
 	        favoriteSongs.removeIf(favSong -> favSong.equals(song));
@@ -744,6 +749,10 @@ public class LibraryModel {
 	
 	public List<Song> getMostPlayedSongs() {
 		return copySongsList(mostPlayedSongs.getSongArray());
+	}
+	
+	public Map<String, List<Song>> getGenrePlaylists() {
+		return genrePlaylists.getGenrePlaylist();
 	}
   
 }

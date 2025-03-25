@@ -3,6 +3,7 @@ package view;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.Scanner;
 
@@ -193,7 +194,8 @@ public class View {
 								g. play a song in library
 								h. get recently played songs
 								i. get most played songs
-								j. all song ratings (any order)
+								j. get genre-based playlists
+								k. all song ratings (any order)
 							6. Create a playlist
 							7. Add/remove/shuffle songs from playlist
 							8. Mark a song as "favorite"
@@ -602,7 +604,7 @@ public class View {
 		int searchChoice = 0;
 	    
 	    // Keep showing the sub-menu until the user chooses to exit
-	    while (searchChoice != 11) {
+	    while (searchChoice != 12) {
 	        System.out.println("""
 	        		
 				        		Add To Library:
@@ -616,7 +618,8 @@ public class View {
 				        		    8. Play a song in library
 				        		    9. Get recently played songs
 				        		    10. Get most played songs
-				        		    11. Return to Main Menu
+				        		    11. Get genre-based playlists
+				        		    12. Return to Main Menu
 	        		    		""");
 	       
 
@@ -624,7 +627,7 @@ public class View {
 	        try {
 	            searchChoice = Integer.parseInt(console.nextLine().trim());
 	        } catch (NumberFormatException e) {
-	            System.out.println("Invalid input. Please enter a number 1-11.");
+	            System.out.println("Invalid input. Please enter a number 1-12.");
 	            continue;  // re-display the sub-menu
 	        }
 
@@ -702,6 +705,21 @@ public class View {
 
 	            }
 	            case 11 -> {
+	            	Map<String, List<Song>> genrePlaylists = library.getGenrePlaylists();
+	            	System.out.println("Here's are all genre-based playlists:");
+	            	int index = 1;
+	            	for (String key: genrePlaylists.keySet()) {
+	            		System.out.println(String.format("%d. %s", index, key));
+	            	}
+	            	System.out.println("Enter the name of any genre playlists in here to see the songs:");
+	            	String choice = console.nextLine().trim().toLowerCase();
+	            	if (genrePlaylists.keySet().contains(choice)) {
+	            		List<Song> genrePlaylist = genrePlaylists.get(choice);
+	            		printSongs(genrePlaylist, String.format("Songs of genre %s:", choice));
+	            	} 
+	            	System.out.println("Going back to sub-menu");
+	            }
+	            case 12 -> {
 	                System.out.println("Returning to Main Menu...");
 	                // The while loop will end because searchChoice == 5
 	            }
